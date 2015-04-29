@@ -1,0 +1,50 @@
+ ///////////////////////////////////////////////////////////////////////////////
+// (C) Copyright 2014 AMIQ Consulting
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// NAME:      apb_tests.vsif
+// PROJECT:   svaunit
+//
+// Description:  Example of vsif file used to run regressions for APB unit tests
+///////////////////////////////////////////////////////////////////////////////
+
+session apb_ms_ex_reg {
+    top_dir: "./regression";
+    output_mode: terminal;
+    pre_session_script: " $ENV(PROJ_HOME)/sim/run_svaunit.sh -f $ENV(PROJ_HOME)/examples/apb_tests/apb_files.f -top apb_top -compile only";
+};
+
+group apb_tests {
+    scan_script : "vm_scan.pl shell.flt ius.flt ovm_sv_lib.flt vm.flt $ENV(PROJ_HOME)/vm/svaunit.flt";
+    run_script: "$ENV(PROJ_HOME)/sim/run_svaunit.sh -compile no -f $ENV(PROJ_HOME)/examples/apb_tests/apb_files.f -top apb_top -in_reg -test $ATTR(top_files) -seed $ATTR(seed)";
+    timeout: 7200;
+
+    test apb_after_reset_enable_unit_test {
+       top_files: "after_reset_ts";
+       seed: random;
+       count: 1;
+    };
+
+    test apb_after_reset_sel_unit_test {
+       top_files: "protocol_ts";
+       seed: random;
+       count: 1;
+    };
+    
+    test apb_after_reset_sel_unit_test {
+       top_files: "x_z_ts";
+       seed: random;
+       count: 1;
+    };
+};

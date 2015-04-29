@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>svaunit
+API Specification</title>
+
+	<meta name="author" content="">
+	<meta name="description" content="svaunit API Specification">
+	<meta name="generator" content="Specador. Copyright (C) 2005-2015 AMIQ EDA ">
+	<meta name="keywords" content="SystemVerilog, HTML Documentation, Specador, AMIQ EDA, svaunit API Specification">
+
+	<link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+	<link href="css/content.css" rel="stylesheet">
+	<link href="css/custom.css" rel="stylesheet">
+</head>
+<body>
+
+	<div class="container-fluid">
+<!-- ========= Title ======= -->
+<h2>class      		<a href="summary-svaunit_pkg.html">svaunit_pkg</a>
+:: svaunit_immediate_assertion_info
+</h2>
+
+
+<!-- ========= Top Buttons ======= -->
+		<br>
+		<div class="btn-group">
+				
+	<button data-scroll=#constructor type="button" class="btn btn-default">Constructor <span class="badge">1</span></button>
+	<button data-scroll=#typedefs type="button" class="btn btn-default">Typedefs <span class="badge">1</span></button>
+	
+	
+	<button data-scroll=#variables type="button" class="btn btn-default">Variables <span class="badge">2</span></button>
+	
+	<button data-scroll=#functions type="button" class="btn btn-default">Functions <span class="badge">17</span></button>
+	
+
+	<button data-scroll=#inheritance_diagram type="button" class="btn btn-default">Inheritance Diagram</button>
+	<button data-scroll=#collaboration_diagram type="button" class="btn btn-default">Collaboration Diagram</button>
+	<button data-scroll=#direct_associations_diagram type="button" class="btn btn-default">Direct Associations Diagram</button>
+
+		</div>
+		<br><br>
+
+<!-- ========= Inheritance Tree ======= -->
+
+<!-- ========= Description ======= -->
+	<pre class="comment">Immediate assertion class - it contains SVA tested name and a list of details<br></pre>
+
+<!-- ========= Parameters ======= -->
+
+<!-- ========= Constructor ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#constructor">
+			<h4 class="panel-title">
+					Constructor <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+					<ul id="constructor" class="list-group panel-collapse collapse in">
+					<li class="list-group-item">
+						<a name="constructor_new"></a>
+						<span class="signature">
+
+	 function 	
+
+	<b>		new
+</b>(	string
+name = "svaunit_immediate_assertion_info")
+
+
+						</span>
+	<pre class="comment">Constructor for an svaunit_immediate_assertion_info<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>name</b> : instance name for svaunit_immediate_assertion_details object<br></pre>
+
+					</li>
+			</ul>
+
+	</div>
+
+<!-- ========= Typedefs ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#typedefs">
+			<h4 class="panel-title">
+					Typedefs <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+					<ul id="typedefs" class="list-group panel-collapse collapse in">
+					<li class="list-group-item">
+						<a name="typedef_type_id"></a>
+						<span class="signature">
+
+	 <b>		type_id
+</b>
+
+		-> uvm_object_registry#(svaunit_immediate_assertion_info, "svaunit_immediate_assertion_info")
+	
+
+
+						</span>
+
+					</li>
+			</ul>
+
+	</div>
+
+<!-- ========= Structs ======= -->
+
+<!-- ========= Enums ======= -->
+
+<!-- ========= Variables ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#variables">
+			<h4 class="panel-title">
+					Variables <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+					<ul id="variables" class="list-group panel-collapse collapse in">
+					<li class="list-group-item">
+						<a name="variable_immediate_assertion_details"></a>
+						<span class="signature">
+
+	<a href="svaunit_pkg-svaunit_immediate_assertion_details.html">svaunit_immediate_assertion_details</a> []
+ <b>		immediate_assertion_details
+</b>
+
+
+						</span>
+	<pre class="comment">Will store a list of details for immediate assertion<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="variable_type_name"></a>
+						<span class="signature">
+
+const static 	string
+ <b>		type_name
+</b>
+
+
+						</span>
+
+					</li>
+			</ul>
+
+	</div>
+
+<!-- ========= Constraints ======= -->
+
+<!-- ========= Functions ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#functions">
+			<h4 class="panel-title">
+					Functions <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+					<ul id="functions" class="list-group panel-collapse collapse in">
+					<li class="list-group-item">
+						<a name="function___m_uvm_field_automation"></a>
+						<span class="signature">
+
+	 function 	void
+
+	<b>		__m_uvm_field_automation
+</b>(	uvm_object
+tmp_data__,
+	int
+what__,
+	string
+str__)
+
+
+						</span>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_add_new_detail_immediate_assertion"></a>
+						<span class="signature">
+
+	 function 	void
+
+	<b>		add_new_detail_immediate_assertion
+</b>(	string
+immediate_assertion,
+	time
+crt_time,
+	<a href="svaunit_pkg-svaunit_status_type.html">svaunit_status_type</a>
+status)
+
+
+						</span>
+	<pre class="comment">Add new detail to a immediate assertion<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>immediate_assertion</b> : name of the immediate assertion to be added<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>crt_time</b> : current time at which the immediate assertion was tested<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>status</b> : status of the current immediate assertion tested<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_copy"></a>
+						<span class="signature">
+
+	 function 	<a href="svaunit_pkg-svaunit_immediate_assertion_info.html">svaunit_immediate_assertion_info</a>
+
+	<b>		copy
+</b>()
+
+
+						</span>
+	<pre class="comment">Function used to copy the current item into new item<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_create"></a>
+						<span class="signature">
+
+	 function 	uvm_object
+
+	<b>		create
+</b>(	string
+name = "")
+
+
+						</span>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_details_exists"></a>
+						<span class="signature">
+
+	 function 	bit
+
+	<b>		details_exists
+</b>(	string
+check_name,
+	string [$]
+lof_checks)
+
+
+						</span>
+	<pre class="comment">Verify if an SVA assertion exists into SVA list<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_immediate_assertion_details"></a>
+						<span class="signature">
+
+	 function 	string
+
+	<b>		get_immediate_assertion_details
+</b>()
+
+
+						</span>
+	<pre class="comment">Form a string with immediate assertions details<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the details of the immediate assertions tested during test<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_immediate_assertion_names"></a>
+						<span class="signature">
+
+	 function 	void
+
+	<b>		get_immediate_assertion_names
+</b>(			ref 	string [$]
+immediate_assertions_names)
+
+
+						</span>
+	<pre class="comment">Get a list with immediate assertion names which were used during test<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>the</b> string list which contains the name of the checks used in this unit test<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_nof_times_sva_failed"></a>
+						<span class="signature">
+
+	 function 	int unsigned
+
+	<b>		get_nof_times_sva_failed
+</b>()
+
+
+						</span>
+	<pre class="comment">Compute the number of times the immediate assertion was tested and it fails<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the number of times the immediate assertion was tested and it fails<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_nof_times_sva_tested"></a>
+						<span class="signature">
+
+	 function 	int unsigned
+
+	<b>		get_nof_times_sva_tested
+</b>()
+
+
+						</span>
+	<pre class="comment">Compute the number of times the immediate assertion was tested<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the number of times the immediate assertion was tested<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_object_type"></a>
+						<span class="signature">
+
+	virtual  function 	uvm_object_wrapper
+
+	<b>		get_object_type
+</b>()
+
+
+						</span>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_sva_failed_details"></a>
+						<span class="signature">
+
+	 function 	string
+
+	<b>		get_sva_failed_details
+</b>()
+
+
+						</span>
+	<pre class="comment">Form a string with SVAs which have failed<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the names of the SVAs which have failed during test<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_sva_tested_name"></a>
+						<span class="signature">
+
+	 function 	string
+
+	<b>		get_sva_tested_name
+</b>()
+
+
+						</span>
+	<pre class="comment">Get the name of the immediate assertion which is tested<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the name of the immediate assertion which is tested<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_type"></a>
+						<span class="signature">
+
+	static  function 	<a href="svaunit_pkg-svaunit_immediate_assertion_info.html#typedef_type_id">type_id</a>
+
+	<b>		get_type
+</b>()
+
+
+						</span>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_type_name"></a>
+						<span class="signature">
+
+	virtual  function 	string
+
+	<b>		get_type_name
+</b>()
+
+
+						</span>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_immediate_assertion_exists"></a>
+						<span class="signature">
+
+	 function 	bit
+
+	<b>		immediate_assertion_exists
+</b>(	string
+immediate_assertion)
+
+
+						</span>
+	<pre class="comment">Verify that a specific immediate assertion exists into the list<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;1 if the immediate assertion exists and 0 otherwise<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>immediate_assertion</b> : name of the immediate assertion to be found in list<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_print_immediate_assertion"></a>
+						<span class="signature">
+
+	 function 	void
+
+	<b>		print_immediate_assertion
+</b>()
+
+
+						</span>
+	<pre class="comment">Print immediate assertions tested in current test<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_set_sva_name"></a>
+						<span class="signature">
+
+	 function 	void
+
+	<b>		set_sva_name
+</b>(	string
+crt_sva_name)
+
+
+						</span>
+	<pre class="comment">Set new name for SVA<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>crt_sva_name</b> : new SVA name to be modified<br></pre>
+
+					</li>
+			</ul>
+
+	</div>
+
+<!-- ========= Tasks ======= -->
+
+<!-- ========= Diagrams ======= -->
+
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#inheritance_diagram">
+			<h4 class="panel-title">
+					Inheritance Diagram <span class="glyphicon glyphicon-chevron-right"></span>
+			</h4>
+		</div>
+				<ul id="inheritance_diagram" class="list-group panel-collapse collapse">
+			<img src="svaunit_pkg-svaunit_immediate_assertion_info_inheritance.png" border="0" usemap="#_inheritance_diagram" />
+			<map name="_inheritance_diagram">
+<area shape="rect" id="node1" href="svaunit_pkg-svaunit_immediate_assertion_info.html"  alt="" coords="385,5,714,35">
+<area shape="rect" id="node2"  alt="" coords="185,5,303,35">
+<area shape="poly" id="edge1"  alt="" coords="384,23,317,23,317,17,384,17">
+<area shape="rect" id="node3"  alt="" coords="5,5,104,35">
+<area shape="poly" id="edge2"  alt="" coords="185,23,118,23,118,17,185,17"></map>
+		</ul>
+
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#collaboration_diagram">
+			<h4 class="panel-title">
+					Collaboration Diagram <span class="glyphicon glyphicon-chevron-right"></span>
+			</h4>
+		</div>
+				<ul id="collaboration_diagram" class="list-group panel-collapse collapse">
+			<img src="svaunit_pkg-svaunit_immediate_assertion_info_collaboration.png" border="0" usemap="#_collaboration_diagram" />
+			<map name="_collaboration_diagram">
+<area shape="rect" id="node1" href="svaunit_pkg-svaunit_immediate_assertion_info.html"  alt="" coords="245,473,574,503">
+<area shape="rect" id="node2"  alt="" coords="350,286,469,317">
+<area shape="poly" id="edge1"  alt="" coords="393,475,369,448,349,411,347,387,354,364,367,343,382,325,386,328,371,346,359,366,353,388,355,410,373,445,397,471">
+<area shape="rect" id="node4" href="svaunit_pkg-svaunit_immediate_assertion_details.html"  alt="" coords="397,379,755,410">
+<area shape="poly" id="edge5"  alt="" coords="433,471,538,414,541,418,435,476">
+<area shape="rect" id="node3"  alt="" coords="5,193,104,223">
+<area shape="poly" id="edge2"  alt="" coords="350,303,278,300,199,294,127,283,98,274,77,263,66,251,59,237,63,235,70,248,80,259,100,269,128,277,199,289,279,295,350,297">
+<area shape="rect" id="node5"  alt="" coords="355,193,570,223">
+<area shape="poly" id="edge6"  alt="" coords="350,301,269,297,187,288,152,281,127,273,113,262,112,254,117,246,146,234,201,225,341,212,342,218,201,230,147,239,120,250,118,255,118,259,129,268,154,276,187,283,270,291,350,296">
+<area shape="poly" id="edge3"  alt="" coords="550,382,445,325,447,320,553,378">
+<area shape="poly" id="edge7"  alt="" coords="391,225,374,235,360,249,357,256,358,263,371,277,367,281,353,265,352,256,355,247,370,231,389,220">
+<area shape="rect" id="node6"  alt="" coords="387,6,554,37">
+<area shape="poly" id="edge8"  alt="" coords="461,193,467,50,472,50,466,193">
+<area shape="poly" id="edge9"  alt="" coords="458,224,436,263,427,276,423,274,431,260,453,221">
+<area shape="rect" id="node7"  alt="" coords="142,99,279,130">
+<area shape="poly" id="edge10"  alt="" coords="354,197,313,186,272,170,250,157,231,141,235,137,253,153,275,166,314,181,356,192">
+<area shape="rect" id="node9"  alt="" coords="303,99,422,130">
+<area shape="poly" id="edge13"  alt="" coords="411,196,391,185,374,170,363,144,367,142,378,166,394,181,414,191">
+<area shape="rect" id="node10"  alt="" coords="563,99,701,130">
+<area shape="poly" id="edge15"  alt="" coords="486,191,594,134,596,138,489,196">
+<area shape="rect" id="node11"  alt="" coords="725,99,853,130">
+<area shape="poly" id="edge17"  alt="" coords="541,191,650,165,744,132,746,137,651,171,542,196">
+<area shape="poly" id="edge20"  alt="" coords="529,220,546,227,560,237,566,249,561,263,549,273,530,280,483,292,482,287,528,275,546,268,557,260,561,249,556,240,544,232,527,225">
+<area shape="rect" id="node8"  alt="" coords="73,6,210,37">
+<area shape="poly" id="edge11"  alt="" coords="170,102,154,91,140,76,136,63,134,50,140,49,141,62,145,73,157,87,173,98">
+<area shape="poly" id="edge12"  alt="" coords="229,98,262,78,302,59,377,36,379,42,304,64,265,82,232,102">
+<area shape="poly" id="edge14"  alt="" coords="363,99,369,79,382,59,409,40,412,44,386,63,374,81,368,101">
+<area shape="poly" id="edge4"  alt="" coords="693,127,744,140,772,153,782,168,786,184,785,198,781,213,762,239,735,264,716,274,690,282,625,294,551,300,482,302,482,297,551,294,624,288,689,277,714,269,732,259,758,236,776,210,780,197,781,184,777,171,769,157,742,145,692,132">
+<area shape="poly" id="edge16"  alt="" coords="606,102,561,77,505,45,507,40,564,72,609,97">
+<area shape="rect" id="node12"  alt="" coords="697,6,882,37">
+<area shape="poly" id="edge18"  alt="" coords="787,100,787,50,792,50,792,100">
+<area shape="poly" id="edge19"  alt="" coords="750,102,630,64,543,42,545,37,631,59,752,97"></map>
+		</ul>
+
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#direct_associations_diagram">
+			<h4 class="panel-title">
+					Direct Associations Diagram <span class="glyphicon glyphicon-chevron-right"></span>
+			</h4>
+		</div>
+				<ul id="direct_associations_diagram" class="list-group panel-collapse collapse">
+			<img src="svaunit_pkg-svaunit_immediate_assertion_info_direct_associations.png" border="0" usemap="#_direct_associations_diagram" />
+			<map name="_direct_associations_diagram">
+<area shape="rect" id="node1" href="svaunit_pkg-svaunit_immediate_assertion_info.html"  alt="" coords="6,5,335,35">
+<area shape="rect" id="node2" href="svaunit_pkg-svaunit_immediate_assertion_details.html"  alt="" coords="617,5,975,35">
+<area shape="poly" id="edge1"  alt="" coords="336,17,603,17,603,23,336,23"></map>
+		</ul>
+
+	</div>
+
+<!-- ========= Generated From ======= -->
+		<hr>Generated from: <a href="../../sv/svaunit_immediate_assertion_info.svh">svaunit_immediate_assertion_info.svh</a>
+
+
+	</div>
+
+	<div class="footer">
+		<hr><p class="text-center">Generated  on Wed Apr 29 10:13:54 EEST 2015 using <a href="http://www.dvteclipse.com/" target="_new">Specador<sup>TM</sup></a> Version 15.1.8</p>
+    </div>
+
+	<script src="lib/jquery/js/jquery.js"></script>
+	<script src="lib/jquery/js/jquery.scrollUp.js"></script>
+	<script src="lib/bootstrap/js/bootstrap.js"></script>
+	<script src="js/content.js"></script>
+	<script src="js/custom.js"></script>
+
+	</body>
+</html>
+
+

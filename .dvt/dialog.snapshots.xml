@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialog-snapshots last-snapshot="default [2015-04-24 17:57:22]" version="1">
+    <snapshot name="default [2015-04-24 17:57:22]" timestamp="true">
+        <element path="/Composite/Composite[1]/Composite[1]/Group[1]/Button[1]" value="false"/>
+        <element path="/Composite/Composite[1]/Composite[1]/Group[1]/Button[2]" value="false"/>
+        <element path="/Composite/Composite[1]/Composite[1]/Group[1]/Button[3]" value="true"/>
+        <element path="/Composite/Composite[1]/Composite[1]/Group[1]" value=""/>
+        <element path="/Composite/Composite[1]/Composite[1]/Group[2]/Button[1]" value="false"/>
+        <element path="/Composite/Composite[1]/Composite[1]/Group[2]/Button[2]" value="true"/>
+        <element path="/Composite/Composite[1]/Composite[1]/Group[2]" value=""/>
+        <element path="/Composite/Composite[1]/Composite[1]/Group[3]/Button[1]" value="true"/>
+        <element path="/Composite/Composite[1]/Composite[1]/Group[3]/Button[2]" value="false"/>
+        <element path="/Composite/Composite[1]/Composite[1]/Group[3]" value=""/>
+        <element path="/Composite/Composite[1]/Composite[1]/Group[4]/Button[1]" value="false"/>
+        <element path="/Composite/Composite[1]/Composite[1]/Group[4]/Button[2]" value="true"/>
+        <element path="/Composite/Composite[1]/Composite[1]/Group[4]/Button[3]" value="false"/>
+        <element path="/Composite/Composite[1]/Composite[1]/Group[4]" value=""/>
+        <element path="/Composite/Composite[1]/Composite[1]/Group[5]/Button[1]" value="true"/>
+        <element path="/Composite/Composite[1]/Composite[1]/Group[5]/Button[2]" value="false"/>
+        <element path="/Composite/Composite[1]/Composite[1]/Group[5]" value=""/>
+        <element path="/Composite/Composite[1]/Composite[1]/Group[6]/Text[1]" value="1"/>
+        <element path="/Composite/Composite[1]/Composite[1]/Group[6]" value=""/>
+        <element path="/Composite/Composite[1]/Composite[1]" value=""/>
+        <element path="/Composite/Composite[1]/FileChooser[1]" value=""/>
+        <element path="/Composite/Composite[1]/Group[1]/Text[1]" value="apb_top"/>
+        <element path="/Composite/Composite[1]/Group[1]" value=""/>
+        <element path="/Composite/Composite[1]/Composite[2]/ClassSelector[1]" value="apb_ts"/>
+        <element path="/Composite/Composite[1]/Composite[2]/Group[1]/Button[1]" value="false"/>
+        <element path="/Composite/Composite[1]/Composite[2]/Group[1]/Button[2]" value="false"/>
+        <element path="/Composite/Composite[1]/Composite[2]/Group[1]/Button[3]" value="true"/>
+        <element path="/Composite/Composite[1]/Composite[2]/Group[1]/Button[4]" value="false"/>
+        <element path="/Composite/Composite[1]/Composite[2]/Group[1]/Button[5]" value="false"/>
+        <element path="/Composite/Composite[1]/Composite[2]/Group[1]/Button[6]" value="false"/>
+        <element path="/Composite/Composite[1]/Composite[2]/Group[1]" value=""/>
+        <element path="/Composite/Composite[1]/Composite[2]" value=""/>
+        <element path="/Composite/Composite[1]" value=""/>
+    </snapshot>
+</dialog-snapshots>

@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>svaunit
+API Specification</title>
+
+	<meta name="author" content="">
+	<meta name="description" content="svaunit API Specification">
+	<meta name="generator" content="Specador. Copyright (C) 2005-2015 AMIQ EDA ">
+	<meta name="keywords" content="SystemVerilog, HTML Documentation, Specador, AMIQ EDA, svaunit API Specification">
+
+	<link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+	<link href="css/content.css" rel="stylesheet">
+	<link href="css/custom.css" rel="stylesheet">
+</head>
+<body>
+
+	<div class="container-fluid">
+
+<!-- ========= Title ======= -->
+<h2>interface     amiq_apb_if
+</h2>
+
+
+<!-- ========= Top Buttons ======= -->
+		<br>
+		<div class="btn-group">
+				<button data-scroll=#parameters type="button" class="btn btn-default">Parameters <span class="badge">1</span></button>
+	
+	<button data-scroll=#input_ports type="button" class="btn btn-default">Input Ports <span class="badge">1</span></button>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<button data-scroll=#concurrent_assertions type="button" class="btn btn-default">Concurrent Assertions <span class="badge">30</span></button>
+	<button data-scroll=#procedural_assertions type="button" class="btn btn-default">Procedural Assertions <span class="badge">30</span></button>
+
+		</div>
+		<br><br>
+
+<!-- ========= Description ======= -->
+	<pre class="comment">AMBA APB interface<br></pre>
+
+<!-- ========= Parameters ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#parameters">
+			<h4 class="panel-title">
+					Parameters <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+					<ul id="parameters" class="list-group panel-collapse collapse in">
+					<li class="list-group-item">
+						<a name="parameter_ready_low_max_time"></a>
+						<span class="signature">
+
+   ready_low_max_time = 100
+
+
+						</span>
+
+					</li>
+			</ul>
+
+	</div>
+
+<!-- ========= Input Ports ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#input_ports">
+			<h4 class="panel-title">
+					Input Ports <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+					<ul id="input_ports" class="list-group panel-collapse collapse in">
+					<li class="list-group-item">
+						<a name="input_port_clk"></a>
+						<span class="signature">
+
+	logic
+<b>		clk
+</b>
+
+
+						</span>
+
+					</li>
+			</ul>
+
+	</div>
+
+<!-- ========= Inout Ports ======= -->
+
+<!-- ========= Output Ports ======= -->
+
+<!-- ========= Interface Ports ======= -->
+
+<!-- ========= Modports ======= -->
+
+<!-- ========= Clocking Blocks ======= -->
+
+<!-- ========= Variables ======= -->
+
+<!-- ========= Concurrent Assertions ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#concurrent_assertions">
+			<h4 class="panel-title">
+					Concurrent Assertions <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+					<ul id="concurrent_assertions" class="list-group panel-collapse collapse in">
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_ADDR_TRANSITION_DURING_TRANSFER_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_ADDR_TRANSITION_DURING_TRANSFER_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that addr is stable during a transfer<br></pre>
+
+							amiq_apb_addr_stability_during_transfer_p
+					</li>
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_ADDR_VALUE_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_ADDR_VALUE_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that addr signal is not x nor z<br></pre>
+
+							amiq_apb_addr_valid_values_p
+					</li>
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_ENABLE_ASSERTION_TIME_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_ENABLE_ASSERTION_TIME_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that at the beginning of a transfer, enable is asserted at the next clock cycle<br></pre>
+
+							amiq_apb_enable_assertion_time_p
+					</li>
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_ENABLE_DEASSERTION_TIME_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_ENABLE_DEASSERTION_TIME_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that enable is de-asserted one clock cycle after the assertion of ready during access phase<br></pre>
+
+							amiq_apb_enable_deassertion_time_p
+					</li>
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_ENABLE_FALL_TOWARDS_SEL_FALL_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_ENABLE_FALL_TOWARDS_SEL_FALL_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that when sel is falling, enable is also falling<br></pre>
+
+							amiq_apb_enable_fall_towards_sel_fall_p
+					</li>
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_ENABLE_TRANSITION_DURING_READY_CHANGES_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_ENABLE_TRANSITION_DURING_READY_CHANGES_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that enable is stable during ready changes (when ready is asserted during a transfer, after a LOW period)<br></pre>
+
+							amiq_apb_enable_stability_during_ready_changes_p
+					</li>
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_ENABLE_VALUE_BETWEEN_TRANSFERS_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_ENABLE_VALUE_BETWEEN_TRANSFERS_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that between two transfers enable is kept LOW<br></pre>
+
+							amiq_apb_enable_value_between_transfers_p
+					</li>
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_ENABLE_VALUE_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_ENABLE_VALUE_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that enable signal is not x nor z<br></pre>
+
+							amiq_apb_enable_valid_values_p
+					</li>
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_ENABLE_VALUE_POST_RESET_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_ENABLE_VALUE_POST_RESET_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that after reset enable is LOW<br></pre>
+
+							amiq_apb_enable_post_reset_p
+					</li>
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_PROT_TRANSITION_DURING_TRANSFER_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_PROT_TRANSITION_DURING_TRANSFER_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that prot is stable during a transfer<br></pre>
+
+							amiq_apb_prot_stability_during_transfer_p
+					</li>
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_PROT_VALUE_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_PROT_VALUE_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that prot signal is not x nor z<br></pre>
+
+							amiq_apb_prot_valid_values_p
+					</li>
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_RDATA_TRANSITION_DURING_TRANSFER_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_RDATA_TRANSITION_DURING_TRANSFER_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that rdata is stable during the last clock cycle<br></pre>
+
+							amiq_apb_rdata_stability_during_transfer_p
+					</li>
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_READY_MAXIMUM_LOW_TIME_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_READY_MAXIMUM_LOW_TIME_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that ready is not kept LOW more than a maximum number of clock cycles<br></pre>
+
+							amiq_apb_ready_low_maximum_time_p
+					</li>
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_READY_VALUE_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_READY_VALUE_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that ready signal is not x nor z<br></pre>
+
+							amiq_apb_ready_valid_values_p
+					</li>
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_SEL_LEGAL_VALUES_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_SEL_LEGAL_VALUES_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that sel has legal values<br></pre>
+
+							amiq_apb_sel_legal_values_p
+					</li>
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_SEL_MINIMUM_TIME_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_SEL_MINIMUM_TIME_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that sel is asserted at least two clock cycles during a transfer<br></pre>
+
+							amiq_apb_sel_minimum_time_p
+					</li>
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_SEL_TRANSITION_DURING_TRANSFER_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_SEL_TRANSITION_DURING_TRANSFER_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that sel is stable (HIGH) during a transfer<br></pre>
+
+							amiq_apb_sel_stability_during_transfer_p
+					</li>
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_SEL_TRANSITION_TR_PHASES_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_SEL_TRANSITION_TR_PHASES_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that sel is HIGH when enable is asserted<br></pre>
+
+							amiq_apb_sel_validity_during_transfer_phases_p
+					</li>
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_SEL_VALUE_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_SEL_VALUE_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that sel signal is not x nor z<br></pre>
+
+							amiq_apb_sel_valid_values_p
+					</li>
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_SEL_VALUE_POST_RESET_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_SEL_VALUE_POST_RESET_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that after reset sel is LOW<br></pre>
+
+							amiq_apb_sel_post_reset_p
+					</li>
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_SLVERR_ASSERTION_TIME_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_SLVERR_ASSERTION_TIME_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that slverr is asserted one clock cycle<br></pre>
+
+							amiq_apb_slverr_assertion_time_p
+					</li>
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_SLVERR_VALUE_CONDITION_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_SLVERR_VALUE_CONDITION_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that slverr is LOW when one of sel, enable or ready is LOW<br></pre>
+
+							amiq_apb_slverr_value_condition_p
+					</li>
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_SLVERR_VALUE_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_SLVERR_VALUE_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that slverr signal is not x nor z<br></pre>
+
+							amiq_apb_slverr_valid_values_p
+					</li>
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_SLVERR_VALUE_POST_RESET_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_SLVERR_VALUE_POST_RESET_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that after reset slverr is LOW<br></pre>
+
+							amiq_apb_slverr_post_reset_p
+					</li>
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_STRB_TRANSITION_DURING_TRANSFER_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_STRB_TRANSITION_DURING_TRANSFER_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that strb is stable during a transfer<br></pre>
+
+							amiq_apb_strb_stability_during_transfer_p
+					</li>
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_STRB_VALUE_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_STRB_VALUE_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that strb signal is not x nor z<br></pre>
+
+							amiq_apb_strb_valid_values_p
+					</li>
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_STRB_VALUE_READ_TRANSFER_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_STRB_VALUE_READ_TRANSFER_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that strb is 0 during read transfer<br></pre>
+
+							amiq_apb_strb_value_read_transfer_p
+					</li>
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_WDATA_TRANSITION_DURING_TRANSFER_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_WDATA_TRANSITION_DURING_TRANSFER_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that wdata is stable during a write transfer<br></pre>
+
+							amiq_apb_wdata_stability_during_transfer_p
+					</li>
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_WRITE_TRANSITION_DURING_TRANSFER_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_WRITE_TRANSITION_DURING_TRANSFER_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that write is stable during a transfer<br></pre>
+
+							amiq_apb_write_stability_during_transfer_p
+					</li>
+					<li class="list-group-item">
+						<a name="concurrent_assertion_AMIQ_APB_ILLEGAL_WRITE_VALUE_ERR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_WRITE_VALUE_ERR</b>
+
+
+						</span>
+	<pre class="comment">Check that write signal is not x nor z<br></pre>
+
+							amiq_apb_write_valid_values_p
+					</li>
+			</ul>
+
+	</div>
+
+<!-- ========= Procedural Assertions ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#procedural_assertions">
+			<h4 class="panel-title">
+					Procedural Assertions <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+					<ul id="procedural_assertions" class="list-group panel-collapse collapse in">
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_ADDR_TRANSITION_DURING_TRANSFER_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_ADDR_TRANSITION_DURING_TRANSFER_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_addr_stability_during_transfer_p property<br></pre>
+
+							amiq_apb_addr_stability_during_transfer_p
+					</li>
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_ADDR_VALUE_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_ADDR_VALUE_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_addr_valid_values_p property<br></pre>
+
+							amiq_apb_addr_valid_values_p
+					</li>
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_ENABLE_ASSERTION_TIME_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_ENABLE_ASSERTION_TIME_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_enable_assertion_time_p property<br></pre>
+
+							amiq_apb_enable_assertion_time_p
+					</li>
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_ENABLE_DEASSERTION_TIME_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_ENABLE_DEASSERTION_TIME_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_enable_deassertion_time_p property<br></pre>
+
+							amiq_apb_enable_deassertion_time_p
+					</li>
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_ENABLE_FALL_TOWARDS_SEL_FALL_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_ENABLE_FALL_TOWARDS_SEL_FALL_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_enable_fall_towards_sel_fall_p property<br></pre>
+
+							amiq_apb_enable_fall_towards_sel_fall_p
+					</li>
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_ENABLE_TRANSITION_DURING_READY_CHANGES_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_ENABLE_TRANSITION_DURING_READY_CHANGES_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_enable_stability_during_ready_changes_p property<br></pre>
+
+							amiq_apb_enable_stability_during_ready_changes_p
+					</li>
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_ENABLE_VALUE_BETWEEN_TRANSFERS_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_ENABLE_VALUE_BETWEEN_TRANSFERS_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_enable_value_between_transfers_p property<br></pre>
+
+							amiq_apb_enable_value_between_transfers_p
+					</li>
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_ENABLE_VALUE_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_ENABLE_VALUE_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_enable_valid_values_p property<br></pre>
+
+							amiq_apb_enable_valid_values_p
+					</li>
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_ENABLE_VALUE_POST_RESET_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_ENABLE_VALUE_POST_RESET_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_enable_post_reset_p property<br></pre>
+
+							amiq_apb_enable_post_reset_p
+					</li>
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_PROT_TRANSITION_DURING_TRANSFER_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_PROT_TRANSITION_DURING_TRANSFER_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_prot_stability_during_transfer_p property<br></pre>
+
+							amiq_apb_prot_stability_during_transfer_p
+					</li>
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_PROT_VALUE_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_PROT_VALUE_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_prot_valid_values_p property<br></pre>
+
+							amiq_apb_prot_valid_values_p
+					</li>
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_RDATA_TRANSITION_DURING_TRANSFER_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_RDATA_TRANSITION_DURING_TRANSFER_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_rdata_stability_during_transfer_p property<br></pre>
+
+							amiq_apb_rdata_stability_during_transfer_p
+					</li>
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_READY_MAXIMUM_LOW_TIME_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_READY_MAXIMUM_LOW_TIME_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_ready_low_maximum_time_p property<br></pre>
+
+							amiq_apb_ready_low_maximum_time_p
+					</li>
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_READY_VALUE_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_READY_VALUE_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_ready_valid_values_p property<br></pre>
+
+							amiq_apb_ready_valid_values_p
+					</li>
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_SEL_LEGAL_VALUES_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_SEL_LEGAL_VALUES_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_sel_legal_values_p property<br></pre>
+
+							amiq_apb_sel_legal_values_p
+					</li>
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_SEL_MINIMUM_TIME_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_SEL_MINIMUM_TIME_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_sel_minimum_time_p property<br></pre>
+
+							amiq_apb_sel_minimum_time_p
+					</li>
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_SEL_TRANSITION_DURING_TRANSFER_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_SEL_TRANSITION_DURING_TRANSFER_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_sel_stability_during_transfer_p property<br></pre>
+
+							amiq_apb_sel_stability_during_transfer_p
+					</li>
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_SEL_TRANSITION_TR_PHASES_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_SEL_TRANSITION_TR_PHASES_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_sel_validity_during_transfer_phases_p property<br></pre>
+
+							amiq_apb_sel_validity_during_transfer_phases_p
+					</li>
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_SEL_VALUE_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_SEL_VALUE_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_sel_valid_values_p property<br></pre>
+
+							amiq_apb_sel_valid_values_p
+					</li>
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_SEL_VALUE_POST_RESET_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_SEL_VALUE_POST_RESET_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_sel_post_reset_p property<br></pre>
+
+							amiq_apb_sel_post_reset_p
+					</li>
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_SLVERR_ASSERTION_TIME_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_SLVERR_ASSERTION_TIME_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_slverr_assertion_time_p property<br></pre>
+
+							amiq_apb_slverr_assertion_time_p
+					</li>
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_SLVERR_VALUE_CONDITION_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_SLVERR_VALUE_CONDITION_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_slverr_value_condition_p property<br></pre>
+
+							amiq_apb_slverr_value_condition_p
+					</li>
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_SLVERR_VALUE_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_SLVERR_VALUE_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_slverr_valid_values_p property<br></pre>
+
+							amiq_apb_slverr_valid_values_p
+					</li>
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_SLVERR_VALUE_POST_RESET_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_SLVERR_VALUE_POST_RESET_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_slverr_post_reset_p property<br></pre>
+
+							amiq_apb_slverr_post_reset_p
+					</li>
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_STRB_TRANSITION_DURING_TRANSFER_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_STRB_TRANSITION_DURING_TRANSFER_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_strb_stability_during_transfer_p property<br></pre>
+
+							amiq_apb_strb_stability_during_transfer_p
+					</li>
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_STRB_VALUE_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_STRB_VALUE_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_strb_valid_values_p property<br></pre>
+
+							amiq_apb_strb_valid_values_p
+					</li>
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_STRB_VALUE_READ_TRANSFER_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_STRB_VALUE_READ_TRANSFER_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_strb_value_read_transfer_p property<br></pre>
+
+							amiq_apb_strb_value_read_transfer_p
+					</li>
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_WDATA_TRANSITION_DURING_TRANSFER_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_WDATA_TRANSITION_DURING_TRANSFER_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_wdata_stability_during_transfer_p property<br></pre>
+
+							amiq_apb_wdata_stability_during_transfer_p
+					</li>
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_WRITE_TRANSITION_DURING_TRANSFER_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_WRITE_TRANSITION_DURING_TRANSFER_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_write_stability_during_transfer_p property<br></pre>
+
+							amiq_apb_write_stability_during_transfer_p
+					</li>
+					<li class="list-group-item">
+						<a name="procedural_assertion_AMIQ_APB_ILLEGAL_WRITE_VALUE_CVR"></a>
+						<span class="signature">
+
+	<b>amiq_apb_if.AMIQ_APB_ILLEGAL_WRITE_VALUE_CVR</b>
+
+
+						</span>
+	<pre class="comment">Cover the amiq_apb_write_valid_values_p property<br></pre>
+
+							amiq_apb_write_valid_values_p
+					</li>
+			</ul>
+
+	</div>
+
+<!-- ========= Generated From ======= -->
+		<hr>Generated from: <a href="../../examples/apb_tests/sv/amiq_apb_if.sv">amiq_apb_if.sv</a>
+
+
+	</div>
+
+	<div class="footer">
+		<hr><p class="text-center">Generated  on Wed Apr 29 10:13:44 EEST 2015 using <a href="http://www.dvteclipse.com/" target="_new">Specador<sup>TM</sup></a> Version 15.1.8</p>
+    </div>
+
+	<script src="lib/jquery/js/jquery.js"></script>
+	<script src="lib/jquery/js/jquery.scrollUp.js"></script>
+	<script src="lib/bootstrap/js/bootstrap.js"></script>
+	<script src="js/content.js"></script>
+	<script src="js/custom.js"></script>
+
+	</body>
+</html>
+

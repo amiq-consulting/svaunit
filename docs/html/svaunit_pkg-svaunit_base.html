@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>svaunit
+API Specification</title>
+
+	<meta name="author" content="">
+	<meta name="description" content="svaunit API Specification">
+	<meta name="generator" content="Specador. Copyright (C) 2005-2015 AMIQ EDA ">
+	<meta name="keywords" content="SystemVerilog, HTML Documentation, Specador, AMIQ EDA, svaunit API Specification">
+
+	<link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+	<link href="css/content.css" rel="stylesheet">
+	<link href="css/custom.css" rel="stylesheet">
+</head>
+<body>
+
+	<div class="container-fluid">
+<!-- ========= Title ======= -->
+<h2>class      		<a href="summary-svaunit_pkg.html">svaunit_pkg</a>
+:: svaunit_base
+</h2>
+
+
+<!-- ========= Top Buttons ======= -->
+		<br>
+		<div class="btn-group">
+				
+	<button data-scroll=#constructor type="button" class="btn btn-default">Constructor <span class="badge">1</span></button>
+	<button data-scroll=#typedefs type="button" class="btn btn-default">Typedefs <span class="badge">1</span></button>
+	
+	
+	<button data-scroll=#variables type="button" class="btn btn-default">Variables <span class="badge">9</span></button>
+	
+	<button data-scroll=#functions type="button" class="btn btn-default">Functions <span class="badge">27</span></button>
+	
+
+	<button data-scroll=#inheritance_diagram type="button" class="btn btn-default">Inheritance Diagram</button>
+	<button data-scroll=#collaboration_diagram type="button" class="btn btn-default">Collaboration Diagram</button>
+	<button data-scroll=#direct_associations_diagram type="button" class="btn btn-default">Direct Associations Diagram</button>
+
+		</div>
+		<br><br>
+
+<!-- ========= Inheritance Tree ======= -->
+
+<!-- ========= Description ======= -->
+	<pre class="comment">Svaunit base class for tests and test suites<br></pre>
+
+<!-- ========= Parameters ======= -->
+
+<!-- ========= Constructor ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#constructor">
+			<h4 class="panel-title">
+					Constructor <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+					<ul id="constructor" class="list-group panel-collapse collapse in">
+					<li class="list-group-item">
+						<a name="constructor_new"></a>
+						<span class="signature">
+
+	 function 	
+
+	<b>		new
+</b>(	string
+name = "svaunit_base",
+	uvm_component
+parent)
+
+
+						</span>
+	<pre class="comment">Constructor for svaunit_base<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>name</b>   : instance name for svaunit_base object<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>parent</b> : hierarchical parent for svaunit_base<br></pre>
+
+					</li>
+			</ul>
+
+	</div>
+
+<!-- ========= Typedefs ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#typedefs">
+			<h4 class="panel-title">
+					Typedefs <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+					<ul id="typedefs" class="list-group panel-collapse collapse in">
+					<li class="list-group-item">
+						<a name="typedef_type_id"></a>
+						<span class="signature">
+
+	 <b>		type_id
+</b>
+
+		-> uvm_component_registry#(svaunit_base, "svaunit_base")
+	
+
+
+						</span>
+
+					</li>
+			</ul>
+
+	</div>
+
+<!-- ========= Structs ======= -->
+
+<!-- ========= Enums ======= -->
+
+<!-- ========= Variables ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#variables">
+			<h4 class="panel-title">
+					Variables <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+					<ul id="variables" class="list-group panel-collapse collapse in">
+					<li class="list-group-item">
+						<a name="variable_enable"></a>
+						<span class="signature">
+
+	bit
+ <b>		enable
+</b>
+
+
+						</span>
+	<pre class="comment">Shows that the test is enable or disable during simulation<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="variable_has_started"></a>
+						<span class="signature">
+
+	bit
+ <b>		has_started
+</b>
+
+
+						</span>
+	<pre class="comment">Shows that the test ran or not during a simulation<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="variable_nof_failures"></a>
+						<span class="signature">
+
+	int unsigned
+ <b>		nof_failures
+</b>
+
+
+						</span>
+	<pre class="comment">Stores the number of immediate assertions which fails during a test<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="variable_nof_tests"></a>
+						<span class="signature">
+
+	int unsigned
+ <b>		nof_tests
+</b>
+
+
+						</span>
+	<pre class="comment">Stores the total number of immediate assertions tested<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="variable_status"></a>
+						<span class="signature">
+
+	<a href="svaunit_pkg-svaunit_status_type.html">svaunit_status_type</a>
+ <b>		status
+</b>
+
+
+						</span>
+	<pre class="comment">Test status<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="variable_stop"></a>
+						<span class="signature">
+
+	bit
+ <b>		stop
+</b>
+
+
+						</span>
+	<pre class="comment">When this bit is 1, the test should stop<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="variable_test_name"></a>
+						<span class="signature">
+
+	string
+ <b>		test_name
+</b>
+
+
+						</span>
+	<pre class="comment">Stores the name of the current test<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="variable_test_type"></a>
+						<span class="signature">
+
+	string
+ <b>		test_type
+</b>
+
+
+						</span>
+	<pre class="comment">Stores the type of the current test<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="variable_type_name"></a>
+						<span class="signature">
+
+const static 	string
+ <b>		type_name
+</b>
+
+
+						</span>
+
+					</li>
+			</ul>
+
+	</div>
+
+<!-- ========= Constraints ======= -->
+
+<!-- ========= Functions ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#functions">
+			<h4 class="panel-title">
+					Functions <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+					<ul id="functions" class="list-group panel-collapse collapse in">
+					<li class="list-group-item">
+						<a name="function___m_uvm_field_automation"></a>
+						<span class="signature">
+
+	 function 	void
+
+	<b>		__m_uvm_field_automation
+</b>(	uvm_object
+tmp_data__,
+	int
+what__,
+	string
+str__)
+
+
+						</span>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_build_phase"></a>
+						<span class="signature">
+
+	 function 	void
+
+	<b>		build_phase
+</b>(	uvm_phase
+phase)
+
+
+						</span>
+	<pre class="comment">Build phase method used to instantiate components<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>phase</b> : the phase scheduled for build_phase method<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_find"></a>
+						<span class="signature">
+
+	 function 	int
+
+	<b>		find
+</b>(	string
+s1,
+	string
+s2)
+
+
+						</span>
+	<pre class="comment">Find the position of the first character of the first match of s2 in s1<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the position of the first character of the first match. If no matches were found, the function will return -1<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>s1</b> : the string used to search in the s2<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>s2</b> : the string to search for.<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_immediate_assertion_names"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		get_immediate_assertion_names
+</b>(			ref 	string [$]
+immediate_assertions_names)
+
+
+						</span>
+	<pre class="comment">Get a list with names for all immediate assertion used<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>the</b> string list which contains the name of the checks used in this unit test<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_immediate_assertion_not_used_names"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		get_immediate_assertion_not_used_names
+</b>(			ref 	string [$]
+immediate_assertions_names)
+
+
+						</span>
+	<pre class="comment">Get a list with names for all immediate assertion not used<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>the</b> string list which contains the name of the checks not used in this unit test<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_nof_failures"></a>
+						<span class="signature">
+
+	 function 	int unsigned
+
+	<b>		get_nof_failures
+</b>()
+
+
+						</span>
+	<pre class="comment">Get the number of immediate assertions which failed during test<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the number of immediate assertions which failed during test<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_nof_tests"></a>
+						<span class="signature">
+
+	 function 	int unsigned
+
+	<b>		get_nof_tests
+</b>()
+
+
+						</span>
+	<pre class="comment">Get the number of immediate assertions verified during test<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the number of immediate assertions verified during test<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_nof_tests_did_not_run"></a>
+						<span class="signature">
+
+	virtual  function 	int unsigned
+
+	<b>		get_nof_tests_did_not_run
+</b>()
+
+
+						</span>
+	<pre class="comment">Compute the number of tests from current test suite which did not run<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the number of tests from current test suite which did not run<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_nof_times_immediate_assertions_passed"></a>
+						<span class="signature">
+
+	virtual  function 	int unsigned
+
+	<b>		get_nof_times_immediate_assertions_passed
+</b>(	string
+immediate_assertion_name)
+
+
+						</span>
+	<pre class="comment">Get the number of times an immediate assertion passed during simulation<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the number of times an immediate assertion passed during simulation<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_nof_times_immediate_assertions_tested"></a>
+						<span class="signature">
+
+	virtual  function 	int unsigned
+
+	<b>		get_nof_times_immediate_assertions_tested
+</b>(	string
+immediate_assertion_name)
+
+
+						</span>
+	<pre class="comment">Get the number of times an immediate assertion was tested during simulation<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the number of times an immediate assertion was tested during simulation<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_object_type"></a>
+						<span class="signature">
+
+	virtual  function 	uvm_object_wrapper
+
+	<b>		get_object_type
+</b>()
+
+
+						</span>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_status"></a>
+						<span class="signature">
+
+	 function 	<a href="svaunit_pkg-svaunit_status_type.html">svaunit_status_type</a>
+
+	<b>		get_status
+</b>()
+
+
+						</span>
+	<pre class="comment">Get status of test<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the status of test<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_stop"></a>
+						<span class="signature">
+
+	 function 	bit
+
+	<b>		get_stop
+</b>()
+
+
+						</span>
+	<pre class="comment">Get stop bit for test<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the stop bit for test<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_test_name"></a>
+						<span class="signature">
+
+	 function 	string
+
+	<b>		get_test_name
+</b>()
+
+
+						</span>
+	<pre class="comment">Get the name of the test<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the test name<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_type"></a>
+						<span class="signature">
+
+	static  function 	<a href="svaunit_pkg-svaunit_base.html#typedef_type_id">type_id</a>
+
+	<b>		get_type
+</b>()
+
+
+						</span>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_type_name"></a>
+						<span class="signature">
+
+	virtual  function 	string
+
+	<b>		get_type_name
+</b>()
+
+
+						</span>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_print_checks"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		print_checks
+</b>()
+
+
+						</span>
+	<pre class="comment">Print a report for all checks tested for the current unit test<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_print_report"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		print_report
+</b>()
+
+
+						</span>
+	<pre class="comment">Method used to print the final report<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_print_status"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		print_status
+</b>()
+
+
+						</span>
+	<pre class="comment">{{{ Print functions
+Print status of test<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_print_sva"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		print_sva
+</b>()
+
+
+						</span>
+	<pre class="comment">Print a list with all SVAs<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_print_sva_and_checks"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		print_sva_and_checks
+</b>()
+
+
+						</span>
+	<pre class="comment">Print a report for all checks tested for the SVAs<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_set_name_for_test"></a>
+						<span class="signature">
+
+	 function 	void
+
+	<b>		set_name_for_test
+</b>()
+
+
+						</span>
+	<pre class="comment">Will set the name of the current test
+a test name will look like this : testsuitetop_id.testname<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_set_test_name"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		set_test_name
+</b>()
+
+
+						</span>
+	<pre class="comment">Will set the name of the current test<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_start_of_simulation"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		start_of_simulation
+</b>()
+
+
+						</span>
+	<pre class="comment">Sets the custom message reporter<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_start_test"></a>
+						<span class="signature">
+
+	 function 	void
+
+	<b>		start_test
+</b>()
+
+
+						</span>
+	<pre class="comment">Start test - set has_started bit<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_started"></a>
+						<span class="signature">
+
+	 function 	bit
+
+	<b>		started
+</b>()
+
+
+						</span>
+	<pre class="comment">Get the fact that the test ran or not during simulation<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;1 if the test ran or 0 otherwise<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_update_status"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		update_status
+</b>()
+
+
+						</span>
+	<pre class="comment">Update status<br></pre>
+
+					</li>
+			</ul>
+
+	</div>
+
+<!-- ========= Tasks ======= -->
+
+<!-- ========= Diagrams ======= -->
+
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#inheritance_diagram">
+			<h4 class="panel-title">
+					Inheritance Diagram <span class="glyphicon glyphicon-chevron-right"></span>
+			</h4>
+		</div>
+				<ul id="inheritance_diagram" class="list-group panel-collapse collapse">
+			<img src="svaunit_pkg-svaunit_base_inheritance.png" border="0" usemap="#_inheritance_diagram" />
+			<map name="_inheritance_diagram">
+<area shape="rect" id="node1" href="svaunit_pkg-svaunit_base.html"  alt="" coords="1057,853,1194,883">
+<area shape="rect" id="node2"  alt="" coords="877,853,976,883">
+<area shape="poly" id="edge1"  alt="" coords="1057,871,990,871,990,865,1057,865">
+<area shape="rect" id="node3"  alt="" coords="651,853,797,883">
+<area shape="poly" id="edge2"  alt="" coords="877,871,811,871,811,865,877,865">
+<area shape="rect" id="node4"  alt="" coords="385,853,570,883">
+<area shape="poly" id="edge3"  alt="" coords="650,871,584,871,584,865,650,865">
+<area shape="rect" id="node5"  alt="" coords="185,853,303,883">
+<area shape="poly" id="edge4"  alt="" coords="384,871,317,871,317,865,384,865">
+<area shape="rect" id="node6"  alt="" coords="5,853,104,883">
+<area shape="poly" id="edge5"  alt="" coords="185,871,118,871,118,865,185,865">
+<area shape="rect" id="node7" href="svaunit_pkg-svaunit_test.html"  alt="" coords="1275,853,1413,883">
+<area shape="poly" id="edge6"  alt="" coords="1275,871,1208,871,1208,865,1275,865">
+<area shape="rect" id="node8" href="svaunit_pkg-svaunit_test_suite.html"  alt="" coords="1508,114,1703,145">
+<area shape="poly" id="edge7"  alt="" coords="1526,146,1495,160,1462,180,1440,211,1419,265,1402,340,1375,526,1358,711,1349,840,1344,840,1353,710,1370,525,1397,339,1414,263,1435,208,1458,176,1492,155,1524,142">
+<area shape="rect" id="node9" href="simple_pkg-uts.html"  alt="" coords="1851,5,1901,35">
+<area shape="poly" id="edge8"  alt="" coords="1851,31,1798,50,1653,112,1651,107,1796,46,1850,26">
+<area shape="rect" id="node10" href="apb_tests_pkg-x_z_ts.html"  alt="" coords="1836,59,1916,90">
+<area shape="poly" id="edge9"  alt="" coords="1836,85,1693,114,1692,109,1835,80">
+<area shape="rect" id="node11" href="apb_tests_pkg-after_reset_ts.html"  alt="" coords="1798,114,1954,145">
+<area shape="poly" id="edge10"  alt="" coords="1798,132,1717,132,1717,127,1798,127">
+<area shape="rect" id="node12" href="apb_tests_pkg-protocol_ts.html"  alt="" coords="1812,169,1940,199">
+<area shape="poly" id="edge11"  alt="" coords="1811,174,1692,149,1693,144,1812,169">
+<area shape="rect" id="node13" href="apb_tests_pkg-apb_ts.html"  alt="" coords="1836,223,1916,254">
+<area shape="poly" id="edge12"  alt="" coords="1835,228,1796,213,1767,201,1740,185,1728,171,1716,160,1699,151,1701,146,1719,155,1732,168,1743,181,1769,196,1798,208,1837,223">
+<area shape="rect" id="node14" href="simple_pkg-ut1.html"  alt="" coords="1580,169,1631,199">
+<area shape="poly" id="edge13"  alt="" coords="1580,189,1539,197,1495,214,1462,235,1440,267,1421,316,1404,384,1378,551,1360,720,1350,839,1345,839,1354,719,1372,551,1399,383,1416,314,1435,264,1458,232,1492,210,1537,192,1579,184">
+<area shape="rect" id="node15" href="simple_pkg-ut2.html"  alt="" coords="1580,223,1631,254">
+<area shape="poly" id="edge14"  alt="" coords="1580,244,1546,251,1506,264,1468,285,1452,300,1440,317,1422,362,1405,423,1379,576,1360,729,1350,840,1345,839,1355,729,1374,575,1400,422,1417,360,1435,315,1448,296,1465,281,1504,259,1545,245,1579,239">
+<area shape="rect" id="node16" href="apb_tests_pkg-x_z_addr_ut.html"  alt="" coords="1541,278,1669,309">
+<area shape="poly" id="edge15"  alt="" coords="1542,306,1494,324,1462,343,1440,372,1410,434,1387,501,1370,569,1359,635,1348,755,1347,840,1342,839,1343,755,1354,635,1365,567,1382,499,1405,432,1435,369,1459,339,1492,319,1540,301">
+<area shape="rect" id="node17" href="apb_tests_pkg-x_z_enable_ut.html"  alt="" coords="1532,333,1679,363">
+<area shape="poly" id="edge16"  alt="" coords="1533,363,1495,378,1462,398,1440,427,1413,481,1391,539,1375,599,1364,657,1351,763,1348,839,1343,839,1346,763,1359,656,1370,597,1386,538,1408,479,1435,424,1459,394,1492,374,1531,358">
+<area shape="rect" id="node18" href="apb_tests_pkg-x_z_prot_ut.html"  alt="" coords="1541,387,1669,418">
+<area shape="poly" id="edge17"  alt="" coords="1542,416,1494,433,1462,452,1440,481,1415,528,1396,578,1369,680,1354,772,1349,840,1344,839,1349,772,1363,679,1391,577,1410,526,1435,479,1459,448,1492,428,1540,411">
+<area shape="rect" id="node19" href="apb_tests_pkg-x_z_ready_ut.html"  alt="" coords="1537,442,1674,473">
+<area shape="poly" id="edge18"  alt="" coords="1537,471,1495,488,1463,508,1440,537,1418,577,1401,618,1374,704,1358,782,1350,840,1345,840,1353,781,1369,703,1396,617,1414,574,1435,535,1459,504,1492,483,1536,466">
+<area shape="rect" id="node20" href="apb_tests_pkg-x_z_sel_ut.html"  alt="" coords="1546,497,1665,527">
+<area shape="poly" id="edge19"  alt="" coords="1547,524,1495,542,1463,563,1440,592,1405,658,1380,727,1363,791,1352,840,1347,839,1357,789,1375,725,1400,655,1435,589,1459,559,1492,538,1545,519">
+<area shape="rect" id="node21" href="apb_tests_pkg-x_z_slverr_ut.html"  alt="" coords="1532,551,1679,582">
+<area shape="poly" id="edge20"  alt="" coords="1533,582,1495,597,1463,620,1440,651,1410,701,1387,753,1356,841,1351,839,1382,751,1406,698,1435,648,1459,616,1492,592,1531,577">
+<area shape="rect" id="node22" href="apb_tests_pkg-x_z_strb_ut.html"  alt="" coords="1541,606,1669,637">
+<area shape="poly" id="edge21"  alt="" coords="1542,634,1495,652,1468,669,1444,691,1404,743,1375,797,1357,841,1352,839,1370,794,1399,740,1440,688,1464,665,1492,647,1540,629">
+<area shape="rect" id="node23" href="apb_tests_pkg-x_z_write_ut.html"  alt="" coords="1537,661,1674,691">
+<area shape="poly" id="edge22"  alt="" coords="1538,690,1495,706,1452,736,1415,773,1385,810,1363,843,1358,840,1381,807,1411,769,1448,732,1492,702,1536,685">
+<area shape="rect" id="node24" href="apb_tests_pkg-after_reset_enable_ut.html"  alt="" coords="1493,715,1717,746">
+<area shape="poly" id="edge23"  alt="" coords="1530,748,1494,761,1460,780,1427,803,1373,846,1369,842,1423,798,1457,776,1492,756,1528,743">
+<area shape="rect" id="node25" href="apb_tests_pkg-after_reset_sel_ut.html"  alt="" coords="1508,770,1703,801">
+<area shape="poly" id="edge24"  alt="" coords="1542,803,1494,816,1395,851,1394,846,1493,811,1540,797">
+<area shape="rect" id="node26" href="apb_tests_pkg-after_reset_slverr_ut.html"  alt="" coords="1493,825,1717,855">
+<area shape="poly" id="edge25"  alt="" coords="1493,855,1427,862,1426,857,1493,849">
+<area shape="rect" id="node27" href="apb_tests_pkg-protocol_ut1.html"  alt="" coords="1537,879,1674,910">
+<area shape="poly" id="edge26"  alt="" coords="1536,894,1437,885,1426,884,1427,879,1438,880,1537,888">
+<area shape="rect" id="node28" href="apb_tests_pkg-protocol_ut2.html"  alt="" coords="1537,934,1674,965">
+<area shape="poly" id="edge27"  alt="" coords="1538,937,1493,925,1436,907,1394,890,1396,885,1438,901,1494,920,1539,932">
+<area shape="rect" id="node29" href="apb_tests_pkg-protocol_ut3.html"  alt="" coords="1537,989,1674,1019">
+<area shape="poly" id="edge28"  alt="" coords="1536,995,1492,980,1457,960,1423,938,1369,894,1373,890,1426,934,1460,956,1494,975,1537,990">
+<area shape="rect" id="node30" href="apb_tests_pkg-protocol_ut4.html"  alt="" coords="1537,1043,1674,1074">
+<area shape="poly" id="edge29"  alt="" coords="1536,1051,1492,1034,1448,1004,1411,967,1381,929,1358,896,1363,893,1385,926,1415,963,1452,1000,1495,1030,1537,1046">
+<area shape="rect" id="node31" href="apb_tests_pkg-protocol_ut5.html"  alt="" coords="1537,1098,1674,1129">
+<area shape="poly" id="edge30"  alt="" coords="1535,1105,1492,1089,1464,1071,1440,1048,1399,996,1370,942,1352,897,1357,895,1375,939,1404,993,1444,1045,1468,1067,1495,1084,1537,1100">
+<area shape="rect" id="node32" href="apb_tests_pkg-protocol_ut6.html"  alt="" coords="1537,1153,1674,1183">
+<area shape="poly" id="edge31"  alt="" coords="1535,1160,1492,1144,1459,1120,1435,1087,1406,1037,1382,984,1351,896,1356,895,1387,982,1411,1034,1440,1084,1463,1116,1495,1139,1537,1155">
+<area shape="rect" id="node33" href="apb_tests_pkg-protocol_ut7.html"  alt="" coords="1537,1207,1674,1238">
+<area shape="poly" id="edge32"  alt="" coords="1535,1215,1492,1198,1459,1177,1435,1145,1400,1079,1375,1010,1358,946,1347,897,1353,896,1363,945,1380,1008,1405,1077,1440,1143,1463,1173,1495,1194,1537,1210">
+<area shape="rect" id="node34" href="apb_tests_pkg-protocol_ut8.html"  alt="" coords="1537,1262,1674,1293">
+<area shape="poly" id="edge33"  alt="" coords="1536,1269,1492,1253,1459,1232,1435,1201,1414,1162,1396,1119,1369,1033,1353,955,1345,896,1350,896,1358,954,1374,1032,1401,1118,1418,1159,1440,1199,1463,1228,1495,1248,1537,1264">
+<area shape="rect" id="node35" href="apb_tests_pkg-protocol_ut9.html"  alt="" coords="1537,1317,1674,1347">
+<area shape="poly" id="edge34"  alt="" coords="1536,1324,1492,1308,1459,1287,1435,1256,1411,1209,1391,1158,1364,1056,1350,964,1344,897,1349,896,1355,964,1369,1055,1396,1157,1416,1207,1440,1253,1462,1283,1495,1303,1537,1319">
+<area shape="rect" id="node36" href="apb_tests_pkg-protocol_ut10.html"  alt="" coords="1532,1371,1679,1402">
+<area shape="poly" id="edge35"  alt="" coords="1531,1377,1492,1362,1459,1342,1435,1311,1408,1256,1387,1197,1371,1137,1359,1079,1346,973,1343,897,1348,896,1352,972,1364,1078,1376,1136,1392,1196,1413,1254,1440,1308,1462,1338,1495,1358,1533,1372">
+<area shape="rect" id="node37" href="apb_tests_pkg-protocol_ut11.html"  alt="" coords="1532,1426,1679,1457">
+<area shape="poly" id="edge36"  alt="" coords="1531,1432,1492,1417,1459,1396,1435,1365,1405,1302,1383,1236,1366,1167,1354,1100,1343,981,1342,896,1347,896,1349,980,1360,1100,1371,1166,1388,1234,1410,1300,1440,1363,1462,1392,1495,1412,1533,1427">
+<area shape="rect" id="node38" href="apb_tests_pkg-protocol_ut12.html"  alt="" coords="1532,1481,1679,1511">
+<area shape="poly" id="edge37"  alt="" coords="1531,1487,1492,1472,1458,1451,1435,1420,1417,1375,1401,1313,1374,1160,1355,1007,1345,896,1350,896,1361,1006,1379,1160,1406,1311,1422,1373,1440,1417,1462,1447,1495,1467,1533,1482">
+<area shape="rect" id="node39" href="apb_tests_pkg-protocol_ut13.html"  alt="" coords="1532,1535,1679,1566">
+<area shape="poly" id="edge38"  alt="" coords="1531,1541,1492,1526,1458,1506,1435,1475,1415,1424,1398,1356,1372,1187,1354,1018,1345,897,1350,897,1359,1017,1377,1186,1404,1355,1421,1423,1440,1472,1462,1502,1495,1522,1533,1536">
+<area shape="rect" id="node40" href="apb_tests_pkg-protocol_ut14.html"  alt="" coords="1532,1590,1679,1621">
+<area shape="poly" id="edge39"  alt="" coords="1531,1596,1492,1581,1458,1561,1435,1529,1414,1474,1396,1398,1381,1308,1369,1212,1352,1026,1344,896,1349,896,1358,1026,1374,1211,1387,1308,1401,1397,1419,1472,1440,1527,1462,1557,1495,1576,1533,1591"></map>
+		</ul>
+
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#collaboration_diagram">
+			<h4 class="panel-title">
+					Collaboration Diagram <span class="glyphicon glyphicon-chevron-right"></span>
+			</h4>
+		</div>
+				<ul id="collaboration_diagram" class="list-group panel-collapse collapse">
+			<img src="svaunit_pkg-svaunit_base_collaboration.png" border="0" usemap="#_collaboration_diagram" />
+			<map name="_collaboration_diagram">
+<area shape="rect" id="node1" href="svaunit_pkg-svaunit_base.html"  alt="" coords="367,1033,505,1063">
+<area shape="rect" id="node2"  alt="" coords="387,939,485,970">
+<area shape="poly" id="edge1"  alt="" coords="433,1033,433,983,439,983,439,1033">
+<area shape="rect" id="node3"  alt="" coords="363,846,509,877">
+<area shape="poly" id="edge2"  alt="" coords="433,940,433,890,439,890,439,940">
+<area shape="rect" id="node4"  alt="" coords="422,379,607,410">
+<area shape="poly" id="edge3"  alt="" coords="362,857,319,848,280,832,263,821,250,806,242,789,239,770,239,486,243,472,255,459,295,438,349,421,408,409,409,414,351,426,297,443,258,463,248,475,244,487,244,769,247,788,255,803,267,817,282,827,321,843,363,852">
+<area shape="rect" id="node7"  alt="" coords="5,99,142,130">
+<area shape="poly" id="edge15"  alt="" coords="362,861,260,855,151,840,102,829,62,814,36,794,28,782,25,770,25,207,28,188,34,170,51,139,56,142,39,172,33,189,31,207,31,769,33,780,39,791,65,809,104,824,152,835,261,850,363,856">
+<area shape="rect" id="node15"  alt="" coords="382,753,490,783">
+<area shape="poly" id="edge31"  alt="" coords="362,860,326,854,296,845,285,838,279,829,278,818,285,806,298,796,318,788,368,776,369,781,319,793,300,801,289,810,284,820,284,827,289,834,298,840,327,849,363,854">
+<area shape="poly" id="edge32"  alt="" coords="433,847,433,797,439,797,439,847">
+<area shape="poly" id="edge44"  alt="" coords="508,850,535,838,555,820,559,812,559,806,550,794,530,785,503,779,505,774,531,780,553,790,564,804,564,813,559,823,537,843,510,855">
+<area shape="poly" id="edge45"  alt="" coords="509,867,526,864,531,862,521,857,524,853,536,861,528,869,510,872">
+<area shape="rect" id="node5"  alt="" coords="358,286,477,317">
+<area shape="poly" id="edge4"  alt="" coords="498,382,440,327,444,323,502,378">
+<area shape="rect" id="node17"  alt="" coords="1168,286,1363,317">
+<area shape="poly" id="edge36"  alt="" coords="607,379,1154,313,1155,319,608,385">
+<area shape="rect" id="node6"  alt="" coords="767,193,865,223">
+<area shape="poly" id="edge5"  alt="" coords="476,294,622,281,692,271,742,259,767,246,790,229,793,234,770,250,744,264,693,276,622,286,477,299">
+<area shape="rect" id="node9"  alt="" coords="283,193,498,223">
+<area shape="poly" id="edge17"  alt="" coords="428,285,439,267,441,258,439,249,426,233,430,229,444,247,446,258,444,269,433,288">
+<area shape="poly" id="edge6"  alt="" coords="77,129,80,157,88,193,103,229,128,259,143,268,165,275,220,286,344,296,344,301,219,291,163,280,141,273,125,263,99,232,83,195,74,158,71,130">
+<area shape="rect" id="node8"  alt="" coords="327,6,494,37">
+<area shape="poly" id="edge16"  alt="" coords="72,99,78,78,92,59,173,45,313,29,314,35,173,50,95,64,83,81,77,101">
+<area shape="poly" id="edge18"  alt="" coords="498,208,595,219,634,230,659,246,663,258,654,268,613,282,553,292,490,298,490,293,553,287,612,277,651,264,658,257,655,250,632,235,594,224,498,214">
+<area shape="poly" id="edge19"  alt="" coords="439,191,456,181,470,166,484,140,490,115,486,91,474,63,457,45,461,42,478,60,492,89,495,115,489,141,474,170,460,185,442,195">
+<area shape="poly" id="edge20"  alt="" coords="283,218,224,225,171,234,139,246,134,253,137,260,150,269,169,278,222,289,284,295,344,298,344,303,284,301,221,295,167,283,147,274,133,263,129,252,136,242,170,229,223,219,283,213">
+<area shape="rect" id="node10"  alt="" coords="170,99,307,130">
+<area shape="poly" id="edge21"  alt="" coords="347,196,293,170,258,141,262,137,296,166,349,191">
+<area shape="rect" id="node12"  alt="" coords="331,99,450,130">
+<area shape="poly" id="edge24"  alt="" coords="388,193,388,143,393,143,393,193">
+<area shape="poly" id="edge26"  alt="" coords="289,196,235,185,182,171,108,138,110,133,184,165,237,180,290,191">
+<area shape="rect" id="node13"  alt="" coords="591,99,719,130">
+<area shape="poly" id="edge27"  alt="" coords="436,191,516,165,607,132,609,137,518,171,438,196">
+<area shape="poly" id="edge30"  alt="" coords="301,225,285,232,273,240,269,249,274,260,284,268,301,275,345,286,344,292,299,280,281,272,270,263,264,248,269,236,282,227,300,220">
+<area shape="rect" id="node11"  alt="" coords="101,6,238,37">
+<area shape="poly" id="edge22"  alt="" coords="198,102,182,91,168,76,164,63,162,50,168,49,169,62,173,73,185,87,201,98">
+<area shape="poly" id="edge23"  alt="" coords="259,98,325,59,366,39,369,44,328,64,261,102">
+<area shape="poly" id="edge25"  alt="" coords="391,99,402,49,407,50,396,101">
+<area shape="rect" id="node14"  alt="" coords="563,6,749,37">
+<area shape="poly" id="edge28"  alt="" coords="652,100,653,50,658,50,658,100">
+<area shape="poly" id="edge29"  alt="" coords="618,102,458,43,460,38,620,97">
+<area shape="poly" id="edge7"  alt="" coords="420,755,395,721,385,700,381,676,381,393,387,358,400,327,405,329,392,360,387,394,387,676,390,698,400,719,424,752">
+<area shape="poly" id="edge33"  alt="" coords="490,774,506,771,511,768,502,764,505,759,516,768,508,776,491,779">
+<area shape="rect" id="node16"  alt="" coords="421,659,568,690">
+<area shape="poly" id="edge34"  alt="" coords="442,752,476,699,481,702,447,755">
+<area shape="poly" id="edge8"  alt="" coords="493,660,510,423,515,423,498,660">
+<area shape="poly" id="edge35"  alt="" coords="568,680,584,678,589,675,580,671,583,666,595,674,586,682,569,685">
+<area shape="rect" id="node22"  alt="" coords="632,566,731,597">
+<area shape="poly" id="edge41"  alt="" coords="521,658,640,600,642,605,523,662">
+<area shape="rect" id="node18"  alt="" coords="1458,193,1673,223">
+<area shape="poly" id="edge37"  alt="" coords="1363,298,1422,295,1481,288,1530,277,1548,269,1561,260,1566,249,1568,236,1573,237,1571,251,1565,263,1551,273,1532,282,1482,293,1423,300,1363,303">
+<area shape="rect" id="node19"  alt="" coords="1734,193,1986,223">
+<area shape="poly" id="edge38"  alt="" coords="1363,297,1500,295,1652,289,1780,278,1824,269,1848,259,1855,249,1858,236,1863,237,1860,251,1851,263,1825,274,1781,283,1652,295,1500,300,1363,303">
+<area shape="rect" id="node20"  alt="" coords="929,193,1162,223">
+<area shape="poly" id="edge39"  alt="" coords="1168,299,1004,287,937,277,914,271,901,263,894,251,895,240,902,231,914,225,917,229,906,236,899,242,899,250,905,259,916,266,938,272,1004,282,1168,294">
+<area shape="rect" id="node21"  alt="" coords="1223,193,1409,223">
+<area shape="poly" id="edge40"  alt="" coords="1260,287,1259,267,1264,247,1278,230,1282,233,1269,249,1264,268,1265,286">
+<area shape="rect" id="node24"  alt="" coords="1311,99,1515,130">
+<area shape="poly" id="edge9"  alt="" coords="1545,195,1487,157,1452,138,1454,133,1489,152,1548,191">
+<area shape="poly" id="edge10"  alt="" coords="1802,196,1625,157,1504,134,1505,129,1626,152,1803,191">
+<area shape="poly" id="edge11"  alt="" coords="1094,191,1242,152,1338,130,1339,135,1243,157,1095,196">
+<area shape="poly" id="edge12"  alt="" coords="1329,191,1387,137,1391,141,1332,195">
+<area shape="poly" id="edge14"  alt="" coords="726,594,776,614,825,643,844,661,858,681,863,704,859,729,843,763,825,787,802,806,769,824,725,838,662,848,523,859,523,854,661,842,723,832,767,819,799,801,821,783,838,760,853,727,858,704,853,684,840,664,821,647,773,619,724,599">
+<area shape="rect" id="node23"  alt="" coords="557,473,781,503">
+<area shape="poly" id="edge42"  alt="" coords="677,567,670,516,676,516,682,566">
+<area shape="poly" id="edge43"  alt="" coords="694,595,712,623,727,658,739,706,746,747,744,766,739,785,729,804,712,823,700,833,681,840,634,852,523,862,523,856,633,846,680,835,697,828,709,819,724,801,734,783,739,765,740,747,734,707,721,660,707,625,690,598">
+<area shape="poly" id="edge13"  alt="" coords="645,476,548,419,551,414,648,471"></map>
+		</ul>
+
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#direct_associations_diagram">
+			<h4 class="panel-title">
+					Direct Associations Diagram <span class="glyphicon glyphicon-chevron-right"></span>
+			</h4>
+		</div>
+				<ul id="direct_associations_diagram" class="list-group panel-collapse collapse">
+			<img src="svaunit_pkg-svaunit_base_direct_associations.png" border="0" usemap="#_direct_associations_diagram" />
+			<map name="_direct_associations_diagram">
+<area shape="rect" id="node1" href="svaunit_pkg-svaunit_base.html"  alt="" coords="6,5,143,35"></map>
+		</ul>
+
+	</div>
+
+<!-- ========= Generated From ======= -->
+		<hr>Generated from: <a href="../../sv/svaunit_base.svh">svaunit_base.svh</a>
+
+
+	</div>
+
+	<div class="footer">
+		<hr><p class="text-center">Generated  on Wed Apr 29 10:13:53 EEST 2015 using <a href="http://www.dvteclipse.com/" target="_new">Specador<sup>TM</sup></a> Version 15.1.8</p>
+    </div>
+
+	<script src="lib/jquery/js/jquery.js"></script>
+	<script src="lib/jquery/js/jquery.scrollUp.js"></script>
+	<script src="lib/bootstrap/js/bootstrap.js"></script>
+	<script src="js/content.js"></script>
+	<script src="js/custom.js"></script>
+
+	</body>
+</html>
+
+

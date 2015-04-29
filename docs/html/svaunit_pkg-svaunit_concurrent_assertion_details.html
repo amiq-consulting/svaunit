@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>svaunit
+API Specification</title>
+
+	<meta name="author" content="">
+	<meta name="description" content="svaunit API Specification">
+	<meta name="generator" content="Specador. Copyright (C) 2005-2015 AMIQ EDA ">
+	<meta name="keywords" content="SystemVerilog, HTML Documentation, Specador, AMIQ EDA, svaunit API Specification">
+
+	<link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+	<link href="css/content.css" rel="stylesheet">
+	<link href="css/custom.css" rel="stylesheet">
+</head>
+<body>
+
+	<div class="container-fluid">
+<!-- ========= Title ======= -->
+<h2>class      		<a href="summary-svaunit_pkg.html">svaunit_pkg</a>
+:: svaunit_concurrent_assertion_details
+</h2>
+
+
+<!-- ========= Top Buttons ======= -->
+		<br>
+		<div class="btn-group">
+				
+	<button data-scroll=#constructor type="button" class="btn btn-default">Constructor <span class="badge">1</span></button>
+	<button data-scroll=#typedefs type="button" class="btn btn-default">Typedefs <span class="badge">1</span></button>
+	
+	
+	<button data-scroll=#variables type="button" class="btn btn-default">Variables <span class="badge">1</span></button>
+	
+	<button data-scroll=#functions type="button" class="btn btn-default">Functions <span class="badge">22</span></button>
+	
+
+	<button data-scroll=#inheritance_diagram type="button" class="btn btn-default">Inheritance Diagram</button>
+	<button data-scroll=#collaboration_diagram type="button" class="btn btn-default">Collaboration Diagram</button>
+	<button data-scroll=#direct_associations_diagram type="button" class="btn btn-default">Direct Associations Diagram</button>
+
+		</div>
+		<br><br>
+
+<!-- ========= Inheritance Tree ======= -->
+
+<!-- ========= Description ======= -->
+	<pre class="comment">SVA details class - it contains SVA start time, SVA end time, the states and the test where the SVA was tested<br></pre>
+
+<!-- ========= Parameters ======= -->
+
+<!-- ========= Constructor ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#constructor">
+			<h4 class="panel-title">
+					Constructor <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+					<ul id="constructor" class="list-group panel-collapse collapse in">
+					<li class="list-group-item">
+						<a name="constructor_new"></a>
+						<span class="signature">
+
+	 function 	
+
+	<b>		new
+</b>(	string
+name = "svaunit_concurrent_assertion_details")
+
+
+						</span>
+	<pre class="comment">Constructor for an svaunit_concurrent_assertion_details<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>name</b>   : instance name for svaunit_concurrent_assertion_details object<br></pre>
+
+					</li>
+			</ul>
+
+	</div>
+
+<!-- ========= Typedefs ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#typedefs">
+			<h4 class="panel-title">
+					Typedefs <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+					<ul id="typedefs" class="list-group panel-collapse collapse in">
+					<li class="list-group-item">
+						<a name="typedef_type_id"></a>
+						<span class="signature">
+
+	 <b>		type_id
+</b>
+
+		-> uvm_object_registry#(svaunit_concurrent_assertion_details, "svaunit_concurrent_assertion_details")
+	
+
+
+						</span>
+
+					</li>
+			</ul>
+
+	</div>
+
+<!-- ========= Structs ======= -->
+
+<!-- ========= Enums ======= -->
+
+<!-- ========= Variables ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#variables">
+			<h4 class="panel-title">
+					Variables <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+					<ul id="variables" class="list-group panel-collapse collapse in">
+					<li class="list-group-item">
+						<a name="variable_type_name"></a>
+						<span class="signature">
+
+const static 	string
+ <b>		type_name
+</b>
+
+
+						</span>
+
+					</li>
+			</ul>
+
+	</div>
+
+<!-- ========= Constraints ======= -->
+
+<!-- ========= Functions ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#functions">
+			<h4 class="panel-title">
+					Functions <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+					<ul id="functions" class="list-group panel-collapse collapse in">
+					<li class="list-group-item">
+						<a name="function___m_uvm_field_automation"></a>
+						<span class="signature">
+
+	 function 	void
+
+	<b>		__m_uvm_field_automation
+</b>(	uvm_object
+tmp_data__,
+	int
+what__,
+	string
+str__)
+
+
+						</span>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_add_sva_state"></a>
+						<span class="signature">
+
+	 function 	void
+
+	<b>		add_sva_state
+</b>(	<a href="svaunit_pkg-svaunit_concurrent_assertion_state_type.html">svaunit_concurrent_assertion_state_type</a>
+end_state)
+
+
+						</span>
+	<pre class="comment">Add end state for the current attempt of the assertion<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>end_state</b> : SVA state to be added<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_create"></a>
+						<span class="signature">
+
+	 function 	uvm_object
+
+	<b>		create
+</b>(	string
+name = "")
+
+
+						</span>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_create_new_detail"></a>
+						<span class="signature">
+
+	 function 	void
+
+	<b>		create_new_detail
+</b>(	string
+crt_test_name,
+	<a href="svaunit_pkg-svaunit_concurrent_assertion_state_type.html">svaunit_concurrent_assertion_state_type</a>
+sva_state,
+	time
+sva_time_start,
+	time
+sva_time_end)
+
+
+						</span>
+	<pre class="comment">Create new detail for an SVA<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>crt_test_name</b> : test name where this attempt was found<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>sva_state</b> : SVA state to be added<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>sva_time_start</b> : SVA start time to be added<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>sva_time_end</b> : SVA end time to be added<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_object_type"></a>
+						<span class="signature">
+
+	virtual  function 	uvm_object_wrapper
+
+	<b>		get_object_type
+</b>()
+
+
+						</span>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_sva_details"></a>
+						<span class="signature">
+
+	 function 	string
+
+	<b>		get_sva_details
+</b>(	string
+crt_test_name)
+
+
+						</span>
+	<pre class="comment">Print the SVA details for a given test name<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;a string with all SVA details<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>crt_test_name</b> : test name from where the user want's to print SVA info<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_sva_end_time"></a>
+						<span class="signature">
+
+	 function 	time
+
+	<b>		get_sva_end_time
+</b>()
+
+
+						</span>
+	<pre class="comment">Get the end time of the current SVA attempt<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the end time of the current SVA attempt<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_sva_first_state"></a>
+						<span class="signature">
+
+	 function 	<a href="svaunit_pkg-svaunit_concurrent_assertion_state_type.html">svaunit_concurrent_assertion_state_type</a>
+
+	<b>		get_sva_first_state
+</b>()
+
+
+						</span>
+	<pre class="comment">Get the first state of the current attempt of the SVA<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the first state of the current attempt of the SVA<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_sva_last_state"></a>
+						<span class="signature">
+
+	 function 	<a href="svaunit_pkg-svaunit_concurrent_assertion_state_type.html">svaunit_concurrent_assertion_state_type</a>
+
+	<b>		get_sva_last_state
+</b>()
+
+
+						</span>
+	<pre class="comment">Get the end state of the current attempt of the SVA<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the end state of the current attempt of the SVA<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_sva_start_time"></a>
+						<span class="signature">
+
+	 function 	time
+
+	<b>		get_sva_start_time
+</b>()
+
+
+						</span>
+	<pre class="comment">Get the start time of the current SVA attempt<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the start time of the current SVA attempt<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_type"></a>
+						<span class="signature">
+
+	static  function 	<a href="svaunit_pkg-svaunit_concurrent_assertion_details.html#typedef_type_id">type_id</a>
+
+	<b>		get_type
+</b>()
+
+
+						</span>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_type_name"></a>
+						<span class="signature">
+
+	virtual  function 	string
+
+	<b>		get_type_name
+</b>()
+
+
+						</span>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_set_sva_end_time"></a>
+						<span class="signature">
+
+	 function 	void
+
+	<b>		set_sva_end_time
+</b>(	time
+crt_sva_end_time)
+
+
+						</span>
+	<pre class="comment">Set end time for the current attempt of SVA
+*<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>crt_sva_end_time</b> : current end time<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_set_sva_start_time"></a>
+						<span class="signature">
+
+	 function 	void
+
+	<b>		set_sva_start_time
+</b>(	time
+crt_sva_start_time)
+
+
+						</span>
+	<pre class="comment">Set start time for the current attempt of SVA<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>crt_sva_start_time</b> : current start time<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_set_sva_test_name"></a>
+						<span class="signature">
+
+	 function 	void
+
+	<b>		set_sva_test_name
+</b>(	string
+crt_test_name)
+
+
+						</span>
+	<pre class="comment">Set test name for the current attempt of SVA<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>crt_test_name<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_sva_failed"></a>
+						<span class="signature">
+
+	 function 	bit
+
+	<b>		sva_failed
+</b>()
+
+
+						</span>
+	<pre class="comment">Verify if current SVA attempt has failed - one of it's state should be FAILURE<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;1 if SVA attempt has failed or 0 otherwise<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_sva_first_state_not_start"></a>
+						<span class="signature">
+
+	 function 	bit
+
+	<b>		sva_first_state_not_start
+</b>()
+
+
+						</span>
+	<pre class="comment">Verify if the first state is not START<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;1 if the first state of the current SVA attempt is not START or 0 otherwise<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_sva_has_started_but_has_not_finished"></a>
+						<span class="signature">
+
+	 function 	bit
+
+	<b>		sva_has_started_but_has_not_finished
+</b>()
+
+
+						</span>
+	<pre class="comment">Verify if current SVA attempt has started but has not finished<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;1 if SVA attempt has started but has not finished or 0 otherwise<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_sva_is_finished"></a>
+						<span class="signature">
+
+	 function 	bit
+
+	<b>		sva_is_finished
+</b>()
+
+
+						</span>
+	<pre class="comment">Verify if the current SVA attempt is finished<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;1 if SVA has finished and 0 otherwise<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_sva_is_not_finished"></a>
+						<span class="signature">
+
+	 function 	bit
+
+	<b>		sva_is_not_finished
+</b>()
+
+
+						</span>
+	<pre class="comment">Verify if the current SVA is not finished<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;1 if SVA has not finished and 0 otherwise<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_sva_started"></a>
+						<span class="signature">
+
+	 function 	bit
+
+	<b>		sva_started
+</b>()
+
+
+						</span>
+	<pre class="comment">Verify if current SVA attempt has started - the first state should be START<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;1 if SVA attempt has started or 0 otherwise<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_sva_succeeded"></a>
+						<span class="signature">
+
+	 function 	bit
+
+	<b>		sva_succeeded
+</b>()
+
+
+						</span>
+	<pre class="comment">Verify if current SVA attempt has succeeded - one of it's state should be SUCCESS<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;1 if SVA attempt has finished with success or 0 otherwise<br></pre>
+
+					</li>
+			</ul>
+
+	</div>
+
+<!-- ========= Tasks ======= -->
+
+<!-- ========= Diagrams ======= -->
+
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#inheritance_diagram">
+			<h4 class="panel-title">
+					Inheritance Diagram <span class="glyphicon glyphicon-chevron-right"></span>
+			</h4>
+		</div>
+				<ul id="inheritance_diagram" class="list-group panel-collapse collapse">
+			<img src="svaunit_pkg-svaunit_concurrent_assertion_details_inheritance.png" border="0" usemap="#_inheritance_diagram" />
+			<map name="_inheritance_diagram">
+<area shape="rect" id="node1" href="svaunit_pkg-svaunit_concurrent_assertion_details.html"  alt="" coords="384,5,752,35">
+<area shape="rect" id="node2"  alt="" coords="185,5,303,35">
+<area shape="poly" id="edge1"  alt="" coords="384,23,317,23,317,17,384,17">
+<area shape="rect" id="node3"  alt="" coords="5,5,104,35">
+<area shape="poly" id="edge2"  alt="" coords="185,23,118,23,118,17,185,17"></map>
+		</ul>
+
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#collaboration_diagram">
+			<h4 class="panel-title">
+					Collaboration Diagram <span class="glyphicon glyphicon-chevron-right"></span>
+			</h4>
+		</div>
+				<ul id="collaboration_diagram" class="list-group panel-collapse collapse">
+			<img src="svaunit_pkg-svaunit_concurrent_assertion_details_collaboration.png" border="0" usemap="#_collaboration_diagram" />
+			<map name="_collaboration_diagram">
+<area shape="rect" id="node1" href="svaunit_pkg-svaunit_concurrent_assertion_details.html"  alt="" coords="225,379,593,410">
+<area shape="rect" id="node2"  alt="" coords="350,286,469,317">
+<area shape="poly" id="edge1"  alt="" coords="407,380,407,330,412,330,412,380">
+<area shape="rect" id="node3"  alt="" coords="5,193,104,223">
+<area shape="poly" id="edge2"  alt="" coords="350,303,278,300,199,294,127,283,98,274,77,263,66,251,59,237,63,235,70,248,80,259,100,269,128,277,199,289,279,295,350,297">
+<area shape="rect" id="node4"  alt="" coords="355,193,570,223">
+<area shape="poly" id="edge4"  alt="" coords="350,301,269,297,187,288,152,281,127,273,113,262,112,254,117,246,146,234,201,225,341,212,342,218,201,230,147,239,120,250,118,255,118,259,129,268,154,276,187,283,270,291,350,296">
+<area shape="poly" id="edge5"  alt="" coords="391,225,374,235,360,249,357,256,358,263,371,277,367,281,353,265,352,256,355,247,370,231,389,220">
+<area shape="rect" id="node5"  alt="" coords="386,6,553,37">
+<area shape="poly" id="edge6"  alt="" coords="461,193,466,50,471,50,466,193">
+<area shape="poly" id="edge7"  alt="" coords="458,224,436,263,427,276,423,274,431,260,453,221">
+<area shape="rect" id="node6"  alt="" coords="141,99,278,130">
+<area shape="poly" id="edge8"  alt="" coords="355,197,312,186,271,170,249,157,230,141,233,137,252,153,273,166,314,181,356,192">
+<area shape="rect" id="node8"  alt="" coords="302,99,421,130">
+<area shape="poly" id="edge11"  alt="" coords="410,196,390,185,373,170,361,144,366,142,377,166,393,180,413,191">
+<area shape="rect" id="node9"  alt="" coords="562,99,699,130">
+<area shape="poly" id="edge13"  alt="" coords="486,191,557,152,592,134,595,138,560,157,489,196">
+<area shape="rect" id="node10"  alt="" coords="724,99,852,130">
+<area shape="poly" id="edge15"  alt="" coords="540,191,649,165,743,132,745,137,650,171,541,196">
+<area shape="poly" id="edge18"  alt="" coords="529,220,546,227,560,237,566,249,561,263,549,273,530,280,483,292,482,287,528,275,546,268,557,260,561,249,556,240,544,232,527,225">
+<area shape="rect" id="node7"  alt="" coords="71,6,209,37">
+<area shape="poly" id="edge9"  alt="" coords="169,102,152,91,139,76,134,63,133,50,138,49,139,62,144,73,156,87,172,98">
+<area shape="poly" id="edge10"  alt="" coords="228,98,261,78,300,59,376,36,377,42,302,64,264,82,231,102">
+<area shape="poly" id="edge12"  alt="" coords="361,99,368,79,381,59,408,40,411,44,385,63,373,81,366,101">
+<area shape="poly" id="edge3"  alt="" coords="693,127,744,140,772,153,782,168,786,184,785,198,781,213,762,239,735,264,716,274,690,282,625,294,551,300,482,302,482,297,551,294,624,288,689,277,714,269,732,259,758,236,776,210,780,197,781,184,777,171,769,157,742,145,692,132">
+<area shape="poly" id="edge14"  alt="" coords="605,102,560,77,504,45,506,40,563,72,608,97">
+<area shape="rect" id="node11"  alt="" coords="695,6,881,37">
+<area shape="poly" id="edge16"  alt="" coords="785,100,785,50,791,50,791,100">
+<area shape="poly" id="edge17"  alt="" coords="749,102,629,64,542,42,543,37,630,59,751,97"></map>
+		</ul>
+
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#direct_associations_diagram">
+			<h4 class="panel-title">
+					Direct Associations Diagram <span class="glyphicon glyphicon-chevron-right"></span>
+			</h4>
+		</div>
+				<ul id="direct_associations_diagram" class="list-group panel-collapse collapse">
+			<img src="svaunit_pkg-svaunit_concurrent_assertion_details_direct_associations.png" border="0" usemap="#_direct_associations_diagram" />
+			<map name="_direct_associations_diagram">
+<area shape="rect" id="node1" href="svaunit_pkg-svaunit_concurrent_assertion_details.html"  alt="" coords="5,5,373,35"></map>
+		</ul>
+
+	</div>
+
+<!-- ========= Generated From ======= -->
+		<hr>Generated from: <a href="../../sv/svaunit_concurrent_assertion_details.svh">svaunit_concurrent_assertion_details.svh</a>
+
+
+	</div>
+
+	<div class="footer">
+		<hr><p class="text-center">Generated  on Wed Apr 29 10:13:53 EEST 2015 using <a href="http://www.dvteclipse.com/" target="_new">Specador<sup>TM</sup></a> Version 15.1.8</p>
+    </div>
+
+	<script src="lib/jquery/js/jquery.js"></script>
+	<script src="lib/jquery/js/jquery.scrollUp.js"></script>
+	<script src="lib/bootstrap/js/bootstrap.js"></script>
+	<script src="js/content.js"></script>
+	<script src="js/custom.js"></script>
+
+	</body>
+</html>
+
+
