@@ -89,8 +89,9 @@ class protocol_ut13#(int unsigned MAXIM_LOW_TIME = 10, int unsigned MAX_LOW_TIME
         @(posedge  apb_vif.clk);
         apb_vif.slverr  =  1'b1;
         @(posedge  apb_vif.clk);
-
-        fail_if_sva_succeeded("AMIQ_APB_ILLEGAL_SLVERR_ASSERTION_TIME_ERR", "The assertion should have succeeded");
+        @(posedge  apb_vif.clk);
+        
+        @(posedge  apb_vif.clk);
 
         for(int i = 0; i < 3; i++) begin
             @(posedge  apb_vif.clk);
@@ -105,11 +106,12 @@ class protocol_ut13#(int unsigned MAXIM_LOW_TIME = 10, int unsigned MAX_LOW_TIME
         @(posedge  apb_vif.clk);
         apb_vif.slverr  =  1'b0;
         @(posedge  apb_vif.clk);
+        fail_if_sva_succeeded("AMIQ_APB_ILLEGAL_SLVERR_ASSERTION_TIME_ERR", "The assertion should have succeeded");
 
 
         for(int i = 0; i < 3; i++) begin
             @(posedge  apb_vif.clk);
-            fail_if_sva_not_succeeded("AMIQ_APB_ILLEGAL_SLVERR_ASSERTION_TIME_ERR", "The assertion should have succeeded");
+            fail_if_sva_not_succeeded("AMIQ_APB_ILLEGAL_SLVERR_ASSERTION_TIME_ERR", "The assertion should have failed");
         end
 
         @(posedge  apb_vif.clk);

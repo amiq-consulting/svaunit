@@ -92,6 +92,7 @@ class protocol_ts extends svaunit_test_suite;
         add_test(protocol_test8);
         add_test(protocol_test9);
         add_test(protocol_test10);
+        add_test(protocol_test12);
         add_test(protocol_test13);
         add_test(protocol_test14);
         for(int i = 0; i < nof_tests; i++) begin

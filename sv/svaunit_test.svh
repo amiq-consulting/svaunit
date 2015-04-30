@@ -1216,48 +1216,38 @@ virtual class svaunit_test extends svaunit_base;
 
     // Will start the unit test and will start the timeout mechanism
     virtual task start_ut();
-        // Variable used to store the process associated with timeout mechanism
-        process timeout_p;
-
-        // Variable used to store the process associated with test
-        process test_p;
-
-        // Variable used to store the process associated with stop mechanism
-        process stop_p;
-
         if(enable == 1) begin
             fork
                 begin
-                    test_p = process::self();
-
-                    set_test_name_vpi(get_test_name());
-                    pre_test();
-                    test();
-                    post_test();
-                    pass_assertion();
-
-                    timeout_p.kill();
-                    stop_p.kill();
+                    // Variable used to store the process id for test task
+                    process simulate_test;
+                    fork
+                        begin
+                            simulate_test = process::self();
+                            fork
+                                begin
+                                    set_test_name_vpi(get_test_name());
+                                    pre_test();
+                                    test();
+                                    post_test();
+                                    pass_assertion();
+                                end
+                                begin
+                                    #timeout;
+                                    `uvm_error("SVAUNIT_TIMEOUT_ERR", "Max simulation timeout reached!")
+                                end
+                                begin
+                                    while(stop == 0) begin
+                                        #1;
+                                    end
+                                end
+                            join_any
+                        end
+                    join
+                    disable fork;
+                    simulate_test.kill();
                 end
-                begin
-                    timeout_p = process::self();
-
-                    #timeout;
-                    `uvm_error("SVAUNIT_TIMEOUT_ERR", "Max simulation timeout reached!")
-                    test_p.kill();
-                    stop_p.kill();
-                end
-                begin
-                    stop_p = process::self();
-
-                    while(stop == 0) begin
-                        #1;
-                    end
-
-                    test_p.kill();
-                    timeout_p.kill();
-                end
-            join_any
+            join
         end
     endtask
 
@@ -1284,8 +1274,20 @@ virtual class svaunit_test extends svaunit_base;
             if(enable == 1) begin
                 start_test();
                 set_test_name_vpi(get_test_name());
-                start_ut();
-                pass_assertion();
+                fork
+                    begin
+                        // Variable used to store the process id for start_up task
+                        process start_ut_p;
+                        fork
+                            begin
+                                start_ut_p = process::self();
+                                start_ut();
+                                disable fork;
+                            end
+                        join
+                        start_ut_p.kill();
+                    end
+                join
                 update_status();
                 print_report();
             end

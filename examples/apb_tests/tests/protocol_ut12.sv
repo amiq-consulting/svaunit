@@ -91,7 +91,7 @@ class protocol_ut12#(int unsigned MAXIM_LOW_TIME = 10) extends svaunit_test;
         apb_vif.rdata  =    '0;
         @(posedge  apb_vif.clk);
         @(posedge  apb_vif.clk);
-        fail_if_sva_succeeded("AMIQ_APB_ILLEGAL_RDATA_TRANSITION_DURING_TRANSFER_ERR", "The assertion should have succeeded");
+        fail_if_sva_not_succeeded("AMIQ_APB_ILLEGAL_RDATA_TRANSITION_DURING_TRANSFER_ERR", "The assertion should have succeeded");
         @(posedge  apb_vif.clk);
         @(posedge  apb_vif.clk);
         @(posedge  apb_vif.clk);

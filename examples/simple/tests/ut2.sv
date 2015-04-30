@@ -63,6 +63,7 @@ class ut2#(int unsigned A_PARAM = 10) extends svaunit_test;
         `uvm_info(get_test_name(), "START RUN PHASE", UVM_LOW)
 
         disable_all_assertions();
+        @(posedge vif.clk);
         enable_assertion("AN_SVA");
 
         repeat(2) @(posedge vif.clk);

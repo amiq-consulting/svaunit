@@ -28,28 +28,24 @@
 module top;
     // Enable SVAUNIT
     `SVAUNIT_UTILS
-    
+
     import simple_pkg::*;
-    
+
     // an_interface clock
     reg clock;
 
     // an_interface instance
     an_interface an_if(.clk(clock));
-
+    
     initial begin
+        // Set clock initial values
+        clock = 1'b0;
+        
         // Register a reference to the virtual interface to config_db
         uvm_config_db#(virtual an_interface)::set(uvm_root::get(), "*", "VIF", an_if);
-    end
 
-    initial begin
         // Start test specified with UVM_TESTNAME
         run_test();
-    end
-
-    // Set clock initial values
-    initial begin
-        clock = 1'b0;
     end
 
     // Clock generation

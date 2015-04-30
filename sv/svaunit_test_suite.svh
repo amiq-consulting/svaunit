@@ -375,40 +375,40 @@ virtual class svaunit_test_suite extends svaunit_test;
 
     // Will start the test suite
     task start_ut();
-        // Variable used to store the process associated with test
-        process test_p;
-
-        // Variable used to store the process associated with stop mechanism
-        process stop_p;
-
         if(enable == 1) begin
             fork
                 begin
-                    test_p = process::self();
+                    // Variable used to store the process id for test task
+                    process simulate_test_suite;
+                    fork
+                        begin
+                            simulate_test_suite = process::self();
+                            fork
+                                begin
+                                    // Run tests
+                                    foreach(lof_tests[test_index]) begin
+                                        if(((stop == 0) && (continue_driving == 0)) || (continue_driving == 1)) begin
+                                            lof_tests[test_index].start_test();
+                                            lof_tests[test_index].set_test_name_vpi(lof_tests[test_index].get_test_name());
+                                            lof_tests[test_index].start_ut();
+                                            stop = lof_tests[test_index].get_stop();
+                                        end
+                                    end
+                                end
 
-                    // Run tests
-                    foreach(lof_tests[test_index]) begin
-                        if(((stop == 0) && (continue_driving == 0)) || (continue_driving == 1)) begin
-                            lof_tests[test_index].start_test();
-                            lof_tests[test_index].set_test_name_vpi(lof_tests[test_index].get_test_name());
-                            lof_tests[test_index].start_ut();
-                            stop = lof_tests[test_index].get_stop();
+                                begin
+                                    while(((stop == 0) && (continue_driving == 0)) || (continue_driving == 1)) begin
+                                        #1;
+                                    end
+                                end
+                            join_any
                         end
-                    end
-
-                    stop_p.kill();
+                    join
+                    disable fork;
+                    simulate_test_suite.kill();
                 end
+            join
 
-                begin
-                    stop_p = process::self();
-
-                    while(((stop == 0) && (continue_driving == 0)) || (continue_driving == 1)) begin
-                        #1;
-                    end
-
-                    test_p.kill();
-                end
-            join_any
 
             // Update status
             update_status();
@@ -434,14 +434,27 @@ virtual class svaunit_test_suite extends svaunit_test;
                 pre_run();
 
                 // Run test body of this test suite
-                start_ut();
+                fork
+                    begin
+                        // Variable used to store the process id for start_up task
+                        process start_ut_p;
+                        fork
+                            begin
+                                start_ut_p = process::self();
+                                start_ut();
+                                disable fork;
+                            end
+                        join
+                        start_ut_p.kill();
+                    end
+                join
 
                 post_run();
             end
         end
     endtask
     // }}}
-
+    
     // {{{ Reports
     /* Get status as a string
      * @return represents the status to be printed
