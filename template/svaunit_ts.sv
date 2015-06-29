@@ -18,18 +18,15 @@
  * Description: SVAUnit test suite template
  *******************************************************************************/
 
-`ifndef __SVAUNIT_TS_SV
-//protection against multiple includes
-`define __SVAUNIT_TS_SV
+`ifndef ____IF_SVAUNIT___TS_SV
+`define ____IF_SVAUNIT___TS_SV
 
-`include  "src_svaunit/svaunit_pkg.sv"
+`include  "sv/svaunit_pkg.sv"
 import svaunit_pkg::*;
 
 // Unit test suite for those tests which verify after reset SVA
 class svaunit_ts extends svaunit_test_suite;
     `uvm_component_utils(svaunit_ts)
-
-    // TODO : add unit test instances
 
     /* Constructor for svaunit_ts
      * @param name   : instance name for svaunit_ts object
@@ -45,9 +42,7 @@ class svaunit_ts extends svaunit_test_suite;
     function void build_phase(input uvm_phase phase);
         super.build_phase(phase);
 
-        // TODO: Create and instantiate unit tests
-
-        // TODO : Register unit tests to test suite using add_test(test) method
+        // TODO : Register unit tests or sequences to test suite using `add_test(test_or_seq_type) macro
     endfunction
 endclass
 

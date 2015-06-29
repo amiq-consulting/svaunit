@@ -15,49 +15,61 @@
  *
  * NAME:        svaunit_pkg.sv
  * PROJECT:     svaunit
- * Description: SVA UNIT PACKAGE
+ * Description: SVAUnit PACKAGE
  *******************************************************************************/
 
-`ifndef __SVAUNIT_PKG_SV
-//protection against multiple includes
-`define __SVAUNIT_PKG_SV
+`ifndef SVAUNIT_PKG_SV
+`define SVAUNIT_PKG_SV
 
 package svaunit_pkg;
-    // UVM package
-    import uvm_pkg::*;
+   // UVM package
+   import uvm_pkg::*;
 
-    // Defines UVM macros
-    `include  "uvm_macros.svh"
+// Defines UVM macros
+`include  "uvm_macros.svh"
 
-    // Define SVAUNIT reporter
-    `include  "svaunit_reporter.svh"
+// Define SVAUnit reporter
+`include  "svaunit_reporter.svh"
 
-    // Definitions of SVAUNIT macros
-    `include  "svaunit_defines.svh"
+// Definitions of SVAUnit macros
+`include  "svaunit_defines.svh"
 
-    // Definitions of SVAUNIT types
-    `include  "svaunit_types.svh"
+// Definitions of SVAUnit versions macros
+`include  "svaunit_version_defines.svh"
 
-    // Definition of immediate assertion details
-    `include  "svaunit_concurrent_assertion_details.svh"
+// Definitions of SVAUnit types
+`include  "svaunit_types.svh"
 
-    // Definition of immediate assertion info
-    `include  "svaunit_concurrent_assertion_info.svh"
+// Definition of immediate assertion details
+`include  "svaunit_concurrent_assertion_details.svh"
 
-    // Definition of SVA details
-    `include  "svaunit_immediate_assertion_details.svh"
+// Definition of immediate assertion info
+`include  "svaunit_concurrent_assertion_info.svh"
 
-    // Definition of SVA info
-    `include  "svaunit_immediate_assertion_info.svh"
+// Definition of SVA details
+`include  "svaunit_immediate_assertion_details.svh"
 
-    // Definition of SVAUNIT base class
-    `include  "svaunit_base.svh"
+// Definition of SVA info
+`include  "svaunit_immediate_assertion_info.svh"
 
-    // Definition of SVAUNIT test class
-    `include  "svaunit_test.svh"
+// Definition of SVAUnit VPI wrapper class
+`include  "svaunit_vpi_wrapper.svh"
 
-    // Definition of SVAUNIT test suite class
-    `include  "svaunit_test_suite.svh"
+// Definition of SVAUnit base class
+`include  "svaunit_base.svh"
+
+// Definition of SVAUnit virtual sequencer class and definition of SVAUnit base sequence class
+`include  "svaunit_sequence.svh"
+
+// Definition of SVAUnit test class
+`include  "svaunit_test.svh"
+
+// Definition of SVAUnit test class which starts a sequence
+`include  "svaunit_sequence_test.svh"
+
+// Definition of SVAUnit test suite class
+`include  "svaunit_test_suite.svh"
+
 endpackage
 
 `endif

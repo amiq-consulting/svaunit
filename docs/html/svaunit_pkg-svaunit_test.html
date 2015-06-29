@@ -31,13 +31,13 @@ API Specification</title>
 		<div class="btn-group">
 				
 	<button data-scroll=#constructor type="button" class="btn btn-default">Constructor <span class="badge">1</span></button>
+	<button data-scroll=#typedefs type="button" class="btn btn-default">Typedefs <span class="badge">1</span></button>
 	
 	
+	<button data-scroll=#variables type="button" class="btn btn-default">Variables <span class="badge">2</span></button>
 	
-	<button data-scroll=#variables type="button" class="btn btn-default">Variables <span class="badge">5</span></button>
-	
-	<button data-scroll=#functions type="button" class="btn btn-default">Functions <span class="badge">69</span></button>
-	<button data-scroll=#tasks type="button" class="btn btn-default">Tasks <span class="badge">5</span></button>
+	<button data-scroll=#functions type="button" class="btn btn-default">Functions <span class="badge">26</span></button>
+	<button data-scroll=#tasks type="button" class="btn btn-default">Tasks <span class="badge">3</span></button>
 
 	<button data-scroll=#inheritance_diagram type="button" class="btn btn-default">Inheritance Diagram</button>
 	<button data-scroll=#collaboration_diagram type="button" class="btn btn-default">Collaboration Diagram</button>
@@ -106,6 +106,30 @@ parent)
 	</div>
 
 <!-- ========= Typedefs ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#typedefs">
+			<h4 class="panel-title">
+					Typedefs <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+					<ul id="typedefs" class="list-group panel-collapse collapse in">
+					<li class="list-group-item">
+						<a name="typedef_type_id"></a>
+						<span class="signature">
+
+	 <b>		type_id
+</b>
+
+		-> uvm_component_registry#(svaunit_test, "svaunit_test")
+	
+
+
+						</span>
+
+					</li>
+			</ul>
+
+	</div>
 
 <!-- ========= Structs ======= -->
 
@@ -120,68 +144,28 @@ parent)
 		</div>
 					<ul id="variables" class="list-group panel-collapse collapse in">
 					<li class="list-group-item">
-						<a name="variable_immediate_assertions"></a>
+						<a name="variable_sequencer"></a>
 						<span class="signature">
 
-	<a href="svaunit_pkg-svaunit_immediate_assertion_info.html">svaunit_immediate_assertion_info</a> [$]
- <b>		immediate_assertions
+	<a href="svaunit_pkg-svaunit_sequencer.html">svaunit_sequencer</a>
+ <b>		sequencer
 </b>
 
 
 						</span>
-	<pre class="comment">List of immediate assertions tested during a specific test<br></pre>
+	<pre class="comment">Virtual sequencer<br></pre>
 
 					</li>
 					<li class="list-group-item">
-						<a name="variable_index"></a>
+						<a name="variable_type_name"></a>
 						<span class="signature">
 
-	int
- <b>		index
+const static 	string
+ <b>		type_name
 </b>
 
 
 						</span>
-	<pre class="comment">{{{ Functions used to find out SVA properties<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="variable_lof_all_immediate_assertions"></a>
-						<span class="signature">
-
-const 	string []
- <b>		lof_all_immediate_assertions
-</b>
-
-
-						</span>
-	<pre class="comment">List of string which represents all the immediate assertions which can be tested<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="variable_timeout"></a>
-						<span class="signature">
-
-	time
- <b>		timeout
-</b>
-
-
-						</span>
-	<pre class="comment">Timeout variable - the test will finished if time reaches this timeout<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="variable_vpi_vif"></a>
-						<span class="signature">
-
-	<a href="work_svaunit_vpi_interface.html">virtual interface svaunit_vpi_interface</a>
- <b>		vpi_vif
-</b>
-
-
-						</span>
-	<pre class="comment">Pointer to VPI interface with SVAs, imports and exports to VPI API<br></pre>
 
 					</li>
 			</ul>
@@ -199,14 +183,10 @@ const 	string []
 
 </b></p>
 					<a href="svaunit_pkg-svaunit_base.html#variable_enable">enable</a>
-, 	<a href="svaunit_pkg-svaunit_base.html#variable_has_started">has_started</a>
-, 	<a href="svaunit_pkg-svaunit_base.html#variable_nof_failures">nof_failures</a>
-, 	<a href="svaunit_pkg-svaunit_base.html#variable_nof_tests">nof_tests</a>
-, 	<a href="svaunit_pkg-svaunit_base.html#variable_status">status</a>
-, 	<a href="svaunit_pkg-svaunit_base.html#variable_stop">stop</a>
-, 	<a href="svaunit_pkg-svaunit_base.html#variable_test_name">test_name</a>
-, 	<a href="svaunit_pkg-svaunit_base.html#variable_test_type">test_type</a>
-, 	<a href="svaunit_pkg-svaunit_base.html#variable_type_name">type_name</a>
+, 	<a href="svaunit_pkg-svaunit_base.html#variable_lof_checks">lof_checks</a>
+, 	<a href="svaunit_pkg-svaunit_base.html#variable_sequence_name">sequence_name</a>
+, 	<a href="svaunit_pkg-svaunit_base.html#variable_stop_test">stop_test</a>
+, 	<a href="svaunit_pkg-svaunit_base.html#variable_vpiw">vpiw</a>
 
 			</li>
 	</ul>
@@ -239,68 +219,6 @@ phase)
 
 					</li>
 					<li class="list-group-item">
-						<a name="function_disable_all_assertions"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		disable_all_assertions
-</b>()
-
-
-						</span>
-	<pre class="comment">Will disable the starting of any new attempt for all SVAs
-(this will have no effect on any existing attempts or if SVA was already disable; on default all SVAs are enable)<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_disable_assertion"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		disable_assertion
-</b>(	string
-assertion_name)
-
-
-						</span>
-	<pre class="comment">Will disable the starting of any new attempt for a given SVA
-(this will have no effect on any existing attempts or if SVA was already disable; on default all SVAs are enable)<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>assertion_name</b> : assertion name to be found in SVA list<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_disable_step_all_assertions"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		disable_step_all_assertions
-</b>()
-
-
-						</span>
-	<pre class="comment">Will disable step callback for all SVAs
-(this will have no effect if step callback is not enabled or it was already disabled)<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_disable_step_assertion"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		disable_step_assertion
-</b>(	string
-assertion_name)
-
-
-						</span>
-	<pre class="comment">Will disable step callback for a given SVA
-(this will have no effect if step callback is not enabled or it was already disabled)<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>assertion_name</b> : assertion name to be found in SVA list<br></pre>
-
-					</li>
-					<li class="list-group-item">
 						<a name="function_disable_test"></a>
 						<span class="signature">
 
@@ -312,68 +230,6 @@ assertion_name)
 
 						</span>
 	<pre class="comment">Disable test to be tested<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_enable_all_assertions"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		enable_all_assertions
-</b>()
-
-
-						</span>
-	<pre class="comment">Will enable starting any new attempts for all SVAs
-(this will have no effect if SVA was already enable or on any current attempt)<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_enable_assertion"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		enable_assertion
-</b>(	string
-assertion_name)
-
-
-						</span>
-	<pre class="comment">Will enable starting any new attempts for a given SVA
-(this will have no effect if SVA was already enable or on any current attempt)<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>assertion_name</b> : assertion name to be found in SVA list<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_enable_step_all_assertions"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		enable_step_all_assertions
-</b>()
-
-
-						</span>
-	<pre class="comment">Will enable step callback for all SVAs
-(by default, stepping is disabled; this will have no effect if stepping was already enabled; the stepping mode cannot be modified after the assertion attempt has started)<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_enable_step_assertion"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		enable_step_assertion
-</b>(	string
-assertion_name)
-
-
-						</span>
-	<pre class="comment">Will enable step callback for a given SVA
-(by default, stepping is disabled; this will have no effect if stepping was already enabled; the stepping mode cannot be modified after the assertion attempt has started)<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>assertion_name</b> : assertion name to be found in SVA list<br></pre>
 
 					</li>
 					<li class="list-group-item">
@@ -391,210 +247,6 @@ assertion_name)
 
 					</li>
 					<li class="list-group-item">
-						<a name="function_fail_if"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		fail_if
-</b>(	bit
-expression,
-	string
-error_msg = "Default message",
-	int unsigned
-line = 0,
-	string
-filename = "")
-
-
-						</span>
-	<pre class="comment">Verify if the expression is FALSE - the test will fail if the expression is FALSE<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>expression</b> : the expression to be checked<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>filename</b> : the file name where the check is exercised<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_fail_if_all_sva_succeeded"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		fail_if_all_sva_succeeded
-</b>(	string
-error_msg)
-
-
-						</span>
-	<pre class="comment">Verify if all SVAs succeeded - the test will fail if all SVA succeeded<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_fail_if_sva_does_not_exists"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		fail_if_sva_does_not_exists
-</b>(	string
-assertion_name,
-	string
-error_msg = "Default message",
-	int unsigned
-line = 0,
-	string
-filename = "")
-
-
-						</span>
-	<pre class="comment">Verify if a given SVA is exists - the test will fail if SVA is does not exists<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>assertion_name</b> : assertion name to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>filename</b> : the file name where the check is exercised<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_fail_if_sva_enabled"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		fail_if_sva_enabled
-</b>(	string
-assertion_name,
-	string
-error_msg = "Default message",
-	int unsigned
-line = 0,
-	string
-filename = "")
-
-
-						</span>
-	<pre class="comment">Verify if a given SVA is enabled - the test will fail if SVA is enable<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>assertion_name</b> : assertion name to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>filename</b> : the file name where the check is exercised<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_fail_if_sva_finished"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		fail_if_sva_finished
-</b>(	string
-assertion_name,
-	string
-error_msg = "Default message",
-	int unsigned
-line = 0,
-	string
-filename = "")
-
-
-						</span>
-	<pre class="comment">Verify if a given SVA finished - the test will fail if the assertion finished<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>assertion_name</b> : assertion name to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>filename</b> : the file name where the check is exercised<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_fail_if_sva_not_finished"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		fail_if_sva_not_finished
-</b>(	string
-assertion_name,
-	string
-error_msg = "Default message",
-	int unsigned
-line = 0,
-	string
-filename = "")
-
-
-						</span>
-	<pre class="comment">Verify if a given SVA didn't finished - the test will fail if the assertion didn't finished<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>assertion_name</b> : assertion name to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>filename</b> : the file name where the check is exercised<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_fail_if_sva_not_started"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		fail_if_sva_not_started
-</b>(	string
-assertion_name,
-	string
-error_msg = "Default message",
-	int unsigned
-line = 0,
-	string
-filename = "")
-
-
-						</span>
-	<pre class="comment">Verify if a given SVA didn't started - the test will fail if the assertion didn't started<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>assertion_name</b> : assertion name to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>filename</b> : the file name where the check is exercised<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_fail_if_sva_not_succeeded"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		fail_if_sva_not_succeeded
-</b>(	string
-assertion_name,
-	string
-error_msg = "Default message",
-	int unsigned
-line = 0,
-	string
-filename = "")
-
-
-						</span>
-	<pre class="comment">Verify if a given SVA didn't succeeded (the assertion should have failed) - the test will fail if the assertion didn't succeeded<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>assertion_name</b> : assertion name to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>filename</b> : the file name where the check is exercised<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_fail_if_sva_started_but_not_finished"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		fail_if_sva_started_but_not_finished
-</b>(	string
-assertion_name,
-	string
-error_msg = "Default message",
-	int unsigned
-line = 0,
-	string
-filename = "")
-
-
-						</span>
-	<pre class="comment">Verify if a given SVA didn't finished  but the first state is START - the test will fail if the assertion didn't finished but the first state is START<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>assertion_name</b> : assertion name to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>filename</b> : the file name where the check is exercised<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_fail_if_sva_succeeded"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		fail_if_sva_succeeded
-</b>(	string
-assertion_name,
-	string
-error_msg = "Default message",
-	int unsigned
-line = 0,
-	string
-filename = "")
-
-
-						</span>
-	<pre class="comment">Verify if a given SVA succeeded - the test will fail if SVA succeeded<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>assertion_name</b> : assertion name to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>filename</b> : the file name where the check is exercised<br></pre>
-
-					</li>
-					<li class="list-group-item">
 						<a name="function_form_tree"></a>
 						<span class="signature">
 
@@ -602,65 +254,35 @@ filename = "")
 
 	<b>		form_tree
 </b>(	int
-num)
+a_level)
 
 
 						</span>
-	<pre class="comment">Form the tree from test-suites names and tests name<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;a string representing the tree<br></pre>
+	<pre class="comment">Form the test topology as a tree<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;a string representing the tree<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_level</b> : the level where the test is created<br></pre>
 
 					</li>
 					<li class="list-group-item">
-						<a name="function_get_immediate_assertion"></a>
+						<a name="function_get_checks"></a>
 						<span class="signature">
 
-	 function 	<a href="svaunit_pkg-svaunit_immediate_assertion_info.html">svaunit_immediate_assertion_info</a>
+	virtual  function 	void
 
-	<b>		get_immediate_assertion
-</b>(	string
-sva_name)
+	<b>		get_checks
+</b>(			ref 	<a href="svaunit_pkg-svaunit_immediate_assertion_info.html">svaunit_immediate_assertion_info</a> [$]
+a_checks)
 
 
 						</span>
-	<pre class="comment">Get the immediate assertion info which corresponds to a given SVA<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the immediate assertion info which corresponds to a given SVA<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>sva_name</b> : a string represents the SVA name used to select the immediate assertion<br></pre>
+	<pre class="comment">Get a list with all immediate assertions tested into tests<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_checks</b> : a list with all immediate assertions tested<br></pre>
 
 					</li>
 					<li class="list-group-item">
-						<a name="function_get_immediate_assertion_names"></a>
+						<a name="function_get_checks_for_sva"></a>
 						<span class="signature">
 
-	 function 	void
+	virtual  function 	string
 
-	<b>		get_immediate_assertion_names
-</b>(			ref 	string [$]
-immediate_assertions_names)
-
-
-						</span>
-	<pre class="comment">Get a list with names for all immediate assertion used<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>the</b> string list which contains the name of the checks used in this unit test<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_get_immediate_assertion_not_used_names"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		get_immediate_assertion_not_used_names
-</b>(			ref 	string [$]
-immediate_assertions_names)
-
-
-						</span>
-	<pre class="comment">Get a list with names for all immediate assertion used which were not used<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>the</b> string list which contains the name of the checks not used in this unit test<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_get_immediate_assertion_sva"></a>
-						<span class="signature">
-
-	 function 	string
-
-	<b>		get_immediate_assertion_sva
+	<b>		get_checks_for_sva
 </b>()
 
 
@@ -669,17 +291,46 @@ immediate_assertions_names)
 
 					</li>
 					<li class="list-group-item">
+						<a name="function_get_checks_names"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		get_checks_names
+</b>(			ref 	string [$]
+a_lof_used_checks)
+
+
+						</span>
+	<pre class="comment">Get a list with names for all immediate assertion used<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_lof_used_checks</b> : the string list which contains the name of the checks used in this unit test<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_nof_checks"></a>
+						<span class="signature">
+
+	virtual  function 	int unsigned
+
+	<b>		get_nof_checks
+</b>()
+
+
+						</span>
+	<pre class="comment">Get immediate assertions from all tests<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the total number of immediate assertions<br></pre>
+
+					</li>
+					<li class="list-group-item">
 						<a name="function_get_nof_sva"></a>
 						<span class="signature">
 
-	 function 	int unsigned
+	virtual  function 	int unsigned
 
 	<b>		get_nof_sva
 </b>()
 
 
 						</span>
-	<pre class="comment">Get the total number of SVAs<br></pre>
+	<pre class="comment">Get the total number of SVAs<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the total number of SVAs<br></pre>
 
 					</li>
 					<li class="list-group-item">
@@ -697,78 +348,46 @@ immediate_assertions_names)
 
 					</li>
 					<li class="list-group-item">
-						<a name="function_get_nof_times_assertion_failed"></a>
+						<a name="function_get_nof_times_check_has_passed"></a>
 						<span class="signature">
 
-	 function 	int
+	virtual  function 	int unsigned
 
-	<b>		get_nof_times_assertion_failed
-</b>(	string
-assertion_name)
+	<b>		get_nof_times_check_has_passed
+</b>(			ref 	string
+a_check_name)
 
 
 						</span>
-	<pre class="comment">Compute the number of times an SVA with a given name failed<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the number of times an assertion failed<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>assertion_name</b> : assertion name to be found in SVA list<br></pre>
+	<pre class="comment">Get the number of times an SVAUnit check passed during simulation<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the number of times an SVAUnit check passed during simulation<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_check_name</b> : the name of the SVAUnit check<br></pre>
 
 					</li>
 					<li class="list-group-item">
-						<a name="function_get_nof_times_assertion_started"></a>
+						<a name="function_get_nof_times_check_was_tested"></a>
 						<span class="signature">
 
-	 function 	int
+	virtual  function 	int unsigned
 
-	<b>		get_nof_times_assertion_started
-</b>(	string
-assertion_name)
+	<b>		get_nof_times_check_was_tested
+</b>(			ref 	string
+a_check_name)
 
 
 						</span>
-	<pre class="comment">Compute the number of times an SVA with a given name started<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the number of times an assertion started<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>assertion_name</b> : assertion name to be found in SVA list<br></pre>
+	<pre class="comment">Get the number of times an SVAUnit check was tested during simulation<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the number of times an SVAUnit check was tested during simulation<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_check_name</b> : the name of the SVAUnit check<br></pre>
 
 					</li>
 					<li class="list-group-item">
-						<a name="function_get_nof_times_assertion_succeeded"></a>
+						<a name="function_get_object_type"></a>
 						<span class="signature">
 
-	 function 	int
+	virtual  function 	uvm_object_wrapper
 
-	<b>		get_nof_times_assertion_succeeded
-</b>(	string
-assertion_name)
+	<b>		get_object_type
+</b>()
 
 
 						</span>
-	<pre class="comment">Compute the number of times an SVA with a given name succeeded<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the number of times an assertion succeeded<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>assertion_name</b> : assertion name to be found in SVA list<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_get_nof_times_immediate_assertions_passed"></a>
-						<span class="signature">
-
-	 function 	int unsigned
-
-	<b>		get_nof_times_immediate_assertions_passed
-</b>(	string
-immediate_assertion_name)
-
-
-						</span>
-	<pre class="comment">Get the number of times an immediate assertion passed during simulation<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the number of times an immediate assertion passed during simulation<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_get_nof_times_immediate_assertions_tested"></a>
-						<span class="signature">
-
-	 function 	int unsigned
-
-	<b>		get_nof_times_immediate_assertions_tested
-</b>(	string
-immediate_assertion_name)
-
-
-						</span>
-	<pre class="comment">Get the number of times an immediate assertion was tested during simulation<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the number of times an immediate assertion was tested during simulation<br></pre>
 
 					</li>
 					<li class="list-group-item">
@@ -803,15 +422,15 @@ immediate_assertion_name)
 						<a name="function_get_sva_not_tested"></a>
 						<span class="signature">
 
-	 function 	void
+	virtual  function 	void
 
 	<b>		get_sva_not_tested
 </b>(			ref 	<a href="svaunit_pkg-svaunit_concurrent_assertion_info.html">svaunit_concurrent_assertion_info</a> [$]
-sva_not_tested)
+a_sva_not_tested)
 
 
 						</span>
-	<pre class="comment">Get all SVA from all tests which have not been tested<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>tested_sva</b> : list of all SVAs which have not been tested<br></pre>
+	<pre class="comment">Get all SVA from all tests which have not been tested<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_not_tested</b> : list of all SVAs which have not been tested<br></pre>
 
 					</li>
 					<li class="list-group-item">
@@ -822,11 +441,11 @@ sva_not_tested)
 
 	<b>		get_sva_not_tested_names
 </b>(			ref 	string [$]
-not_tested_sva_names)
+a_sva_not_tested)
 
 
 						</span>
-	<pre class="comment">Get the names of the SVAs which were not tested during test<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the names of the SVAs which were not tested during test<br></pre>
+	<pre class="comment">Get the names of the SVAs which were not tested during test<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_not_tested</b> : the names of the SVAs which were not tested during test<br></pre>
 
 					</li>
 					<li class="list-group-item">
@@ -837,11 +456,11 @@ not_tested_sva_names)
 
 	<b>		get_sva_tested
 </b>(			ref 	<a href="svaunit_pkg-svaunit_concurrent_assertion_info.html">svaunit_concurrent_assertion_info</a> [$]
-sva_tested)
+a_sva_tested)
 
 
 						</span>
-	<pre class="comment">Get a list of all SVAs which have the same tested status<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>tested_status</b> : tested status used to collect SVA<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>sva_tested</b> : a list of all SVAs which have the same tested status<br></pre>
+	<pre class="comment">Get a list of all SVAs which have the same tested status<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_tested</b> : a list of all SVAs which have the same tested status<br></pre>
 
 					</li>
 					<li class="list-group-item">
@@ -852,326 +471,44 @@ sva_tested)
 
 	<b>		get_sva_tested_names
 </b>(			ref 	string [$]
-tested_sva_names)
+a_tested_sva_names)
 
 
 						</span>
-	<pre class="comment">Get the names of the SVAs which were tested during test<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the names of the SVAs which were tested during test<br></pre>
+	<pre class="comment">Get the names of the SVAs which were tested during test<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_tested_sva_names</b> : the names of the SVAs which were tested during test<br></pre>
 
 					</li>
 					<li class="list-group-item">
-						<a name="function_get_total_nof_immediate_assertions"></a>
+						<a name="function_get_type"></a>
 						<span class="signature">
 
-	 function 	int unsigned
+	static  function 	<a href="svaunit_pkg-svaunit_test.html#typedef_type_id">type_id</a>
 
-	<b>		get_total_nof_immediate_assertions
+	<b>		get_type
 </b>()
 
 
 						</span>
-	<pre class="comment">Get immediate assertions from all tests<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the total number of immediate assertions<br></pre>
 
 					</li>
 					<li class="list-group-item">
-						<a name="function_kill_all_assertions"></a>
+						<a name="function_get_type_name"></a>
 						<span class="signature">
 
-	 function 	void
+	virtual  function 	string
 
-	<b>		kill_all_assertions
-</b>(	time
-sim_time)
-
-
-						</span>
-	<pre class="comment">Will discard any attempts of all SVAs
-(the SVA will remain enabled and does not reset any state used by any SVA)<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>sim_time</b> : the simulation time from which the SVA attempts will be killed<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_kill_assertion"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		kill_assertion
-</b>(	string
-assertion_name,
-	time
-sim_time)
-
-
-						</span>
-	<pre class="comment">Will discard any attempts of a given SVA
-(the SVA will remain enabled and does not reset any state used by this SVA)<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>assertion_name</b> : assertion name to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>sim_time</b> : the simulation time from which the SVA attempts will be killed<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_pass_assertion"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		pass_assertion
+	<b>		get_type_name
 </b>()
 
 
 						</span>
-	<pre class="comment">Automatic check verified at the end of test for all enabled SVAs, if there are not any checks in unit test<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_pass_if"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		pass_if
-</b>(	bit
-expression,
-	string
-error_msg = "Default message",
-	int unsigned
-line = 0,
-	string
-filename = "")
-
-
-						</span>
-	<pre class="comment">Verify if the expression is FALSE - the test will pass if the expression is FALSE<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>expression</b> : the expression to be checked<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>filename</b> : the file name where the check is exercised<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_pass_if_all_sva_succeeded"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		pass_if_all_sva_succeeded
-</b>(	string
-error_msg)
-
-
-						</span>
-	<pre class="comment">Verify if all SVAs succeeded - the test will pass if all SVA succeeded<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_pass_if_sva_does_not_exists"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		pass_if_sva_does_not_exists
-</b>(	string
-assertion_name,
-	string
-error_msg = "Default message",
-	int unsigned
-line = 0,
-	string
-filename = "")
-
-
-						</span>
-	<pre class="comment">Verify if a given SVA is exists - the test will pass if SVA is does not exists<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>assertion_name</b> : assertion name to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>filename</b> : the file name where the check is exercised<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_pass_if_sva_enabled"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		pass_if_sva_enabled
-</b>(	string
-assertion_name,
-	string
-error_msg = "Default message",
-	int unsigned
-line = 0,
-	string
-filename = "")
-
-
-						</span>
-	<pre class="comment">Verify if a given SVA is enabled - the test will pass if SVA is enable<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>assertion_name</b> : assertion name to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>filename</b> : the file name where the check is exercised<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_pass_if_sva_finished"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		pass_if_sva_finished
-</b>(	string
-assertion_name,
-	string
-error_msg = "Default message",
-	int unsigned
-line = 0,
-	string
-filename = "")
-
-
-						</span>
-	<pre class="comment">Verify if a given SVA finished - the test will pass if the assertion finished<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>assertion_name</b> : assertion name to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>filename</b> : the file name where the check is exercised<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_pass_if_sva_not_finished"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		pass_if_sva_not_finished
-</b>(	string
-assertion_name,
-	string
-error_msg = "Default message",
-	int unsigned
-line = 0,
-	string
-filename = "")
-
-
-						</span>
-	<pre class="comment">Verify if a given SVA didn't finished - the test will pass if the assertion didn't finished<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>assertion_name</b> : assertion name to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>filename</b> : the file name where the check is exercised<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_pass_if_sva_not_started"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		pass_if_sva_not_started
-</b>(	string
-assertion_name,
-	string
-error_msg = "Default message",
-	int unsigned
-line = 0,
-	string
-filename = "")
-
-
-						</span>
-	<pre class="comment">Verify if a given SVA didn't started - the test will pass if the assertion didn't started<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>assertion_name</b> : assertion name to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>filename</b> : the file name where the check is exercised<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_pass_if_sva_not_succeeded"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		pass_if_sva_not_succeeded
-</b>(	string
-assertion_name,
-	string
-error_msg = "Default message",
-	int unsigned
-line = 0,
-	string
-filename = "")
-
-
-						</span>
-	<pre class="comment">Verify if a given SVA didn't succeeded (the assertion should have failed) - the test will pass if the assertion didn't succeeded<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>assertion_name</b> : assertion name to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>filename</b> : the file name where the check is exercised<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_pass_if_sva_started_but_not_finished"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		pass_if_sva_started_but_not_finished
-</b>(	string
-assertion_name,
-	string
-error_msg = "Default message",
-	int unsigned
-line = 0,
-	string
-filename = "")
-
-
-						</span>
-	<pre class="comment">Verify if a given SVA didn't finished  but the first state is START - the test will pass if the assertion didn't finished but the first state is START<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>assertion_name</b> : assertion name to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>filename</b> : the file name where the check is exercised<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_pass_if_sva_succeeded"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		pass_if_sva_succeeded
-</b>(	string
-assertion_name,
-	string
-error_msg = "Default message",
-	int unsigned
-line = 0,
-	string
-filename = "")
-
-
-						</span>
-	<pre class="comment">Verify if a given SVA succeeded - the test will fail if SVA does not succeeded<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>assertion_name</b> : assertion name to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>filename</b> : the file name where the check is exercised<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_print_checks"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		print_checks
-</b>()
-
-
-						</span>
-	<pre class="comment">Print a report for all checks tested for the current unit test<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_print_failed_sva"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		print_failed_sva
-</b>()
-
-
-						</span>
-	<pre class="comment">Print a report for all SVA which have failed<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_print_report"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		print_report
-</b>()
-
-
-						</span>
-	<pre class="comment">Will print the report for the current unit test<br></pre>
 
 					</li>
 					<li class="list-group-item">
 						<a name="function_print_status"></a>
 						<span class="signature">
 
-	 function 	void
+	virtual  function 	void
 
 	<b>		print_status
 </b>()
@@ -1182,171 +519,40 @@ filename = "")
 
 					</li>
 					<li class="list-group-item">
-						<a name="function_print_sva"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		print_sva
-</b>()
-
-
-						</span>
-	<pre class="comment">Print a list with all SVAs and with its status<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_print_sva_and_checks"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		print_sva_and_checks
-</b>()
-
-
-						</span>
-	<pre class="comment">Print a report for all checks tested for the SVAs<br></pre>
-
-					</li>
-					<li class="list-group-item">
 						<a name="function_print_sva_info"></a>
 						<span class="signature">
 
-	 function 	void
+	virtual  function 	void
 
 	<b>		print_sva_info
 </b>(	string
-assertion_name)
+a_sva_name)
 
 
 						</span>
-	<pre class="comment">Will print assertion info for an SVA with a given name<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>assertion_name</b> : assertion name to be found in SVA list<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_print_tree"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		print_tree
-</b>()
-
-
-						</span>
-	<pre class="comment">Print the the SVAUnit topology<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_reset_all_assertions"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		reset_all_assertions
-</b>()
-
-
-						</span>
-	<pre class="comment">Will discard all current attempts in progress for all SVAs and resets the SVAs to initial state<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_reset_assertion"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		reset_assertion
-</b>(	string
-assertion_name)
-
-
-						</span>
-	<pre class="comment">Will discard all current attempts in progress for an SVA with a given name and resets the SVA to its initial state<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>assertion_name</b> : assertion name to be found in SVA list<br></pre>
+	<pre class="comment">Will print assertion info for an SVA with a given name<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br></pre>
 
 					</li>
 					<li class="list-group-item">
 						<a name="function_set_test_name_vpi"></a>
 						<span class="signature">
 
-	 function 	void
+	virtual  function 	void
 
 	<b>		set_test_name_vpi
 </b>(	string
-test_name)
+a_test_name)
 
 
 						</span>
-	<pre class="comment">Set test name in VPI interface<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>test_name</b> to be added inside VPI interface<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_system_end_all_assertions"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		system_end_all_assertions
-</b>()
-
-
-						</span>
-	<pre class="comment">Will discard any attempt in progress and disable any SVA to be started
-(all callbacks will be removed)<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_system_off_all_assertions"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		system_off_all_assertions
-</b>()
-
-
-						</span>
-	<pre class="comment">------------------------------- SYSTEM OFF --------------------------------
-Will disable any SVA to being started and all current attempts will be considered as unterminated<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_system_on_all_assertions"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		system_on_all_assertions
-</b>()
-
-
-						</span>
-	<pre class="comment">------------------------------- SYSTEM ON --------------------------------
-Will restart the SVAs after it was stopped<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_system_reset_all_assertions"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		system_reset_all_assertions
-</b>()
-
-
-						</span>
-	<pre class="comment">Will discard all attempts in progress for all SVAs and restore the entire assertion system to its initial state.
-(The vpiAssertionStepSuccess and vpiAssertionStepFailure callbacks will be removed)<br></pre>
+	<pre class="comment">Set test name for VPI wrapper<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_test_name</b> : the test name to be added for VPI wrapper<br></pre>
 
 					</li>
 					<li class="list-group-item">
 						<a name="function_update_status"></a>
 						<span class="signature">
 
-	 function 	void
+	virtual  function 	void
 
 	<b>		update_status
 </b>()
@@ -1354,6 +560,20 @@ Will restart the SVAs after it was stopped<br></pre>
 
 						</span>
 	<pre class="comment">Update the test's status according to the number of failed assertions<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_was_started_from_test_suite"></a>
+						<span class="signature">
+
+	virtual  function 	bit
+
+	<b>		was_started_from_test_suite
+</b>()
+
+
+						</span>
+	<pre class="comment">Compute the fact that the test was started from a test suite or not<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;1 if the test was started from a test suite, 0 otherwise<br></pre>
 
 					</li>
 			</ul>
@@ -1370,22 +590,32 @@ Will restart the SVAs after it was stopped<br></pre>
 				<p><b>	<a  href="summary-svaunit_pkg.html">svaunit_pkg</a> ::  		<a href="svaunit_pkg-svaunit_base.html">svaunit_base</a>
 
 </b></p>
-					<a href="svaunit_pkg-svaunit_base.html#function___m_uvm_field_automation">__m_uvm_field_automation</a>
-, 	<a href="svaunit_pkg-svaunit_base.html#function_find">find</a>
+					<a href="svaunit_pkg-svaunit_base.html#function_compute_status">compute_status</a>
+, 	<a href="svaunit_pkg-svaunit_base.html#function_connect_phase">connect_phase</a>
 , 	<a href="svaunit_pkg-svaunit_base.html#function_get_nof_failures">get_nof_failures</a>
 , 	<a href="svaunit_pkg-svaunit_base.html#function_get_nof_tests">get_nof_tests</a>
 , 	<a href="svaunit_pkg-svaunit_base.html#function_get_nof_tests_did_not_run">get_nof_tests_did_not_run</a>
-, 	<a href="svaunit_pkg-svaunit_base.html#function_get_object_type">get_object_type</a>
 , 	<a href="svaunit_pkg-svaunit_base.html#function_get_status">get_status</a>
 , 	<a href="svaunit_pkg-svaunit_base.html#function_get_stop">get_stop</a>
 , 	<a href="svaunit_pkg-svaunit_base.html#function_get_test_name">get_test_name</a>
-, 	<a href="svaunit_pkg-svaunit_base.html#function_get_type">get_type</a>
-, 	<a href="svaunit_pkg-svaunit_base.html#function_get_type_name">get_type_name</a>
+, 	<a href="svaunit_pkg-svaunit_base.html#function_get_test_type">get_test_type</a>
+, 	<a href="svaunit_pkg-svaunit_base.html#function_print_checks">print_checks</a>
+, 	<a href="svaunit_pkg-svaunit_base.html#function_print_failed_sva">print_failed_sva</a>
+, 	<a href="svaunit_pkg-svaunit_base.html#function_print_report">print_report</a>
+, 	<a href="svaunit_pkg-svaunit_base.html#function_print_sva">print_sva</a>
+, 	<a href="svaunit_pkg-svaunit_base.html#function_print_sva_and_checks">print_sva_and_checks</a>
+, 	<a href="svaunit_pkg-svaunit_base.html#function_print_tests">print_tests</a>
+, 	<a href="svaunit_pkg-svaunit_base.html#function_print_tree">print_tree</a>
 , 	<a href="svaunit_pkg-svaunit_base.html#function_set_name_for_test">set_name_for_test</a>
+, 	<a href="svaunit_pkg-svaunit_base.html#function_set_nof_failures">set_nof_failures</a>
+, 	<a href="svaunit_pkg-svaunit_base.html#function_set_nof_tests">set_nof_tests</a>
+, 	<a href="svaunit_pkg-svaunit_base.html#function_set_status">set_status</a>
 , 	<a href="svaunit_pkg-svaunit_base.html#function_set_test_name">set_test_name</a>
+, 	<a href="svaunit_pkg-svaunit_base.html#function_set_test_type">set_test_type</a>
 , 	<a href="svaunit_pkg-svaunit_base.html#function_start_of_simulation">start_of_simulation</a>
 , 	<a href="svaunit_pkg-svaunit_base.html#function_start_test">start_test</a>
 , 	<a href="svaunit_pkg-svaunit_base.html#function_started">started</a>
+, 	<a href="svaunit_pkg-svaunit_base.html#function_update_test_name">update_test_name</a>
 
 			</li>
 	</ul>
@@ -1401,35 +631,6 @@ Will restart the SVAs after it was stopped<br></pre>
 		</div>
 					<ul id="tasks" class="list-group panel-collapse collapse in">
 					<li class="list-group-item">
-						<a name="task_post_test"></a>
-						<span class="signature">
-
-	virtual  task 	
-
-	<b>		post_test
-</b>()
-
-
-						</span>
-	<pre class="comment">Define a behavior that will happens after running the test<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="task_pre_test"></a>
-						<span class="signature">
-
-	virtual  task 	
-
-	<b>		pre_test
-</b>()
-
-
-						</span>
-	<pre class="comment">Define a behavior that will happens before running the test
-E.g. initialize signals<br></pre>
-
-					</li>
-					<li class="list-group-item">
 						<a name="task_run_phase"></a>
 						<span class="signature">
 
@@ -1441,7 +642,7 @@ phase)
 
 
 						</span>
-	<pre class="comment">Run phase method used to run test - it will be started only in VMANAGER mode<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>phase</b> : the phase scheduled for run_phase method<br></pre>
+	<pre class="comment">Run phase method used to run test - it will be started only when simulate a single test<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>phase</b> : the phase scheduled for run_phase method<br></pre>
 
 					</li>
 					<li class="list-group-item">
@@ -1487,85 +688,87 @@ phase)
 				<ul id="inheritance_diagram" class="list-group panel-collapse collapse">
 			<img src="svaunit_pkg-svaunit_test_inheritance.png" border="0" usemap="#_inheritance_diagram" />
 			<map name="_inheritance_diagram">
-<area shape="rect" id="node1" href="svaunit_pkg-svaunit_test.html"  alt="" coords="1275,853,1413,883">
-<area shape="rect" id="node2" href="svaunit_pkg-svaunit_base.html"  alt="" coords="1057,853,1194,883">
-<area shape="poly" id="edge1"  alt="" coords="1275,871,1208,871,1208,865,1275,865">
-<area shape="rect" id="node3"  alt="" coords="877,853,976,883">
-<area shape="poly" id="edge2"  alt="" coords="1057,871,990,871,990,865,1057,865">
-<area shape="rect" id="node4"  alt="" coords="651,853,797,883">
-<area shape="poly" id="edge3"  alt="" coords="877,871,811,871,811,865,877,865">
-<area shape="rect" id="node5"  alt="" coords="385,853,570,883">
-<area shape="poly" id="edge4"  alt="" coords="650,871,584,871,584,865,650,865">
-<area shape="rect" id="node6"  alt="" coords="185,853,303,883">
-<area shape="poly" id="edge5"  alt="" coords="384,871,317,871,317,865,384,865">
-<area shape="rect" id="node7"  alt="" coords="5,853,104,883">
-<area shape="poly" id="edge6"  alt="" coords="185,871,118,871,118,865,185,865">
-<area shape="rect" id="node8" href="svaunit_pkg-svaunit_test_suite.html"  alt="" coords="1508,114,1703,145">
-<area shape="poly" id="edge7"  alt="" coords="1526,146,1495,160,1462,180,1440,211,1419,265,1402,340,1375,526,1358,711,1349,840,1344,840,1353,710,1370,525,1397,339,1414,263,1435,208,1458,176,1492,155,1524,142">
-<area shape="rect" id="node9" href="simple_pkg-uts.html"  alt="" coords="1851,5,1901,35">
-<area shape="poly" id="edge8"  alt="" coords="1851,31,1798,50,1653,112,1651,107,1796,46,1850,26">
-<area shape="rect" id="node10" href="apb_tests_pkg-x_z_ts.html"  alt="" coords="1836,59,1916,90">
-<area shape="poly" id="edge9"  alt="" coords="1836,85,1693,114,1692,109,1835,80">
-<area shape="rect" id="node11" href="apb_tests_pkg-after_reset_ts.html"  alt="" coords="1798,114,1954,145">
-<area shape="poly" id="edge10"  alt="" coords="1798,132,1717,132,1717,127,1798,127">
-<area shape="rect" id="node12" href="apb_tests_pkg-protocol_ts.html"  alt="" coords="1812,169,1940,199">
-<area shape="poly" id="edge11"  alt="" coords="1811,174,1692,149,1693,144,1812,169">
-<area shape="rect" id="node13" href="apb_tests_pkg-apb_ts.html"  alt="" coords="1836,223,1916,254">
-<area shape="poly" id="edge12"  alt="" coords="1835,228,1796,213,1767,201,1740,185,1728,171,1716,160,1699,151,1701,146,1719,155,1732,168,1743,181,1769,196,1798,208,1837,223">
-<area shape="rect" id="node14" href="simple_pkg-ut1.html"  alt="" coords="1580,169,1631,199">
-<area shape="poly" id="edge13"  alt="" coords="1580,189,1539,197,1495,214,1462,235,1440,267,1421,316,1404,384,1378,551,1360,720,1350,839,1345,839,1354,719,1372,551,1399,383,1416,314,1435,264,1458,232,1492,210,1537,192,1579,184">
-<area shape="rect" id="node15" href="simple_pkg-ut2.html"  alt="" coords="1580,223,1631,254">
-<area shape="poly" id="edge14"  alt="" coords="1580,244,1546,251,1506,264,1468,285,1452,300,1440,317,1422,362,1405,423,1379,576,1360,729,1350,840,1345,839,1355,729,1374,575,1400,422,1417,360,1435,315,1448,296,1465,281,1504,259,1545,245,1579,239">
-<area shape="rect" id="node16" href="apb_tests_pkg-x_z_addr_ut.html"  alt="" coords="1541,278,1669,309">
-<area shape="poly" id="edge15"  alt="" coords="1542,306,1494,324,1462,343,1440,372,1410,434,1387,501,1370,569,1359,635,1348,755,1347,840,1342,839,1343,755,1354,635,1365,567,1382,499,1405,432,1435,369,1459,339,1492,319,1540,301">
-<area shape="rect" id="node17" href="apb_tests_pkg-x_z_enable_ut.html"  alt="" coords="1532,333,1679,363">
-<area shape="poly" id="edge16"  alt="" coords="1533,363,1495,378,1462,398,1440,427,1413,481,1391,539,1375,599,1364,657,1351,763,1348,839,1343,839,1346,763,1359,656,1370,597,1386,538,1408,479,1435,424,1459,394,1492,374,1531,358">
-<area shape="rect" id="node18" href="apb_tests_pkg-x_z_prot_ut.html"  alt="" coords="1541,387,1669,418">
-<area shape="poly" id="edge17"  alt="" coords="1542,416,1494,433,1462,452,1440,481,1415,528,1396,578,1369,680,1354,772,1349,840,1344,839,1349,772,1363,679,1391,577,1410,526,1435,479,1459,448,1492,428,1540,411">
-<area shape="rect" id="node19" href="apb_tests_pkg-x_z_ready_ut.html"  alt="" coords="1537,442,1674,473">
-<area shape="poly" id="edge18"  alt="" coords="1537,471,1495,488,1463,508,1440,537,1418,577,1401,618,1374,704,1358,782,1350,840,1345,840,1353,781,1369,703,1396,617,1414,574,1435,535,1459,504,1492,483,1536,466">
-<area shape="rect" id="node20" href="apb_tests_pkg-x_z_sel_ut.html"  alt="" coords="1546,497,1665,527">
-<area shape="poly" id="edge19"  alt="" coords="1547,524,1495,542,1463,563,1440,592,1405,658,1380,727,1363,791,1352,840,1347,839,1357,789,1375,725,1400,655,1435,589,1459,559,1492,538,1545,519">
-<area shape="rect" id="node21" href="apb_tests_pkg-x_z_slverr_ut.html"  alt="" coords="1532,551,1679,582">
-<area shape="poly" id="edge20"  alt="" coords="1533,582,1495,597,1463,620,1440,651,1410,701,1387,753,1356,841,1351,839,1382,751,1406,698,1435,648,1459,616,1492,592,1531,577">
-<area shape="rect" id="node22" href="apb_tests_pkg-x_z_strb_ut.html"  alt="" coords="1541,606,1669,637">
-<area shape="poly" id="edge21"  alt="" coords="1542,634,1495,652,1468,669,1444,691,1404,743,1375,797,1357,841,1352,839,1370,794,1399,740,1440,688,1464,665,1492,647,1540,629">
-<area shape="rect" id="node23" href="apb_tests_pkg-x_z_write_ut.html"  alt="" coords="1537,661,1674,691">
-<area shape="poly" id="edge22"  alt="" coords="1538,690,1495,706,1452,736,1415,773,1385,810,1363,843,1358,840,1381,807,1411,769,1448,732,1492,702,1536,685">
-<area shape="rect" id="node24" href="apb_tests_pkg-after_reset_enable_ut.html"  alt="" coords="1493,715,1717,746">
-<area shape="poly" id="edge23"  alt="" coords="1530,748,1494,761,1460,780,1427,803,1373,846,1369,842,1423,798,1457,776,1492,756,1528,743">
-<area shape="rect" id="node25" href="apb_tests_pkg-after_reset_sel_ut.html"  alt="" coords="1508,770,1703,801">
-<area shape="poly" id="edge24"  alt="" coords="1542,803,1494,816,1395,851,1394,846,1493,811,1540,797">
-<area shape="rect" id="node26" href="apb_tests_pkg-after_reset_slverr_ut.html"  alt="" coords="1493,825,1717,855">
-<area shape="poly" id="edge25"  alt="" coords="1493,855,1427,862,1426,857,1493,849">
-<area shape="rect" id="node27" href="apb_tests_pkg-protocol_ut1.html"  alt="" coords="1537,879,1674,910">
-<area shape="poly" id="edge26"  alt="" coords="1536,894,1437,885,1426,884,1427,879,1438,880,1537,888">
-<area shape="rect" id="node28" href="apb_tests_pkg-protocol_ut2.html"  alt="" coords="1537,934,1674,965">
-<area shape="poly" id="edge27"  alt="" coords="1538,937,1493,925,1436,907,1394,890,1396,885,1438,901,1494,920,1539,932">
-<area shape="rect" id="node29" href="apb_tests_pkg-protocol_ut3.html"  alt="" coords="1537,989,1674,1019">
-<area shape="poly" id="edge28"  alt="" coords="1536,995,1492,980,1457,960,1423,938,1369,894,1373,890,1426,934,1460,956,1494,975,1537,990">
-<area shape="rect" id="node30" href="apb_tests_pkg-protocol_ut4.html"  alt="" coords="1537,1043,1674,1074">
-<area shape="poly" id="edge29"  alt="" coords="1536,1051,1492,1034,1448,1004,1411,967,1381,929,1358,896,1363,893,1385,926,1415,963,1452,1000,1495,1030,1537,1046">
-<area shape="rect" id="node31" href="apb_tests_pkg-protocol_ut5.html"  alt="" coords="1537,1098,1674,1129">
-<area shape="poly" id="edge30"  alt="" coords="1535,1105,1492,1089,1464,1071,1440,1048,1399,996,1370,942,1352,897,1357,895,1375,939,1404,993,1444,1045,1468,1067,1495,1084,1537,1100">
-<area shape="rect" id="node32" href="apb_tests_pkg-protocol_ut6.html"  alt="" coords="1537,1153,1674,1183">
-<area shape="poly" id="edge31"  alt="" coords="1535,1160,1492,1144,1459,1120,1435,1087,1406,1037,1382,984,1351,896,1356,895,1387,982,1411,1034,1440,1084,1463,1116,1495,1139,1537,1155">
-<area shape="rect" id="node33" href="apb_tests_pkg-protocol_ut7.html"  alt="" coords="1537,1207,1674,1238">
-<area shape="poly" id="edge32"  alt="" coords="1535,1215,1492,1198,1459,1177,1435,1145,1400,1079,1375,1010,1358,946,1347,897,1353,896,1363,945,1380,1008,1405,1077,1440,1143,1463,1173,1495,1194,1537,1210">
-<area shape="rect" id="node34" href="apb_tests_pkg-protocol_ut8.html"  alt="" coords="1537,1262,1674,1293">
-<area shape="poly" id="edge33"  alt="" coords="1536,1269,1492,1253,1459,1232,1435,1201,1414,1162,1396,1119,1369,1033,1353,955,1345,896,1350,896,1358,954,1374,1032,1401,1118,1418,1159,1440,1199,1463,1228,1495,1248,1537,1264">
-<area shape="rect" id="node35" href="apb_tests_pkg-protocol_ut9.html"  alt="" coords="1537,1317,1674,1347">
-<area shape="poly" id="edge34"  alt="" coords="1536,1324,1492,1308,1459,1287,1435,1256,1411,1209,1391,1158,1364,1056,1350,964,1344,897,1349,896,1355,964,1369,1055,1396,1157,1416,1207,1440,1253,1462,1283,1495,1303,1537,1319">
-<area shape="rect" id="node36" href="apb_tests_pkg-protocol_ut10.html"  alt="" coords="1532,1371,1679,1402">
-<area shape="poly" id="edge35"  alt="" coords="1531,1377,1492,1362,1459,1342,1435,1311,1408,1256,1387,1197,1371,1137,1359,1079,1346,973,1343,897,1348,896,1352,972,1364,1078,1376,1136,1392,1196,1413,1254,1440,1308,1462,1338,1495,1358,1533,1372">
-<area shape="rect" id="node37" href="apb_tests_pkg-protocol_ut11.html"  alt="" coords="1532,1426,1679,1457">
-<area shape="poly" id="edge36"  alt="" coords="1531,1432,1492,1417,1459,1396,1435,1365,1405,1302,1383,1236,1366,1167,1354,1100,1343,981,1342,896,1347,896,1349,980,1360,1100,1371,1166,1388,1234,1410,1300,1440,1363,1462,1392,1495,1412,1533,1427">
-<area shape="rect" id="node38" href="apb_tests_pkg-protocol_ut12.html"  alt="" coords="1532,1481,1679,1511">
-<area shape="poly" id="edge37"  alt="" coords="1531,1487,1492,1472,1458,1451,1435,1420,1417,1375,1401,1313,1374,1160,1355,1007,1345,896,1350,896,1361,1006,1379,1160,1406,1311,1422,1373,1440,1417,1462,1447,1495,1467,1533,1482">
-<area shape="rect" id="node39" href="apb_tests_pkg-protocol_ut13.html"  alt="" coords="1532,1535,1679,1566">
-<area shape="poly" id="edge38"  alt="" coords="1531,1541,1492,1526,1458,1506,1435,1475,1415,1424,1398,1356,1372,1187,1354,1018,1345,897,1350,897,1359,1017,1377,1186,1404,1355,1421,1423,1440,1472,1462,1502,1495,1522,1533,1536">
-<area shape="rect" id="node40" href="apb_tests_pkg-protocol_ut14.html"  alt="" coords="1532,1590,1679,1621">
-<area shape="poly" id="edge39"  alt="" coords="1531,1596,1492,1581,1458,1561,1435,1529,1414,1474,1396,1398,1381,1308,1369,1212,1352,1026,1344,896,1349,896,1358,1026,1374,1211,1387,1308,1401,1397,1419,1472,1440,1527,1462,1557,1495,1576,1533,1591"></map>
+<area shape="rect" id="node1" href="svaunit_pkg-svaunit_test.html"  alt="" coords="1275,825,1413,855">
+<area shape="rect" id="node2" href="svaunit_pkg-svaunit_base.html"  alt="" coords="1057,825,1194,855">
+<area shape="poly" id="edge1"  alt="" coords="1275,843,1208,843,1208,837,1275,837">
+<area shape="rect" id="node3"  alt="" coords="877,825,976,855">
+<area shape="poly" id="edge2"  alt="" coords="1057,843,990,843,990,837,1057,837">
+<area shape="rect" id="node4"  alt="" coords="651,825,797,855">
+<area shape="poly" id="edge3"  alt="" coords="877,843,811,843,811,837,877,837">
+<area shape="rect" id="node5"  alt="" coords="385,825,570,855">
+<area shape="poly" id="edge4"  alt="" coords="650,843,584,843,584,837,650,837">
+<area shape="rect" id="node6"  alt="" coords="185,825,303,855">
+<area shape="poly" id="edge5"  alt="" coords="384,843,317,843,317,837,384,837">
+<area shape="rect" id="node7"  alt="" coords="5,825,104,855">
+<area shape="poly" id="edge6"  alt="" coords="185,843,118,843,118,837,185,837">
+<area shape="rect" id="node8" href="svaunit_pkg-svaunit_sequence_test.html"  alt="" coords="1595,59,1943,90">
+<area shape="poly" id="edge7"  alt="" coords="1596,70,1548,79,1504,96,1467,121,1452,138,1440,157,1419,214,1401,293,1386,386,1374,486,1357,678,1349,812,1344,812,1352,678,1369,485,1381,385,1396,292,1414,213,1435,155,1448,134,1464,117,1502,91,1547,74,1595,65">
+<area shape="rect" id="node9" href="svaunit_pkg-svaunit_test_suite.html"  alt="" coords="1672,114,1867,145">
+<area shape="poly" id="edge8"  alt="" coords="1672,123,1606,125,1540,139,1509,151,1481,167,1458,189,1440,216,1421,267,1404,338,1378,513,1360,687,1350,811,1345,811,1354,687,1372,512,1399,337,1416,266,1435,213,1454,185,1478,163,1506,146,1538,134,1606,120,1672,118">
+<area shape="rect" id="node10" href="amiq_svaunit_ex_simple_pkg-amiq_svaunit_ex_simple_test_suite.html"  alt="" coords="2193,5,2532,35">
+<area shape="poly" id="edge9"  alt="" coords="2194,33,2126,50,2097,65,2071,85,2060,95,2046,104,2006,117,1963,126,1881,135,1881,129,1963,121,2004,112,2044,99,2056,91,2068,81,2095,60,2124,46,2192,28">
+<area shape="rect" id="node11" href="amiq_svaunit_ex_apb_test_pkg-amiq_svaunit_ex_apb_test_x_z_test_suite.html"  alt="" coords="2165,59,2561,90">
+<area shape="poly" id="edge10"  alt="" coords="2203,92,1881,122,1880,117,2202,87">
+<area shape="rect" id="node12" href="amiq_svaunit_ex_apb_test_pkg-amiq_svaunit_ex_apb_test_after_reset_test_suite.html"  alt="" coords="2126,114,2599,145">
+<area shape="poly" id="edge11"  alt="" coords="2126,132,1880,132,1880,127,2126,127">
+<area shape="rect" id="node13" href="amiq_svaunit_ex_apb_test_pkg-amiq_svaunit_ex_apb_test_protocol_test_suite.html"  alt="" coords="2141,169,2585,199">
+<area shape="poly" id="edge12"  alt="" coords="2202,172,1880,142,1881,137,2203,167">
+<area shape="rect" id="node14" href="amiq_svaunit_ex_apb_test_pkg-amiq_svaunit_ex_apb_test_suite.html"  alt="" coords="2207,223,2518,254">
+<area shape="poly" id="edge13"  alt="" coords="2206,232,2124,213,2095,199,2068,179,2056,168,2044,160,2004,146,1963,137,1880,129,1881,123,1963,132,2006,141,2047,155,2060,164,2071,175,2097,194,2126,208,2208,227">
+<area shape="rect" id="node15" href="amiq_svaunit_ex_simple_pkg-amiq_svaunit_ex_simple_test_unit.html"  alt="" coords="1605,169,1934,199">
+<area shape="poly" id="edge14"  alt="" coords="1605,180,1555,189,1508,205,1469,231,1453,249,1440,269,1422,316,1406,380,1380,538,1361,698,1350,812,1345,811,1356,697,1374,538,1401,379,1417,314,1435,267,1448,245,1465,227,1506,200,1554,183,1604,175">
+<area shape="rect" id="node16" href="amiq_svaunit_ex_simple_pkg-amiq_svaunit_ex_simple_test_with_parameter.html"  alt="" coords="1557,223,1982,254">
+<area shape="poly" id="edge15"  alt="" coords="1557,242,1521,254,1489,270,1461,293,1440,323,1410,388,1388,458,1371,529,1360,599,1349,724,1347,811,1342,811,1343,724,1354,599,1366,528,1382,457,1405,387,1435,320,1457,289,1486,266,1519,249,1556,237">
+<area shape="rect" id="node17" href="amiq_svaunit_ex_apb_test_pkg-amiq_svaunit_ex_apb_test_x_z_addr.html"  alt="" coords="1600,278,1939,309">
+<area shape="poly" id="edge16"  alt="" coords="1600,289,1552,298,1507,314,1469,340,1453,356,1440,376,1412,434,1391,496,1375,559,1363,621,1351,732,1348,812,1342,811,1346,732,1358,620,1370,558,1386,494,1407,432,1435,373,1449,353,1465,336,1505,310,1551,293,1599,284">
+<area shape="rect" id="node18" href="amiq_svaunit_ex_apb_test_pkg-amiq_svaunit_ex_apb_test_x_z_enable.html"  alt="" coords="1590,333,1949,363">
+<area shape="poly" id="edge17"  alt="" coords="1590,345,1545,355,1503,371,1467,395,1440,429,1415,480,1395,533,1367,643,1354,741,1349,812,1343,811,1348,740,1362,642,1390,532,1410,478,1435,427,1464,391,1501,366,1544,350,1589,340">
+<area shape="rect" id="node19" href="amiq_svaunit_ex_apb_test_pkg-amiq_svaunit_ex_apb_test_x_z_prot.html"  alt="" coords="1600,387,1939,418">
+<area shape="poly" id="edge18"  alt="" coords="1600,399,1553,407,1508,423,1470,448,1440,483,1417,526,1398,571,1372,665,1357,749,1350,812,1344,812,1351,748,1367,663,1393,570,1412,523,1435,480,1466,444,1506,418,1552,402,1599,394">
+<area shape="rect" id="node20" href="amiq_svaunit_ex_apb_test_pkg-amiq_svaunit_ex_apb_test_x_z_ready.html"  alt="" coords="1595,442,1943,473">
+<area shape="poly" id="edge19"  alt="" coords="1596,460,1544,470,1495,488,1453,515,1420,552,1395,596,1376,643,1363,692,1355,738,1348,812,1343,811,1350,737,1358,691,1371,642,1390,593,1416,549,1449,511,1492,483,1542,465,1595,455">
+<area shape="rect" id="node21" href="amiq_svaunit_ex_apb_test_pkg-amiq_svaunit_ex_apb_test_x_z_sel.html"  alt="" coords="1605,497,1934,527">
+<area shape="poly" id="edge20"  alt="" coords="1605,514,1548,524,1494,542,1458,565,1429,595,1405,631,1386,670,1362,749,1351,812,1345,811,1356,748,1381,668,1400,628,1425,592,1455,561,1492,538,1547,519,1604,509">
+<area shape="rect" id="node22" href="amiq_svaunit_ex_apb_test_pkg-amiq_svaunit_ex_apb_test_x_z_slverr.html"  alt="" coords="1590,551,1949,582">
+<area shape="poly" id="edge21"  alt="" coords="1590,571,1541,581,1494,597,1464,615,1438,639,1415,668,1397,699,1369,761,1354,813,1349,811,1364,759,1392,696,1411,665,1434,636,1461,611,1492,592,1540,576,1589,566">
+<area shape="rect" id="node23" href="amiq_svaunit_ex_apb_test_pkg-amiq_svaunit_ex_apb_test_x_z_strb.html"  alt="" coords="1600,606,1939,637">
+<area shape="poly" id="edge22"  alt="" coords="1600,625,1546,635,1494,652,1469,666,1446,683,1407,727,1378,774,1359,814,1354,811,1373,771,1403,724,1442,680,1466,661,1492,647,1545,630,1599,620">
+<area shape="rect" id="node24" href="amiq_svaunit_ex_apb_test_pkg-amiq_svaunit_ex_apb_test_x_z_write.html"  alt="" coords="1595,661,1943,691">
+<area shape="poly" id="edge23"  alt="" coords="1596,681,1544,691,1494,706,1455,729,1419,757,1366,816,1362,812,1415,754,1452,724,1492,702,1542,685,1595,676">
+<area shape="rect" id="node25" href="amiq_svaunit_ex_apb_test_pkg-amiq_svaunit_ex_apb_test_after_reset_enable.html"  alt="" coords="1552,715,1987,746">
+<area shape="poly" id="edge24"  alt="" coords="1553,747,1494,761,1431,788,1378,820,1376,815,1429,784,1492,756,1551,742">
+<area shape="rect" id="node26" href="amiq_svaunit_ex_apb_test_pkg-amiq_svaunit_ex_apb_test_after_reset_sel.html"  alt="" coords="1566,770,1973,801">
+<area shape="poly" id="edge25"  alt="" coords="1596,803,1438,824,1427,826,1426,821,1437,819,1595,797">
+<area shape="rect" id="node27" href="amiq_svaunit_ex_apb_test_pkg-amiq_svaunit_ex_apb_test_after_reset_slverr.html"  alt="" coords="1552,825,1987,855">
+<area shape="poly" id="edge26"  alt="" coords="1552,843,1426,843,1426,837,1552,837">
+<area shape="rect" id="node28" href="amiq_svaunit_ex_apb_test_pkg-amiq_svaunit_ex_apb_test_illegal_sel_trans.html"  alt="" coords="1557,879,1982,910">
+<area shape="poly" id="edge27"  alt="" coords="1598,883,1493,871,1437,861,1426,859,1427,854,1438,856,1494,865,1598,877">
+<area shape="rect" id="node29" href="amiq_svaunit_ex_apb_test_pkg-amiq_svaunit_ex_apb_test_illegal_sel_trans_during_trans.html"  alt="" coords="1494,934,2045,965">
+<area shape="poly" id="edge28"  alt="" coords="1540,937,1492,925,1429,897,1376,865,1378,861,1431,893,1494,920,1541,932">
+<area shape="rect" id="node30" href="amiq_svaunit_ex_apb_test_pkg-amiq_svaunit_ex_apb_test_illegal_sel_min_time.html"  alt="" coords="1542,989,1997,1019">
+<area shape="poly" id="edge29"  alt="" coords="1541,996,1492,980,1451,957,1415,927,1362,867,1366,864,1419,923,1454,952,1494,975,1543,991">
+<area shape="rect" id="node31" href="amiq_svaunit_ex_apb_test_pkg-amiq_svaunit_ex_apb_test_illegal_en_fall.html"  alt="" coords="1566,1043,1973,1074">
+<area shape="poly" id="edge30"  alt="" coords="1565,1056,1528,1047,1492,1034,1466,1020,1442,1001,1403,957,1373,909,1354,869,1359,867,1378,907,1407,953,1446,998,1469,1016,1494,1030,1530,1042,1567,1051">
+<area shape="rect" id="node32" href="amiq_svaunit_ex_apb_test_pkg-amiq_svaunit_ex_apb_test_illegal_sign_trans.html"  alt="" coords="1552,1098,1987,1129">
+<area shape="poly" id="edge31"  alt="" coords="1551,1109,1492,1089,1461,1070,1434,1045,1411,1016,1392,984,1364,921,1349,869,1354,867,1369,919,1396,982,1415,1013,1437,1042,1464,1066,1494,1084,1553,1103">
+<area shape="rect" id="node33" href="amiq_svaunit_ex_apb_test_pkg-amiq_svaunit_ex_apb_test_illegal_en_assertion.html"  alt="" coords="1542,1153,1997,1183">
+<area shape="poly" id="edge32"  alt="" coords="1541,1161,1492,1144,1455,1121,1424,1089,1400,1052,1381,1012,1356,932,1345,869,1351,868,1362,931,1386,1010,1405,1050,1429,1086,1458,1116,1494,1139,1543,1156">
+<area shape="rect" id="node34" href="amiq_svaunit_ex_apb_test_pkg-amiq_svaunit_ex_apb_test_illegal_en_trans.html"  alt="" coords="1561,1207,1977,1238">
+<area shape="poly" id="edge33"  alt="" coords="1560,1220,1526,1211,1492,1198,1449,1170,1416,1132,1390,1087,1371,1039,1358,990,1350,943,1343,869,1348,868,1355,942,1363,989,1376,1037,1395,1085,1420,1129,1453,1166,1495,1194,1527,1206,1562,1215">
+<area shape="rect" id="node35" href="amiq_svaunit_ex_apb_test_pkg-amiq_svaunit_ex_apb_test_illegal_en_val.html"  alt="" coords="1571,1262,1967,1293">
+<area shape="poly" id="edge34"  alt="" coords="1570,1282,1530,1272,1493,1255,1461,1232,1435,1200,1412,1156,1394,1110,1367,1016,1352,931,1345,868,1350,868,1357,931,1372,1015,1399,1108,1417,1154,1440,1197,1464,1228,1496,1251,1532,1267,1572,1277">
+<area shape="rect" id="node36" href="amiq_svaunit_ex_apb_test_pkg-amiq_svaunit_ex_apb_test_illegal_en_deassertion.html"  alt="" coords="1533,1317,2006,1347">
+<area shape="poly" id="edge35"  alt="" coords="1531,1326,1503,1314,1476,1298,1453,1278,1435,1252,1410,1201,1390,1147,1363,1037,1349,939,1344,868,1349,868,1354,939,1368,1036,1396,1145,1415,1199,1440,1249,1457,1274,1479,1294,1505,1309,1533,1321">
+<area shape="rect" id="node37" href="amiq_svaunit_ex_apb_test_pkg-amiq_svaunit_ex_apb_test_illegal_strb_val_read_trans.html"  alt="" coords="1509,1371,2030,1402">
+<area shape="poly" id="edge36"  alt="" coords="1522,1374,1492,1362,1458,1339,1435,1304,1408,1245,1387,1183,1371,1120,1360,1058,1347,948,1343,869,1348,869,1352,947,1365,1058,1377,1119,1393,1182,1413,1243,1440,1301,1461,1336,1495,1358,1524,1370">
+<area shape="rect" id="node38" href="amiq_svaunit_ex_apb_test_pkg-amiq_svaunit_ex_apb_test_illegal_ready_max_low_time.html"  alt="" coords="1513,1426,2025,1457">
+<area shape="poly" id="edge37"  alt="" coords="1512,1431,1468,1405,1450,1387,1435,1365,1418,1323,1402,1264,1375,1120,1356,975,1345,869,1351,868,1362,974,1381,1119,1407,1263,1423,1321,1440,1363,1454,1384,1471,1401,1514,1427">
+<area shape="rect" id="node39" href="amiq_svaunit_ex_apb_test_pkg-amiq_svaunit_ex_apb_test_illegal_rdata_trans.html"  alt="" coords="1547,1481,1991,1511">
+<area shape="poly" id="edge38"  alt="" coords="1546,1497,1512,1485,1482,1469,1455,1446,1435,1417,1417,1370,1400,1304,1374,1145,1355,984,1345,869,1350,869,1360,984,1379,1144,1405,1303,1422,1368,1440,1415,1459,1443,1485,1464,1515,1480,1548,1492">
+<area shape="rect" id="node40" href="amiq_svaunit_ex_apb_test_pkg-amiq_svaunit_ex_apb_test_illegal_svlerr_cond.html"  alt="" coords="1547,1535,1991,1566">
+<area shape="poly" id="edge39"  alt="" coords="1546,1551,1512,1539,1481,1523,1455,1500,1435,1471,1415,1418,1398,1346,1372,1170,1354,993,1344,869,1350,868,1359,993,1377,1169,1404,1345,1421,1416,1440,1468,1459,1496,1485,1518,1514,1535,1548,1546">
+<area shape="rect" id="node41" href="amiq_svaunit_ex_apb_test_pkg-amiq_svaunit_ex_apb_test_illegal_sel_val.html"  alt="" coords="1566,1590,1973,1621">
+<area shape="poly" id="edge40"  alt="" coords="1565,1610,1525,1599,1489,1582,1458,1557,1435,1524,1414,1466,1397,1387,1370,1194,1353,1002,1344,868,1349,868,1358,1001,1375,1193,1402,1386,1419,1464,1440,1521,1462,1553,1492,1577,1527,1594,1567,1605"></map>
 		</ul>
 
 	</div>
@@ -1579,83 +782,102 @@ phase)
 				<ul id="collaboration_diagram" class="list-group panel-collapse collapse">
 			<img src="svaunit_pkg-svaunit_test_collaboration.png" border="0" usemap="#_collaboration_diagram" />
 			<map name="_collaboration_diagram">
-<area shape="rect" id="node1" href="svaunit_pkg-svaunit_test.html"  alt="" coords="2057,1126,2194,1157">
-<area shape="rect" id="node2" href="svaunit_pkg-svaunit_base.html"  alt="" coords="1953,1033,2090,1063">
-<area shape="poly" id="edge1"  alt="" coords="2108,1129,2045,1074,2049,1070,2112,1125">
-<area shape="rect" id="node8" href="svaunit_pkg-svaunit_immediate_assertion_info.html"  alt="" coords="1749,473,2078,503">
-<area shape="poly" id="edge18"  alt="" coords="2137,1125,2162,1092,2171,1071,2175,1049,2175,580,2171,568,2161,557,2123,537,2072,521,2015,508,2016,503,2073,515,2125,532,2164,553,2176,566,2180,580,2180,1050,2176,1073,2166,1095,2141,1128">
-<area shape="rect" id="node3"  alt="" coords="1680,939,1779,970">
-<area shape="poly" id="edge2"  alt="" coords="1977,1036,1785,976,1786,971,1979,1031">
-<area shape="rect" id="node4"  alt="" coords="1241,846,1388,877">
-<area shape="poly" id="edge3"  alt="" coords="1679,945,1388,881,1389,876,1680,940">
-<area shape="rect" id="node5"  alt="" coords="1154,379,1339,410">
-<area shape="poly" id="edge4"  alt="" coords="1241,861,1191,854,1144,838,1125,826,1109,811,1098,792,1095,770,1095,486,1101,460,1117,439,1140,423,1167,411,1169,416,1143,428,1121,443,1106,462,1100,487,1100,769,1103,790,1113,808,1128,822,1147,833,1193,849,1241,856">
-<area shape="rect" id="node15"  alt="" coords="1989,99,2126,130">
-<area shape="poly" id="edge35"  alt="" coords="1388,857,1588,852,1832,839,1945,827,2039,812,2102,792,2119,781,2124,769,2124,207,2121,188,2112,170,2086,140,2090,137,2116,167,2126,186,2129,206,2129,770,2123,784,2104,797,2040,817,1946,832,1833,844,1588,857,1388,862">
-<area shape="rect" id="node18"  alt="" coords="1387,753,1495,783">
-<area shape="poly" id="edge36"  alt="" coords="1299,848,1287,828,1286,817,1290,806,1303,796,1323,788,1373,776,1374,781,1325,793,1306,801,1294,810,1291,818,1292,827,1304,845">
-<area shape="poly" id="edge37"  alt="" coords="1366,844,1389,834,1410,819,1429,794,1433,797,1414,823,1392,838,1368,849">
-<area shape="poly" id="edge49"  alt="" coords="1388,855,1483,845,1522,834,1546,820,1551,808,1544,798,1529,790,1508,783,1509,778,1531,785,1548,795,1556,807,1550,823,1524,839,1484,850,1389,861">
-<area shape="poly" id="edge50"  alt="" coords="1388,867,1404,864,1409,862,1400,857,1403,853,1415,861,1406,869,1389,872">
-<area shape="rect" id="node6"  alt="" coords="1649,286,1767,317">
-<area shape="poly" id="edge5"  alt="" coords="1314,377,1634,314,1635,320,1315,383">
-<area shape="rect" id="node20"  alt="" coords="556,286,751,317">
-<area shape="poly" id="edge41"  alt="" coords="1159,383,754,321,755,315,1160,377">
-<area shape="rect" id="node7"  alt="" coords="1911,193,2009,223">
-<area shape="poly" id="edge6"  alt="" coords="1768,296,1875,286,1922,275,1940,268,1951,260,1958,249,1960,236,1965,237,1963,251,1955,263,1942,273,1924,280,1876,291,1768,301">
-<area shape="rect" id="node10"  alt="" coords="1561,193,1775,223">
-<area shape="poly" id="edge20"  alt="" coords="1648,301,1456,290,1369,279,1339,272,1322,263,1317,248,1328,236,1350,228,1381,221,1460,212,1547,208,1547,213,1461,218,1382,226,1352,233,1331,241,1322,250,1326,260,1341,267,1370,274,1456,285,1649,296">
-<area shape="poly" id="edge9"  alt="" coords="2004,471,2022,461,2037,446,2044,433,2045,419,2037,402,2018,381,2002,370,1979,359,1917,341,1781,315,1781,310,1919,335,1980,354,2004,365,2022,377,2042,399,2050,418,2049,434,2041,450,2026,465,2007,476">
-<area shape="rect" id="node9" href="svaunit_pkg-svaunit_immediate_assertion_details.html"  alt="" coords="1650,379,2009,410">
-<area shape="poly" id="edge19"  alt="" coords="1839,476,1821,465,1806,449,1802,435,1807,420,1812,422,1807,435,1810,447,1824,461,1842,471">
-<area shape="poly" id="edge7"  alt="" coords="1810,382,1736,327,1739,322,1813,378">
-<area shape="poly" id="edge21"  alt="" coords="1594,225,1577,232,1565,240,1561,249,1565,260,1575,268,1592,275,1636,286,1634,292,1590,280,1572,272,1561,263,1555,249,1561,236,1574,227,1592,220">
-<area shape="rect" id="node11"  alt="" coords="1670,6,1837,37">
-<area shape="poly" id="edge22"  alt="" coords="1703,191,1719,180,1732,166,1746,138,1753,107,1754,49,1759,50,1758,107,1751,140,1737,170,1723,185,1706,196">
-<area shape="poly" id="edge23"  alt="" coords="1668,223,1668,241,1672,260,1681,275,1677,278,1667,262,1662,242,1663,223">
-<area shape="rect" id="node12"  alt="" coords="1567,99,1705,130">
-<area shape="poly" id="edge24"  alt="" coords="1655,194,1642,169,1635,144,1641,143,1646,167,1660,192">
-<area shape="rect" id="node14"  alt="" coords="1846,99,1965,130">
-<area shape="poly" id="edge27"  alt="" coords="1704,191,1771,166,1858,132,1860,137,1773,170,1706,196">
-<area shape="poly" id="edge29"  alt="" coords="1756,191,1885,165,2004,131,2006,136,1886,171,1757,196">
-<area shape="rect" id="node16"  alt="" coords="1345,99,1473,130">
-<area shape="poly" id="edge31"  alt="" coords="1626,196,1551,171,1458,137,1459,132,1553,165,1627,191">
-<area shape="poly" id="edge34"  alt="" coords="1750,221,1768,231,1784,247,1788,257,1785,268,1766,283,1763,279,1780,265,1782,258,1779,249,1765,235,1748,225">
-<area shape="rect" id="node13"  alt="" coords="1454,6,1591,37">
-<area shape="poly" id="edge25"  alt="" coords="1566,106,1542,95,1522,76,1516,64,1515,50,1520,50,1521,62,1526,73,1545,90,1568,101">
-<area shape="poly" id="edge26"  alt="" coords="1639,99,1649,79,1665,59,1696,39,1699,44,1668,63,1654,82,1644,101">
-<area shape="poly" id="edge28"  alt="" coords="1882,102,1786,45,1789,41,1884,98">
-<area shape="poly" id="edge8"  alt="" coords="2059,130,2055,159,2046,197,2028,234,2015,250,1999,264,1960,278,1904,289,1781,300,1781,295,1903,283,1959,273,1996,259,2011,247,2023,231,2041,195,2050,158,2054,129">
-<area shape="poly" id="edge30"  alt="" coords="2022,102,1910,64,1826,42,1828,37,1911,59,2024,97">
-<area shape="rect" id="node17"  alt="" coords="1218,6,1403,37">
-<area shape="poly" id="edge32"  alt="" coords="1344,102,1325,92,1310,76,1304,63,1303,50,1308,50,1310,62,1314,73,1328,87,1346,98">
-<area shape="poly" id="edge33"  alt="" coords="1408,99,1414,78,1428,59,1509,47,1656,30,1657,36,1510,52,1431,64,1419,81,1413,101">
-<area shape="poly" id="edge10"  alt="" coords="1495,758,1534,749,1571,733,1587,722,1599,709,1607,694,1609,676,1609,393,1614,370,1627,350,1644,334,1664,321,1667,325,1648,338,1631,354,1619,372,1615,394,1615,676,1612,695,1603,712,1590,726,1574,737,1536,754,1496,763">
-<area shape="poly" id="edge38"  alt="" coords="1495,774,1511,771,1516,768,1508,764,1511,759,1521,768,1513,776,1496,779">
-<area shape="rect" id="node19"  alt="" coords="1284,659,1431,690">
-<area shape="poly" id="edge39"  alt="" coords="1427,755,1377,701,1381,697,1431,751">
-<area shape="poly" id="edge11"  alt="" coords="1360,659,1372,624,1381,576,1382,523,1377,497,1367,473,1354,455,1337,440,1299,417,1302,413,1341,436,1358,452,1372,471,1382,496,1387,523,1387,577,1377,625,1365,660">
-<area shape="poly" id="edge40"  alt="" coords="1430,680,1447,678,1452,675,1443,671,1445,666,1457,674,1449,682,1431,685">
-<area shape="rect" id="node25"  alt="" coords="1197,566,1296,597">
-<area shape="poly" id="edge46"  alt="" coords="1339,662,1272,607,1276,603,1343,658">
-<area shape="rect" id="node21"  alt="" coords="265,193,479,223">
-<area shape="poly" id="edge42"  alt="" coords="555,303,498,300,442,293,395,281,377,273,365,263,359,250,359,236,364,236,364,249,369,260,380,269,397,276,443,288,499,294,556,297">
-<area shape="rect" id="node22"  alt="" coords="515,193,767,223">
-<area shape="poly" id="edge43"  alt="" coords="649,287,642,236,648,236,654,286">
-<area shape="rect" id="node23"  alt="" coords="799,193,1033,223">
-<area shape="poly" id="edge44"  alt="" coords="751,294,843,283,881,273,905,259,912,249,915,236,920,237,916,251,908,263,883,278,844,288,751,299">
-<area shape="rect" id="node24"  alt="" coords="5,193,190,223">
-<area shape="poly" id="edge45"  alt="" coords="556,303,416,302,261,297,130,285,85,276,59,263,55,255,55,246,65,231,69,234,60,248,60,254,63,259,86,271,131,280,261,292,416,297,556,298">
-<area shape="rect" id="node27"  alt="" coords="373,99,577,130">
-<area shape="poly" id="edge12"  alt="" coords="381,191,417,153,439,135,443,139,420,157,385,195">
-<area shape="poly" id="edge13"  alt="" coords="615,196,510,138,513,134,618,191">
-<area shape="poly" id="edge14"  alt="" coords="859,196,685,157,565,134,566,129,686,152,860,191">
-<area shape="poly" id="edge15"  alt="" coords="143,191,287,152,391,129,392,135,289,157,144,196">
-<area shape="poly" id="edge17"  alt="" coords="1237,598,1219,622,1200,653,1188,690,1186,709,1188,728,1201,778,1211,798,1230,819,1258,839,1255,843,1226,823,1207,801,1196,780,1183,728,1181,709,1183,689,1196,651,1214,619,1233,595">
-<area shape="rect" id="node26"  alt="" coords="1135,473,1359,503">
-<area shape="poly" id="edge47"  alt="" coords="1244,567,1244,517,1249,517,1249,567">
-<area shape="poly" id="edge48"  alt="" coords="1249,596,1255,693,1266,757,1286,820,1295,835,1290,837,1282,822,1261,758,1249,693,1244,596">
-<area shape="poly" id="edge16"  alt="" coords="1244,473,1244,423,1249,423,1249,473"></map>
+<area shape="rect" id="node1" href="svaunit_pkg-svaunit_test.html"  alt="" coords="1226,1126,1363,1157">
+<area shape="rect" id="node2" href="svaunit_pkg-svaunit_base.html"  alt="" coords="1118,1033,1255,1063">
+<area shape="poly" id="edge1"  alt="" coords="1277,1129,1212,1074,1215,1070,1280,1125">
+<area shape="rect" id="node8" href="svaunit_pkg-svaunit_sequencer.html"  alt="" coords="1281,1033,1466,1063">
+<area shape="poly" id="edge23"  alt="" coords="1304,1125,1351,1071,1355,1075,1308,1128">
+<area shape="rect" id="node3"  alt="" coords="1135,939,1233,970">
+<area shape="poly" id="edge2"  alt="" coords="1184,1033,1182,983,1187,983,1189,1033">
+<area shape="rect" id="node20" href="svaunit_pkg-svaunit_immediate_assertion_info.html"  alt="" coords="369,473,698,503">
+<area shape="poly" id="edge42"  alt="" coords="1117,1046,964,1037,783,1020,700,1008,632,994,585,978,572,968,567,957,567,580,560,546,547,516,552,514,566,545,572,580,572,955,576,964,588,973,633,989,701,1003,783,1015,964,1032,1118,1041">
+<area shape="rect" id="node9" href="svaunit_pkg-svaunit_vpi_wrapper.html"  alt="" coords="1271,939,1475,970">
+<area shape="poly" id="edge45"  alt="" coords="1213,1031,1332,973,1334,978,1215,1036">
+<area shape="rect" id="node4"  alt="" coords="1081,846,1228,877">
+<area shape="poly" id="edge3"  alt="" coords="1177,941,1161,890,1166,888,1182,939">
+<area shape="rect" id="node5"  alt="" coords="1147,379,1333,410">
+<area shape="poly" id="edge4"  alt="" coords="1227,845,1264,834,1300,819,1332,801,1355,783,1372,760,1385,727,1405,655,1409,625,1409,596,1404,568,1395,539,1360,473,1346,456,1329,440,1290,417,1293,413,1332,436,1350,452,1365,471,1400,537,1409,566,1414,595,1414,625,1410,656,1391,729,1376,763,1359,787,1335,806,1302,824,1266,839,1229,850">
+<area shape="rect" id="node15"  alt="" coords="761,99,898,130">
+<area shape="poly" id="edge46"  alt="" coords="1081,860,925,849,851,839,799,824,760,805,748,791,744,770,744,533,746,514,752,497,772,471,799,453,831,439,862,425,889,407,908,383,913,368,915,349,915,207,911,186,900,168,867,139,870,135,904,165,916,184,920,206,920,349,918,369,912,386,892,411,865,429,833,444,802,458,775,475,756,499,751,515,749,533,749,769,753,788,764,800,801,819,852,833,926,844,1081,855">
+<area shape="rect" id="node23"  alt="" coords="910,753,1018,783">
+<area shape="poly" id="edge47"  alt="" coords="1081,857,1011,845,982,836,963,823,957,811,956,797,961,796,962,809,967,820,984,831,1012,840,1081,852">
+<area shape="poly" id="edge48"  alt="" coords="1138,849,1114,829,1084,810,1030,789,1032,784,1087,806,1117,825,1141,844">
+<area shape="poly" id="edge60"  alt="" coords="1081,859,917,847,848,837,824,831,810,823,803,811,803,800,811,791,823,784,856,775,896,770,897,775,857,780,825,789,814,795,808,802,808,810,814,819,826,826,849,832,918,842,1081,854">
+<area shape="poly" id="edge61"  alt="" coords="1228,867,1244,864,1249,862,1240,857,1243,853,1255,861,1246,869,1229,872">
+<area shape="rect" id="node6"  alt="" coords="646,286,765,317">
+<area shape="poly" id="edge5"  alt="" coords="1161,383,778,318,779,312,1162,377">
+<area shape="rect" id="node25"  alt="" coords="1251,286,1445,317">
+<area shape="poly" id="edge52"  alt="" coords="1254,378,1320,323,1323,327,1258,382">
+<area shape="rect" id="node7"  alt="" coords="701,193,800,223">
+<area shape="poly" id="edge6"  alt="" coords="738,284,753,274,764,260,767,249,764,236,769,235,772,249,769,263,757,278,741,289">
+<area shape="rect" id="node10"  alt="" coords="271,193,486,223">
+<area shape="poly" id="edge25"  alt="" coords="645,291,552,264,527,250,456,229,458,223,529,246,554,259,647,286">
+<area shape="rect" id="node32"  alt="" coords="1505,939,1777,970">
+<area shape="poly" id="edge9"  alt="" coords="1412,1031,1588,971,1589,976,1414,1036">
+<area shape="poly" id="edge24"  alt="" coords="1371,1033,1371,983,1376,983,1376,1033">
+<area shape="poly" id="edge7"  alt="" coords="1412,937,1437,925,1461,909,1477,888,1484,862,1484,394,1481,376,1474,365,1463,358,1448,353,1410,350,1368,344,1317,335,1250,327,1087,316,778,306,779,301,1088,311,1251,322,1318,330,1368,339,1410,344,1449,348,1465,353,1478,361,1486,374,1489,393,1489,863,1482,890,1464,912,1440,930,1415,942">
+<area shape="poly" id="edge26"  alt="" coords="271,218,208,224,153,234,119,246,114,253,117,260,142,271,189,281,330,292,493,297,632,298,632,303,493,303,330,298,189,286,140,276,113,263,108,252,116,242,152,229,208,219,271,213">
+<area shape="rect" id="node11"  alt="" coords="481,6,647,37">
+<area shape="poly" id="edge27"  alt="" coords="486,196,531,184,573,166,604,145,625,121,631,108,633,94,631,79,624,63,609,45,613,42,629,60,636,77,638,94,636,109,630,124,607,149,576,170,533,189,487,201">
+<area shape="poly" id="edge28"  alt="" coords="272,219,244,225,224,234,216,245,223,259,242,269,279,277,389,288,518,294,633,297,632,302,518,300,389,294,279,282,241,274,219,263,211,244,221,230,242,220,271,214">
+<area shape="rect" id="node12"  alt="" coords="310,99,447,130">
+<area shape="poly" id="edge29"  alt="" coords="376,193,376,143,381,143,381,193">
+<area shape="rect" id="node14"  alt="" coords="478,99,597,130">
+<area shape="poly" id="edge32"  alt="" coords="419,191,473,166,512,137,515,141,476,170,421,196">
+<area shape="poly" id="edge34"  alt="" coords="486,195,576,183,670,165,728,149,781,132,783,137,730,155,671,171,577,188,487,200">
+<area shape="rect" id="node16"  alt="" coords="145,99,273,130">
+<area shape="poly" id="edge36"  alt="" coords="344,196,289,170,239,139,241,135,292,166,346,191">
+<area shape="poly" id="edge39"  alt="" coords="369,224,358,243,357,252,361,260,373,266,396,272,466,282,632,294,632,300,466,288,395,277,371,271,357,263,352,253,353,241,364,221">
+<area shape="rect" id="node13"  alt="" coords="254,6,391,37">
+<area shape="poly" id="edge30"  alt="" coords="348,102,333,91,322,76,316,51,321,50,326,74,337,87,351,98">
+<area shape="poly" id="edge31"  alt="" coords="401,98,475,59,518,39,521,44,477,64,404,102">
+<area shape="poly" id="edge33"  alt="" coords="539,99,554,49,559,50,544,101">
+<area shape="poly" id="edge8"  alt="" coords="834,129,836,156,836,191,828,229,810,263,796,277,779,287,776,282,792,272,806,260,823,227,830,191,831,156,829,130">
+<area shape="poly" id="edge35"  alt="" coords="789,102,616,43,617,38,791,97">
+<area shape="rect" id="node17"  alt="" coords="18,6,203,37">
+<area shape="poly" id="edge37"  alt="" coords="144,102,125,92,110,76,104,63,103,50,108,50,110,62,114,73,128,87,146,98">
+<area shape="poly" id="edge38"  alt="" coords="209,99,216,78,231,59,259,52,317,45,467,29,467,34,318,50,260,58,233,64,220,81,214,101">
+<area shape="rect" id="node18"  alt="" coords="1525,846,1921,877">
+<area shape="rect" id="node33"  alt="" coords="1615,753,1830,783">
+<area shape="poly" id="edge10"  alt="" coords="1720,847,1720,797,1725,797,1725,847">
+<area shape="rect" id="node19"  alt="" coords="1582,659,1863,690">
+<area shape="rect" id="node34"  alt="" coords="1601,566,1844,597">
+<area shape="poly" id="edge11"  alt="" coords="1720,660,1720,610,1725,610,1725,660">
+<area shape="poly" id="edge14"  alt="" coords="650,471,676,461,700,448,721,431,736,410,742,389,739,368,721,329,726,326,744,367,747,390,741,412,724,435,703,453,678,466,652,476">
+<area shape="rect" id="node21" href="svaunit_pkg-svaunit_concurrent_assertion_info.html"  alt="" coords="5,379,344,410">
+<area shape="poly" id="edge43"  alt="" coords="480,476,240,415,242,410,481,471">
+<area shape="rect" id="node22" href="svaunit_pkg-svaunit_immediate_assertion_details.html"  alt="" coords="369,379,727,410">
+<area shape="poly" id="edge44"  alt="" coords="533,473,541,422,546,423,538,474">
+<area shape="poly" id="edge12"  alt="" coords="253,377,632,313,633,318,253,383">
+<area shape="poly" id="edge13"  alt="" coords="570,378,669,321,672,325,573,382">
+<area shape="poly" id="edge15"  alt="" coords="935,755,914,742,894,724,878,702,872,676,872,533,868,500,857,468,842,438,822,410,777,361,735,326,738,322,780,357,826,406,846,435,862,466,873,499,877,533,877,676,883,700,898,721,917,738,938,751">
+<area shape="poly" id="edge49"  alt="" coords="1018,774,1034,771,1039,768,1030,764,1033,759,1044,768,1036,776,1019,779">
+<area shape="rect" id="node24"  alt="" coords="912,659,1059,690">
+<area shape="poly" id="edge50"  alt="" coords="965,753,976,702,982,703,970,754">
+<area shape="poly" id="edge16"  alt="" coords="989,658,1035,574,1071,520,1114,470,1155,438,1197,413,1200,418,1158,442,1118,474,1075,523,1039,577,994,661">
+<area shape="poly" id="edge51"  alt="" coords="1058,680,1075,678,1080,675,1071,671,1073,666,1085,674,1077,682,1059,685">
+<area shape="rect" id="node30"  alt="" coords="1191,566,1289,597">
+<area shape="poly" id="edge57"  alt="" coords="1022,657,1188,598,1190,603,1024,662">
+<area shape="rect" id="node26"  alt="" coords="1541,193,1755,223">
+<area shape="poly" id="edge53"  alt="" coords="1445,298,1505,295,1564,288,1613,277,1631,269,1643,260,1649,249,1650,236,1656,237,1654,251,1647,263,1634,273,1614,282,1564,293,1505,300,1446,303">
+<area shape="rect" id="node27"  alt="" coords="1817,193,2069,223">
+<area shape="poly" id="edge54"  alt="" coords="1446,297,1583,295,1734,289,1863,278,1907,269,1930,259,1937,249,1941,236,1946,237,1942,251,1934,263,1908,274,1863,283,1735,295,1583,300,1446,303">
+<area shape="rect" id="node28"  alt="" coords="1002,193,1235,223">
+<area shape="poly" id="edge55"  alt="" coords="1250,299,1086,287,1019,277,997,271,983,263,976,251,978,240,986,231,999,225,1002,229,989,236,983,242,982,250,987,259,999,266,1020,272,1087,282,1251,294">
+<area shape="rect" id="node29"  alt="" coords="1306,193,1491,223">
+<area shape="poly" id="edge56"  alt="" coords="1343,287,1342,267,1347,247,1360,230,1365,233,1352,249,1347,268,1348,286">
+<area shape="rect" id="node35"  alt="" coords="1394,99,1598,130">
+<area shape="poly" id="edge17"  alt="" coords="1628,195,1569,157,1534,138,1537,133,1572,152,1631,191">
+<area shape="poly" id="edge18"  alt="" coords="1884,196,1707,157,1586,134,1587,129,1709,152,1886,191">
+<area shape="poly" id="edge19"  alt="" coords="1170,191,1325,152,1422,130,1423,135,1326,157,1171,196">
+<area shape="poly" id="edge20"  alt="" coords="1411,191,1470,137,1473,141,1415,195">
+<area shape="poly" id="edge22"  alt="" coords="1264,594,1296,617,1328,648,1341,667,1349,687,1353,707,1349,729,1336,761,1322,784,1302,803,1275,824,1233,845,1230,840,1272,819,1299,799,1318,780,1332,758,1344,727,1347,707,1344,688,1336,669,1324,652,1292,621,1261,598">
+<area shape="rect" id="node31"  alt="" coords="1128,473,1352,503">
+<area shape="poly" id="edge58"  alt="" coords="1237,567,1237,517,1243,517,1243,567">
+<area shape="poly" id="edge59"  alt="" coords="1242,596,1234,822,1214,842,1211,838,1230,820,1237,596">
+<area shape="poly" id="edge21"  alt="" coords="1237,473,1237,423,1243,423,1243,473">
+<area shape="poly" id="edge40"  alt="" coords="1651,938,1699,885,1703,888,1655,942">
+<area shape="poly" id="edge41"  alt="" coords="1720,753,1720,703,1725,703,1725,753"></map>
 		</ul>
 
 	</div>
@@ -1670,8 +892,8 @@ phase)
 			<img src="svaunit_pkg-svaunit_test_direct_associations.png" border="0" usemap="#_direct_associations_diagram" />
 			<map name="_direct_associations_diagram">
 <area shape="rect" id="node1" href="svaunit_pkg-svaunit_test.html"  alt="" coords="6,5,143,35">
-<area shape="rect" id="node2" href="svaunit_pkg-svaunit_immediate_assertion_info.html"  alt="" coords="371,5,701,35">
-<area shape="poly" id="edge1"  alt="" coords="144,17,358,17,358,23,144,23"></map>
+<area shape="rect" id="node2" href="svaunit_pkg-svaunit_sequencer.html"  alt="" coords="291,5,477,35">
+<area shape="poly" id="edge1"  alt="" coords="144,17,278,17,278,23,144,23"></map>
 		</ul>
 
 	</div>
@@ -1683,7 +905,7 @@ phase)
 	</div>
 
 	<div class="footer">
-		<hr><p class="text-center">Generated  on Wed Apr 29 10:13:55 EEST 2015 using <a href="http://www.dvteclipse.com/" target="_new">Specador<sup>TM</sup></a> Version 15.1.8</p>
+		<hr><p class="text-center">Generated  on Mon Jun 22 13:21:47 EEST 2015 using <a href="http://www.dvteclipse.com/" target="_new">Specador<sup>TM</sup></a> Version 15.1.13</p>
     </div>
 
 	<script src="lib/jquery/js/jquery.js"></script>

@@ -18,539 +18,611 @@
  * Description: It contains communication API with VPI
  *******************************************************************************/
 
-`ifndef __SVAUNIT_VPI_INTERFACE_SV
-//protection against multiple includes
-`define __SVAUNIT_VPI_INTERFACE_SV
+`ifndef SVAUNIT_VPI_INTERFACE_SV
+`define SVAUNIT_VPI_INTERFACE_SV
 
 // It contains communication API with VPI
 interface svaunit_vpi_interface();
-    import svaunit_pkg::*;
-    import uvm_pkg::*;
-    `include  "uvm_macros.svh"
-    `include  "svaunit_defines.svh"
+   import svaunit_pkg::*;
+   import uvm_pkg::*;
+`include  "uvm_macros.svh"
+`include  "svaunit_defines.svh"
+`include  "svaunit_version_defines.svh"
 
-    // DPI-C API used to find SVAs using VPI API
-    import "DPI-C" context function void register_assertions();
+   // DPI-C API used to find SVAs using VPI API
+   import "DPI-C" context function void register_assertions_dpi();
 
-    /* Control assertion using vpi_control function
-     * @param assertion_name : the assertion used to apply control action on
-     * @param control_type : the control action
-     * @param sys_time : attempt time
-     */
-    import "DPI-C" context function void control_assertion(input string assertion_name, input int control_type, input int sys_time);
+   /* Control assertion using vpi_control function
+    * @param a_sva_name : the assertion used to apply control action on
+    * @param a_control_type : the control action
+    * @param a_sys_time : attempt time
+    */
+   import "DPI-C" context function void control_assertion_dpi(input string a_sva_name, input int a_control_type,
+      input int a_sys_time);
 
-    /* DPI-C API used to get SVA cover statistics - how many times this cover was triggered and how many times it failed
-     * @param cover_name : cover name to retrieve information about
-     * @param nof_attempts_failed_covered : number of attempts this cover was triggered and it failed
-     * @param nof_attempts_succeeded_covered : number of attempts this cover was triggered and it succeeded
-     */
-    import "DPI-C" context function void get_cover_statistics(input string cover_name, output int unsigned nof_attempts_covered, output int unsigned nof_attempts_succeeded_covered);
+   /* DPI-C API used to get SVA cover statistics - how many times this cover was triggered and how many times it failed
+    * @param a_cover_name : cover name to retrieve information about
+    * @param a_nof_attempts_covered : number of attempts this cover was triggered and it failed
+    * @param a_nof_attempts_succeeded_covered : number of attempts this cover was triggered and it succeeded
+    */
+   import "DPI-C" context function void get_cover_statistics_dpi(input string a_cover_name,
+      output int unsigned a_nof_attempts_covered, output int unsigned a_nof_attempts_succeeded_covered);
 
-    /* DPI-C API to retrieve information about all callbacks
-     * @param crt_test_name : the test name from which this function is called
-     */
-    import "DPI-C" context function void call_callback(input string crt_test_name);
+   /* DPI-C API to retrieve information about all callbacks
+    * @param a_test_name : the test name from which this function is called
+    */
+   import "DPI-C" context function void call_callback_dpi(input string a_test_name);
 
-    /* Set the current test_name
-     * @param crt_test_name : current test name to be updated
-     */
-    import "DPI-C" context function void set_test_name_to_vpi(input string crt_test_name);
+   /* Set the current test name
+    * @param a_test_name : current test name to be updated
+    */
+   import "DPI-C" context function void set_test_name_to_vpi_dpi(input string a_test_name);
 
-    /* VPI API to update a given SVA
-     * @param crt_test_name : test name from where this function is called
-     * @param assertion_name : SVA name to be updated
-     * @param assertion_type : the type of the SVA to be updated
-     * @param reason : callback reason
-     * @param start_time : the start attempt for this SVA
-     * @param callback_time : the callback time for this SVA attempt
-     */
-    export "DPI-C" function pass_info_to_sv;
+   /* VPI API to update a given SVA
+    * @param a_test_name : test name from where this function is called
+    * @param a_sva_name : SVA name to be updated
+    * @param a_sva_type : the type of the SVA to be updated
+    * @param a_reason : callback reason
+    * @param a_start_time : the start attempt for this SVA
+    * @param a_callback_time : the callback time for this SVA attempt
+    */
+   export "DPI-C" function pass_info_to_sv_dpi;
 
-    /* Create SVA with a name and a type given
-     * @param assertion_name : SVA name to be created
-     * @param assertion_type : SVA type to be created
-     */
-    export "DPI-C" function create_assertion;
+   /* Create SVA with a name and a type given
+    * @param a_sva_name : SVA name to be created
+    * @param a_sva_type : SVA type to be created
+    */
+   export "DPI-C" function create_assertion_dpi;
 
-    // Stores the test name to be simulated
-    string test_name;
+   // Stores the test name to be simulated
+   string test_name;
 
-    // Will store the info for all assertions from an interface
-    svaunit_concurrent_assertion_info sva_info[];
+   // Will store the info for all assertions from an interface
+   svaunit_concurrent_assertion_info sva_info[];
 
-    // Will store the info for all cover assertions from an interface
-    svaunit_concurrent_assertion_info cover_assertion_info[];
+   // Will store the info for all cover assertions from an interface
+   svaunit_concurrent_assertion_info cover_info[];
 
-    // Will store the info for all cover assertions from an interface
-    svaunit_concurrent_assertion_info property_assertion_info[];
+   // Will store the info for all property assertions from an interface
+   svaunit_concurrent_assertion_info property_info[];
 
-    initial begin
-        register_assertions();
-    end
+   initial begin
+      automatic string svaunit_header = "\n----------------------------------------------------------------";
+      svaunit_header = $sformatf("%s\n\t\t%s\n", svaunit_header, `SVAUNIT_VERSION_STRING);
+      svaunit_header = $sformatf("%s----------------------------------------------------------------\n",
+         svaunit_header);
 
-    /* Set test name in VPI interface
-     * @param test_name to be added inside VPI interface
-     */
-    function void set_test_name(string crt_test_name);
-        test_name = crt_test_name;
+      `uvm_info("SVAUNIT", $sformatf("%s", svaunit_header), UVM_NONE)
+      // Register the assertions from the interface
+      register_assertions_dpi();
+   end
 
-        set_test_name_to_vpi(test_name);
-    endfunction
+   /* Set test name in VPI interface
+    * @param a_test_name : the test name to be added inside VPI interface
+    */
+   function void set_test_name(string a_test_name);
+      test_name = a_test_name;
 
-    /* Retrieve info about SVAs
-     * @param crt_test_name : test name from where this function is called
-     */
-    function void get_info_from_c(string crt_test_name);
-        call_callback(crt_test_name);
-    endfunction
+      set_test_name_to_vpi_dpi(test_name);
+   endfunction
 
-    /* Verify if an SVA assertion exists into SVA list
-     * @param assertion_name : the SVA to be found into list
-     * @param lof_sva : the list of SVAs
-     * @return 1 if given SVA exists into list and 0 otherwise
-     */
-    function bit sva_exists(string assertion_name, svaunit_concurrent_assertion_info lof_sva[]);
-        if(lof_sva.size() > 0) begin
-            foreach(lof_sva[sva_index]) begin
-                if(lof_sva[sva_index].get_sva_name() == assertion_name) begin
-                    return 1;
-                end
+   /* Retrieve info about SVAs
+    * @param a_test_name : test name from where this function is called
+    */
+   function void get_info_from_c(string a_test_name);
+      call_callback_dpi(a_test_name);
+   endfunction
+
+   /* Verify if an SVA assertion exists into SVA list
+    * @param a_sva_name : the SVA to be found into list
+    * @param a_sva_path : the path to the SVA which needs to be found into list
+    * @param a_lof_sva : the list of SVAs
+    * @return 1 if given SVA exists into list and 0 otherwise
+    */
+   function bit sva_exists(string a_sva_name, string a_sva_path, svaunit_concurrent_assertion_info a_lof_sva[]);
+      int index[$];
+
+      index = a_lof_sva.find_index() with ((item.get_sva_name() == a_sva_name) && (item.get_sva_path() == a_sva_path));
+
+      if(index.size() > 0) begin
+         return 1;
+      end else begin
+         return 0;
+      end
+   endfunction
+
+   /* Get the state for an SVA according to a callback a_reason
+    * @param a_reason : the integer to be transformed to a callback reason
+    * @return a state of an SVA transformed from a callback reason
+    */
+   function svaunit_concurrent_assertion_state_type get_state_from_reason(int a_reason);
+      if (a_reason inside {`SVAUNIT_VPI_CB_ASSERTION_START, `SVAUNIT_VPI_CB_ASSERTION_SUCCESS,
+               `SVAUNIT_VPI_CB_ASSERTION_FAILURE, `SVAUNIT_VPI_CB_ASSERTION_STEP_SUCCESS,
+               `SVAUNIT_VPI_CB_ASSERTION_STEP_FAILURE, `SVAUNIT_VPI_CB_ASSERTION_DISABLE,
+               `SVAUNIT_VPI_CB_ASSERTION_ENABLE, `SVAUNIT_VPI_CB_ASSERTION_RESET,
+               `SVAUNIT_VPI_CB_ASSERTION_KILL}) begin
+         if(a_reason == `SVAUNIT_VPI_CB_ASSERTION_START) begin
+            return SVAUNIT_START;
+         end
+         else if(a_reason == `SVAUNIT_VPI_CB_ASSERTION_SUCCESS) begin
+            return SVAUNIT_SUCCESS;
+         end
+         else if(a_reason == `SVAUNIT_VPI_CB_ASSERTION_FAILURE) begin
+            return SVAUNIT_FAILURE;
+         end
+         if(a_reason == `SVAUNIT_VPI_CB_ASSERTION_STEP_SUCCESS) begin
+            return SVAUNIT_STEP_SUCCESS;
+         end
+         else if(a_reason == `SVAUNIT_VPI_CB_ASSERTION_STEP_FAILURE) begin
+            return SVAUNIT_STEP_FAILURE;
+         end
+         else if(a_reason == `SVAUNIT_VPI_CB_ASSERTION_DISABLE) begin
+            return SVAUNIT_DISABLE;
+         end
+         if(a_reason == `SVAUNIT_VPI_CB_ASSERTION_ENABLE) begin
+            return SVAUNIT_ENABLE;
+         end
+         else if(a_reason == `SVAUNIT_VPI_CB_ASSERTION_RESET) begin
+            return SVAUNIT_RESET;
+         end
+         else if(a_reason == `SVAUNIT_VPI_CB_ASSERTION_KILL) begin
+            return SVAUNIT_KILL;
+         end
+      end else begin
+         return SVAUNIT_IDLE;
+      end
+   endfunction
+
+   /* Update SVA info according to a reason
+    * @param a_test_name : test name from where this function is called
+    * @param a_sva_name : SVA name to be updated
+    * @param a_sva_path : the path to the SVA which need to be updated
+    * @param a_sva_type : the type of the SVA to be updated
+    * @param a_reason : callback reason
+    * @param a_start_time : the start attempt for this SVA
+    * @param a_callback_time : the callback time for this SVA attempt
+    * @param a_lof_sva : the list of SVAs which contains the SVA to be updated
+    */
+   function void update_sva_from_c(string a_test_name, string a_sva_name, string a_sva_path, string a_sva_type,
+         int a_reason, int a_start_time, int a_callback_time, svaunit_concurrent_assertion_info a_lof_sva[]);
+
+      foreach(a_lof_sva[index]) begin
+         if((a_lof_sva[index].get_sva_name() == a_sva_name) && (a_lof_sva[index].get_sva_type() == a_sva_type) &&
+               (a_lof_sva[index].get_sva_path() == a_sva_path)) begin
+
+            static svaunit_concurrent_assertion_state_type crt_state = get_state_from_reason(a_reason);
+
+            crt_state = svaunit_concurrent_assertion_state_type'(a_reason);
+
+            if(crt_state inside {SVAUNIT_START, SVAUNIT_SUCCESS, SVAUNIT_FAILURE, SVAUNIT_STEP_SUCCESS,
+                     SVAUNIT_STEP_FAILURE, SVAUNIT_DISABLE, SVAUNIT_ENABLE, SVAUNIT_RESET, SVAUNIT_KILL}) begin
+               a_lof_sva[index].update_details(a_test_name, a_start_time, a_callback_time, crt_state);
             end
-        end
+         end
+      end
+   endfunction
 
-        return 0;
-    endfunction
+   /* Create SVA with a name and a type given
+    * @param a_sva_name : SVA name to be created
+    * @param a_sva_path : the path to the SVA which needs to be created
+    * @param a_sva_type : SVA type to be created
+    */
+   function void create_assertion_dpi(string a_sva_name, string a_sva_path, string a_sva_type);
+      if(a_sva_type == "vpiCover") begin
+         if(!(sva_exists(a_sva_name, a_sva_path, cover_info))) begin
+            // Create and add an assertion info to assertion_info array
+            cover_info = new[cover_info.size() + 1] (cover_info);
+            cover_info[cover_info.size() - 1] =
+            svaunit_concurrent_assertion_info::type_id::create($sformatf("sva_%s", a_sva_name), null);
+            cover_info[cover_info.size() - 1].create_new_sva(a_sva_name, a_sva_path, a_sva_type);
+         end
+      end else if(a_sva_type == "vpiAssert") begin
+         if(!(sva_exists(a_sva_name, a_sva_path, sva_info))) begin
+            // Create and add an assertion info to assertion_info array
+            sva_info = new[sva_info.size() + 1] (sva_info);
+            sva_info[sva_info.size() - 1] = svaunit_concurrent_assertion_info::type_id::create($sformatf("sva_%s",
+                  a_sva_name), null);
+            sva_info[sva_info.size() - 1].create_new_sva(a_sva_name, a_sva_path, a_sva_type);
+         end
+      end else if((a_sva_type == "vpiPropertyInst") || (a_sva_type == "vpiPropertyDecl")) begin
+         if(!(sva_exists(a_sva_name, a_sva_path, property_info))) begin
+            // Create and add an assertion info to assertion_info array
+            property_info = new[property_info.size() + 1] (property_info);
+            property_info[property_info.size() - 1] = svaunit_concurrent_assertion_info::type_id::
+            create($sformatf("property_%s", a_sva_name), null);
+            property_info[property_info.size() - 1].create_new_sva(a_sva_name, a_sva_path, a_sva_type);
+         end
+      end
+   endfunction
 
-    /* Get the state for an SVA according to a callback reason
-     * @param reason : the integer to be transformed to a callback reason
-     * @return a state of an SVA transformed from a callback reason
-     */
-    function svaunit_concurrent_assertion_state_type get_state_from_reason(int reason);
-        if (reason inside {`SVAUNIT_VPI_CB_ASSERTION_START, `SVAUNIT_VPI_CB_ASSERTION_SUCCESS, `SVAUNIT_VPI_CB_ASSERTION_FAILURE, `SVAUNIT_VPI_CB_ASSERTION_STEP_SUCCESS, `SVAUNIT_VPI_CB_ASSERTION_STEP_FAILURE, `SVAUNIT_VPI_CB_ASSERTION_DISABLE, `SVAUNIT_VPI_CB_ASSERTION_ENABLE, `SVAUNIT_VPI_CB_ASSERTION_RESET, `SVAUNIT_VPI_CB_ASSERTION_KILL}) begin
-            if(reason == `SVAUNIT_VPI_CB_ASSERTION_START) begin
-                return SVAUNIT_START;
-            end
-            else if(reason == `SVAUNIT_VPI_CB_ASSERTION_SUCCESS) begin
-                return SVAUNIT_SUCCESS;
-            end
-            else if(reason == `SVAUNIT_VPI_CB_ASSERTION_FAILURE) begin
-                return SVAUNIT_FAILURE;
-            end
-            if(reason == `SVAUNIT_VPI_CB_ASSERTION_STEP_SUCCESS) begin
-                return SVAUNIT_STEP_SUCCESS;
-            end
-            else if(reason == `SVAUNIT_VPI_CB_ASSERTION_STEP_FAILURE) begin
-                return SVAUNIT_STEP_FAILURE;
-            end
-            else if(reason == `SVAUNIT_VPI_CB_ASSERTION_DISABLE) begin
-                return SVAUNIT_DISABLE;
-            end
-            if(reason == `SVAUNIT_VPI_CB_ASSERTION_ENABLE) begin
-                return SVAUNIT_ENABLE;
-            end
-            else if(reason == `SVAUNIT_VPI_CB_ASSERTION_RESET) begin
-                return SVAUNIT_RESET;
-            end
-            else if(reason == `SVAUNIT_VPI_CB_ASSERTION_KILL) begin
-                return SVAUNIT_KILL;
-            end
-        end else begin
-            return SVAUNIT_IDLE;
-        end
-    endfunction
+   /* VPI API to update a given SVA
+    * @param a_test_name : test name from where this function is called
+    * @param a_sva_name : SVA name to be updated
+    * @param a_sva_path : path to the SVA
+    * @param a_sva_type : the type of the SVA to be updated
+    * @param a_reason : callback reason
+    * @param a_start_time : the start attempt for this SVA
+    * @param a_callback_time : the callback time for this SVA attempt
+    */
+   function void pass_info_to_sv_dpi(string a_test_name, string a_sva_name, string a_sva_path, string a_sva_type,
+         int a_reason, int a_callback_time, int a_start_time);
 
-    /* Update SVA info according to a reason
-     * @param crt_test_name : test name from where this function is called
-     * @param assertion_name : SVA name to be updated
-     * @param assertion_type : the type of the SVA to be updated
-     * @param reason : callback reason
-     * @param start_time : the start attempt for this SVA
-     * @param callback_time : the callback time for this SVA attempt
-     * @param lof_sva : the list of SVAs which contains the SVA to be updated
-     */
-    function void update_sva_from_c(string crt_test_name, string assertion_name, string assertion_type, int reason, int start_time, int callback_time, svaunit_concurrent_assertion_info lof_sva[]);
-        foreach(lof_sva[index]) begin
-            if((lof_sva[index].get_sva_name() == assertion_name) && (lof_sva[index].get_sva_type() == assertion_type)) begin
-                static svaunit_concurrent_assertion_state_type crt_state = get_state_from_reason(reason);
+      if(a_sva_type == "vpiCover") begin
+         update_sva_from_c(a_test_name, a_sva_name, a_sva_path, a_sva_type, a_reason, a_start_time, a_callback_time,
+            cover_info);
+      end else if(a_sva_type == "vpiAssert") begin
+         update_sva_from_c(a_test_name, a_sva_name, a_sva_path, a_sva_type, a_reason, a_start_time, a_callback_time,
+            sva_info);
+      end else if((a_sva_type == "vpiPropertyInst") || (a_sva_type == "vpiPropertyDecl")) begin
+         update_sva_from_c(a_test_name, a_sva_name, a_sva_path, a_sva_type, a_reason, a_start_time, a_callback_time,
+            property_info);
+      end
+   endfunction
 
-                crt_state = svaunit_concurrent_assertion_state_type'(reason);
+   /* Get the SVA with the given path
+    * @param a_sva_path : SVA path to be found
+    * @return the SVA with the given path
+    */
+   function svaunit_concurrent_assertion_info get_assertion_from_path(string a_sva_path);
+      foreach(sva_info[index]) begin
+         if(sva_info[index].get_sva_path() == a_sva_path) begin
+            return sva_info[index];
+         end
+      end
 
-                if(crt_state inside {SVAUNIT_START, SVAUNIT_SUCCESS, SVAUNIT_FAILURE, SVAUNIT_STEP_SUCCESS, SVAUNIT_STEP_FAILURE, SVAUNIT_DISABLE, SVAUNIT_ENABLE, SVAUNIT_RESET, SVAUNIT_KILL}) begin
-                    lof_sva[index].update_details(crt_test_name, start_time, callback_time, crt_state);
-                end
-            end
-        end
-    endfunction
+      return null;
+   endfunction
 
-    /* Create SVA with a name and a type given
-     * @param assertion_name : SVA name to be created
-     * @param assertion_type : SVA type to be created
-     */
-    function void create_assertion(string assertion_name, string assertion_type);
-        if(assertion_type == "vpiCover") begin
-            if(!(sva_exists(assertion_name, cover_assertion_info))) begin
-                // Create and add an assertion info to assertion_info array
-                cover_assertion_info = new[cover_assertion_info.size() + 1] (cover_assertion_info);
-                cover_assertion_info[cover_assertion_info.size() - 1] = svaunit_concurrent_assertion_info::type_id::create($sformatf("sva_%s", assertion_name), null);
-                cover_assertion_info[cover_assertion_info.size() - 1].create_new_sva(assertion_name, assertion_type);
-            end
-        end else if(assertion_type == "vpiAssert") begin
-            if(!(sva_exists(assertion_name, sva_info))) begin
-                // Create and add an assertion info to assertion_info array
-                sva_info = new[sva_info.size() + 1] (sva_info);
-                sva_info[sva_info.size() - 1] = svaunit_concurrent_assertion_info::type_id::create($sformatf("sva_%s", assertion_name), null);
-                sva_info[sva_info.size() - 1].create_new_sva(assertion_name, assertion_type);
-            end
-        end else if(assertion_type == "vpiPropertyInst" || assertion_type == "vpiPropertyDecl") begin
-            if(!(sva_exists(assertion_name, property_assertion_info))) begin
-                // Create and add an assertion info to assertion_info array
-                property_assertion_info = new[property_assertion_info.size() + 1] (property_assertion_info);
-                property_assertion_info[property_assertion_info.size() - 1] = svaunit_concurrent_assertion_info::type_id::create($sformatf("property_%s", assertion_name), null);
-                property_assertion_info[property_assertion_info.size() - 1].create_new_sva(assertion_name, assertion_type);
-            end
-        end
-    endfunction
+   /* Get the SVA with the given name
+    * @param a_sva_name : SVA name to be found
+    * @return the SVA with the given name
+    */
+   function svaunit_concurrent_assertion_info get_assertion_from_name(string a_sva_name);
+      foreach(sva_info[index]) begin
+         if(sva_info[index].get_sva_name() == a_sva_name) begin
+            return sva_info[index];
+         end
+      end
 
-    /* VPI API to update a given SVA
-     * @param crt_test_name : test name from where this function is called
-     * @param assertion_name : SVA name to be updated
-     * @param assertion_type : the type of the SVA to be updated
-     * @param reason : callback reason
-     * @param start_time : the start attempt for this SVA
-     * @param callback_time : the callback time for this SVA attempt
-     */
-    function void pass_info_to_sv(string crt_test_name, string assertion_name, string assertion_type, int reason, int callback_time, int start_time);
-        if(assertion_type == "vpiCover") begin
-            update_sva_from_c(crt_test_name, assertion_name, assertion_type, reason, start_time, callback_time, cover_assertion_info);
-        end else if(assertion_type == "vpiAssert") begin
-            update_sva_from_c(crt_test_name, assertion_name, assertion_type, reason, start_time, callback_time, sva_info);
-        end else if(assertion_type == "vpiPropertyInst" || assertion_type == "vpiPropertyDecl") begin
-            update_sva_from_c(crt_test_name, assertion_name, assertion_type, reason, start_time, callback_time, property_assertion_info);
-        end
-    endfunction
-
-    /* Get the SVA with the given name
-     * @param assertion_name : SVA name to be found
-     * @return the SVA with the given name
-     */
-    function svaunit_concurrent_assertion_info get_assertion_from_name(string assertion_name);
-        foreach(sva_info[index]) begin
-            if(sva_info[index].get_sva_name() == assertion_name) begin
-                return sva_info[index];
-            end
-        end
-
-        return null;
-    endfunction
-
-    // {{{ Functions used to control SVA
-    //------------------------------- RESET --------------------------------
-    /* Will discard all current attempts in progress for an SVA with a given name and resets the SVA to its initial state
-     * @param test_name : the test name from which SVA were enabled and tested
-     * @param assertion : assertion which needs to be reseted
-     * @param assertion_name : assertion name to be reseted
-     */
-    function void reset_assertion(string test_name, svaunit_concurrent_assertion_info assertion, string assertion_name);
-        assertion.set_enable(test_name, 1);
-        control_assertion(assertion_name, `SVAUNIT_VPI_CONTROL_RESET_ASSERTION, $time());
-    endfunction
-
-    /* Will discard all current attempts in progress for all SVAs and resets the SVAs to initial state
-     * @param test_name : the test name from which SVA were enabled and tested
-     */
-    function void reset_all_assertions(string test_name);
-        foreach(sva_info[index]) begin
-            reset_assertion(test_name, sva_info[index], sva_info[index].get_sva_name());
-        end
-    endfunction
-
-    //------------------------------- DISABLE --------------------------------
-    /* Will disable the starting of any new attempt for a given SVA
-     * (this will have no effect on any existing attempts or if SVA was already disable; on default all SVAs are enable)
-     * @param test_name : the test name from which SVA were enabled and tested
-     * @param assertion : assertion which needs to be disabled
-     * @param assertion_name : assertion name to be disabled
-     */
-    function void disable_assertion(string test_name, svaunit_concurrent_assertion_info assertion, string assertion_name);
-        assertion.set_enable(test_name, 0);
-        control_assertion(assertion_name, `SVAUNIT_VPI_CONTROL_DISABLE_ASSERTION, $time());
-    endfunction
-
-    /* Will disable the starting of any new attempt for all SVAs
-     * (this will have no effect on any existing attempts or if SVA was already disable; on default all SVAs are enable)
-     * @param test_name : the test name from which SVA were enabled and tested
-     */
-    function void disable_all_assertions(string test_name);
-        foreach(sva_info[index]) begin
-            disable_assertion(test_name, sva_info[index], sva_info[index].get_sva_name());
-        end
-    endfunction
-
-    //------------------------------- ENABLE --------------------------------
-    /* Will enable starting any new attempts for a given SVA
-     * (this will have no effect id SVA was already enable or on any current attempt)
-     * @param test_name : the test name from which SVA were enabled and tested
-     * @param assertion : assertion which needs to be enabled
-     * @param assertion_name : assertion name to be enabled
-     */
-    function void enable_assertion(string test_name, svaunit_concurrent_assertion_info assertion, string assertion_name);
-        assertion.set_enable(test_name, 1);
-        control_assertion(assertion_name, `SVAUNIT_VPI_CONTROL_ENABLE_ASSERTION, $time());
-    endfunction
-
-    /* Will enable starting any new attempts for all SVAs
-     * (this will have no effect id SVA was already enable or on any current attempt)
-     * @param test_name : the test name from which SVA were enabled and tested
-     */
-    function void enable_all_assertions(string test_name);
-        foreach(sva_info[index]) begin
-            enable_assertion(test_name, sva_info[index], sva_info[index].get_sva_name());
-        end
-    endfunction
-
-    //------------------------------- KILL --------------------------------
-    /* Will discard any attempts of a given SVA
-     * (the SVA will remain enabled and does not reset any state used by this SVA)
-     * @param test_name : the test name from which SVA were enabled and tested
-     * @param assertion : assertion which needs to be killed
-     * @param assertion_name : assertion name to be killed
-     * @param sim_time : the time from which any attempt of a given SVA will be discarded
-     */
-    function void kill_assertion(string test_name, svaunit_concurrent_assertion_info assertion, string assertion_name, time sim_time);
-        assertion.set_enable(test_name, 1);
-        control_assertion(assertion_name, `SVAUNIT_VPI_CONTROL_KILL_ASSERTION, sim_time);
-    endfunction
-
-    /* Will discard any attempts of all SVAs
-     * (the SVA will remain enabled and does not reset any state used by any SVA)
-     * @param test_name : the test name from which SVA were enabled and tested
-     * @param sim_time : the time from which any attempt of a given SVA will be discarded
-     */
-    function void kill_all_assertions(string test_name, time sim_time);
-        foreach(sva_info[index]) begin
-            kill_assertion(test_name, sva_info[index], sva_info[index].get_sva_name(), sim_time);
-        end
-    endfunction
-
-    //------------------------------- DISABLE STEP --------------------------------
-    /* Will disable step callback for a given SVA
-     * (this will have no effect if step callback is not enabled or it was already disabled)
-     * @param test_name : the test name from which SVA were enabled and tested
-     * @param assertion : assertion which needs to disable stepping for
-     * @param assertion_name : assertion name to disable stepping for
-     */
-    function void disable_step_assertion(string test_name, svaunit_concurrent_assertion_info assertion, string assertion_name);
-        assertion.set_enable(test_name, 1);
-        control_assertion(assertion_name, `SVAUNIT_VPI_CONTROL_DISABLE_STEP_ASSERTION, $time());
-    endfunction
-
-    /* Will disable step callback for all SVAs
-     * (this will have no effect if step callback is not enabled or it was already disabled)
-     * @param test_name : the test name from which SVA were enabled and tested
-     */
-    function void disable_step_all_assertions(string test_name);
-        foreach(sva_info[index]) begin
-            disable_step_assertion(test_name, sva_info[index], sva_info[index].get_sva_name());
-        end
-    endfunction
-
-    //------------------------------- ENABLE STEP --------------------------------
-
-    /* Will enable step callback for a given SVA
-     * (by default, stepping is disabled; this will have no effect if stepping was already enabled; the stepping mode cannot be modified after the assertion attempt has started)
-     * @param test_name : the test name from which SVA were enabled and tested
-     * @param assertion : assertion which needs to enable stepping for
-     * @param assertion_name : assertion name to enable stepping for
-     */
-    function void enable_step_assertion(string test_name, svaunit_concurrent_assertion_info assertion, string assertion_name);
-        assertion.set_enable(test_name, 1);
-        control_assertion(assertion_name, `SVAUNIT_VPI_CONTROL_ENABLE_STEP_ASSERTION, $time());
-    endfunction
-
-    /* Will enable step callback for all SVAs
-     * (by default, stepping is disabled; this will have no effect if stepping was already enabled; the stepping mode cannot be modified after the assertion attempt has started)
-     * @param test_name : the test name from which SVA were enabled and tested
-     */
-    function void enable_step_all_assertions(string test_name);
-        foreach(sva_info[index]) begin
-            enable_step_assertion(test_name, sva_info[index], sva_info[index].get_sva_name());
-        end
-    endfunction
-
-    //------------------------------- SYSTEM RESET --------------------------------
-    /* Will discard all attempts in progress for all SVAs and restore the entire assertion system to its initial state.
-     * (The vpiAssertionStepSuccess and vpiAssertionStepFailure callbacks will be removed)
-     */
-    function void system_reset_all_assertions();
-        control_assertion("", `SVAUNIT_VPI_CONTROL_SYSTEM_RESET_ASSERTION, $time());
-    endfunction
+      return null;
+   endfunction
 
 
-    //------------------------------- SYSTEM ON --------------------------------
-    /* Will restart the SVAs after it was stopped
-     * @param test_name : the test name from which SVA were enabled and tested
-     */
-    function void system_on_all_assertions(string test_name);
-        control_assertion("", `SVAUNIT_VPI_CONTROL_SYSTEM_ON_ASSERTION, $time());
+   // {{{ Functions used to control SVA
+   //------------------------------- RESET --------------------------------
+   /* Will discard all current attempts in progress for an SVA with a given name
+    * and resets the SVA to its initial state
+    * @param a_test_name : the test name from which SVA were enabled and tested
+    * @param a_sva : assertion which needs to be reseted
+    */
+   function void reset_assertion(string a_test_name, svaunit_concurrent_assertion_info a_sva);
+      automatic bit enable_sva = 1;
 
-        foreach(sva_info[index]) begin
-            sva_info[index].set_enable(test_name, 1);
-        end
-    endfunction
+      a_sva.set_enable(a_test_name, enable_sva);
+      control_assertion_dpi(a_sva.get_sva_path(), `SVAUNIT_VPI_CONTROL_RESET_ASSERTION, $time());
+   endfunction
+
+   /* Will discard all current attempts in progress for all SVAs and resets the SVAs to initial state
+    * @param a_test_name : the test name from which SVA were enabled and tested
+    */
+   function void reset_all_assertions(string a_test_name);
+      foreach(sva_info[index]) begin
+         reset_assertion(a_test_name, sva_info[index]);
+      end
+   endfunction
+
+   //------------------------------- DISABLE --------------------------------
+   /* Will disable the starting of any new attempt for a given SVA
+    * (this will have no effect on any existing attempts or if SVA was already disable;
+    * on default all SVAs are enable)
+    * @param a_test_name : the test name from which SVA were enabled and tested
+    * @param a_sva : assertion which needs to be disabled
+    */
+   function void disable_assertion(string a_test_name, svaunit_concurrent_assertion_info a_sva);
+
+      automatic bit disable_sva = 0;
+
+      a_sva.set_enable(a_test_name, disable_sva);
+      control_assertion_dpi(a_sva.get_sva_path(), `SVAUNIT_VPI_CONTROL_DISABLE_ASSERTION, $time());
+   endfunction
+
+   /* Will disable the starting of any new attempt for all SVAs
+    * (this will have no effect on any existing attempts or if SVA was already disable;
+    * on default all SVAs are enable)
+    * @param a_test_name : the test name from which SVA were enabled and tested
+    */
+   function void disable_all_assertions(string a_test_name);
+      foreach(sva_info[index]) begin
+         disable_assertion(a_test_name, sva_info[index]);
+      end
+   endfunction
+
+   //------------------------------- ENABLE --------------------------------
+   /* Will enable starting any new attempts for a given SVA
+    * (this will have no effect id SVA was already enable or on any current attempt)
+    * @param a_test_name : the test name from which SVA were enabled and tested
+    * @param a_sva : assertion which  needs to be enabled
+    */
+   function void enable_assertion(string a_test_name, svaunit_concurrent_assertion_info a_sva);
+      automatic bit enable_sva = 1;
+
+      a_sva.set_enable(a_test_name, enable_sva);
+      control_assertion_dpi(a_sva.get_sva_path(), `SVAUNIT_VPI_CONTROL_ENABLE_ASSERTION, $time());
+   endfunction
+
+   /* Will enable starting any new attempts for all SVAs
+    * (this will have no effect id SVA was already enable or on any current attempt)
+    * @param a_test_name : the test name from which SVA were enabled and tested
+    */
+   function void enable_all_assertions(string a_test_name);
+      foreach(sva_info[index]) begin
+         enable_assertion(a_test_name, sva_info[index]);
+      end
+   endfunction
+
+   //------------------------------- KILL --------------------------------
+   /* Will discard any attempts of a given SVA
+    * (the SVA will remain enabled and does not reset any state used by this SVA)
+    * @param a_test_name : the test name from which SVA were enabled and tested
+    * @param a_sva : assertion which  needs to be killed
+    * @param a_sim_time : the time from which any attempt of a given SVA will be discarded
+    */
+   function void kill_assertion(string a_test_name, svaunit_concurrent_assertion_info a_sva, time a_sim_time);
+
+      automatic bit enable_sva = 1;
+
+      a_sva.set_enable(a_test_name, enable_sva);
+      control_assertion_dpi(a_sva.get_sva_path(), `SVAUNIT_VPI_CONTROL_KILL_ASSERTION, a_sim_time);
+   endfunction
+
+   /* Will discard any attempts of all SVAs
+    * (the SVA will remain enabled and does not reset any state used by any SVA)
+    * @param a_test_name : the test name from which SVA were enabled and tested
+    * @param a_sim_time : the time from which any attempt of a given SVA will be discarded
+    */
+   function void kill_all_assertions(string a_test_name, time a_sim_time);
+      foreach(sva_info[index]) begin
+         kill_assertion(a_test_name, sva_info[index], a_sim_time);
+      end
+   endfunction
+
+   //------------------------------- DISABLE STEP --------------------------------
+   /* Will disable step callback for a given SVA
+    * (this will have no effect if step callback is not enabled or it was already disabled)
+    * @param a_test_name : the test name from which SVA were enabled and tested
+    * @param a_sva : assertion which  needs to disable stepping for
+    */
+   function void disable_step_assertion(string a_test_name, svaunit_concurrent_assertion_info a_sva);
+
+      automatic bit enable_sva = 1;
+
+      a_sva.set_enable(a_test_name, enable_sva);
+      control_assertion_dpi(a_sva.get_sva_path(), `SVAUNIT_VPI_CONTROL_DISABLE_STEP_ASSERTION, $time());
+   endfunction
+
+   /* Will disable step callback for all SVAs
+    * (this will have no effect if step callback is not enabled or it was already disabled)
+    * @param a_test_name : the test name from which SVA were enabled and tested
+    */
+   function void disable_step_all_assertions(string a_test_name);
+      foreach(sva_info[index]) begin
+         disable_step_assertion(a_test_name, sva_info[index]);
+      end
+   endfunction
+
+   //------------------------------- ENABLE STEP --------------------------------
+
+   /* Will enable step callback for a given SVA
+    * (by default, stepping is disabled; this will have no effect if stepping was already enabled;
+    * the stepping mode cannot be modified after the assertion attempt has started)
+    * @param a_test_name : the test name from which SVA were enabled and tested
+    * @param a_sva : assertion which  needs to enable stepping for
+    * @param a_sva_name : assertion name to enable stepping for
+    */
+   function void enable_step_assertion(string a_test_name, svaunit_concurrent_assertion_info a_sva);
+
+      automatic bit enable_sva = 1;
+
+      a_sva.set_enable(a_test_name, enable_sva);
+      control_assertion_dpi(a_sva.get_sva_path(), `SVAUNIT_VPI_CONTROL_ENABLE_STEP_ASSERTION, $time());
+   endfunction
+
+   /* Will enable step callback for all SVAs
+    * (by default, stepping is disabled; this will have no effect if stepping was already enabled;
+    * the stepping mode cannot be modified after the assertion attempt has started)
+    * @param a_test_name : the test name from which SVA were enabled and tested
+    */
+   function void enable_step_all_assertions(string a_test_name);
+      foreach(sva_info[index]) begin
+         enable_step_assertion(a_test_name, sva_info[index]);
+      end
+   endfunction
+
+   //------------------------------- SYSTEM RESET --------------------------------
+   /* Will discard all attempts in progress for all SVAs and restore the entire assertion system to its initial state.
+    * (The vpiAssertionStepSuccess and vpiAssertionStepFailure callbacks will be removed)
+    */
+   function void system_reset_all_assertions();
+      control_assertion_dpi("", `SVAUNIT_VPI_CONTROL_SYSTEM_RESET_ASSERTION, $time());
+   endfunction
 
 
-    //------------------------------- SYSTEM OFF --------------------------------
-    /* Will disable any SVA to being started and all current attempts will be considered as unterminated
-     * @param test_name : the test name from which SVA were enabled and tested
-     */
-    function void system_off_all_assertions(string test_name);
-        control_assertion("", `SVAUNIT_VPI_CONTROL_SYSTEM_OFF_ASSERTION, $time());
+   //------------------------------- SYSTEM ON --------------------------------
+   /* Will restart the SVAs after it was stopped
+    * @param a_test_name : the test name from which SVA were enabled and tested
+    */
+   function void system_on_all_assertions(string a_test_name);
+      control_assertion_dpi("", `SVAUNIT_VPI_CONTROL_SYSTEM_ON_ASSERTION, $time());
 
-        foreach(sva_info[index]) begin
-            sva_info[index].set_enable(test_name, 0);
-        end
-    endfunction
+      foreach(sva_info[index]) begin
+         automatic bit enable_sva = 1;
+
+         sva_info[index].set_enable(a_test_name, enable_sva);
+      end
+   endfunction
 
 
-    //------------------------------- SYSTEM END --------------------------------
-    /* Will discard any attempt in progress and disable any SVA to be started
-     * (all callbacks will be removed)
-     * @param test_name : the test name from which SVA were enabled and tested
-     */
-    function void system_end_all_assertions(string test_name);
-        control_assertion("", `SVAUNIT_VPI_CONTROL_SYSTEM_END_ASSERTION, $time());
+   //------------------------------- SYSTEM OFF --------------------------------
+   /* Will disable any SVA to being started and all current attempts will be considered as unterminated
+    * @param a_test_name : the test name from which SVA were enabled and tested
+    */
+   function void system_off_all_assertions(string a_test_name);
+      control_assertion_dpi("", `SVAUNIT_VPI_CONTROL_SYSTEM_OFF_ASSERTION, $time());
 
-        foreach(sva_info[index]) begin
-            sva_info[index].set_enable(test_name, 0);
-        end
-    endfunction
-    // }}}
+      foreach(sva_info[index]) begin
+         automatic bit disable_sva = 0;
 
-    /* Update SVA cover
-     * @param test_name : the test name from which SVA were enabled and tested
-     */
-    function void update_coverage(string test_name);
-        automatic int nof_attempts_failed_covered;
-        automatic int nof_attempts_successful_covered;
+         sva_info[index].set_enable(a_test_name, disable_sva);
+      end
+   endfunction
 
-        foreach(cover_assertion_info[index]) begin
-            if(cover_assertion_info[index].is_enable(test_name)) begin
-                get_cover_statistics(cover_assertion_info[index].get_sva_name(), nof_attempts_failed_covered, nof_attempts_successful_covered);
-                cover_assertion_info[index].set_nof_attempts_failed_covered(nof_attempts_failed_covered);
-                cover_assertion_info[index].set_nof_attempts_successfull_covered(nof_attempts_successful_covered);
-            end
-        end
-    endfunction
 
-    /* Computes how many SVAs are enabled during simulation
-     * @param test_name : the test name from which SVA were enabled and tested
-     * @return number of SVA which are enabled during simulation
-     */
-    function int unsigned get_nof_enabled_sva(string test_name);
-        // It stores the number of SVA enabled during simulation
-        automatic int unsigned nof_sva_enabled = 0;
+   //------------------------------- SYSTEM END --------------------------------
+   /* Will discard any attempt in progress and disable any SVA to be started
+    * (all callbacks will be removed)
+    * @param a_test_name : the test name from which SVA were enabled and tested
+    */
+   function void system_end_all_assertions(string a_test_name);
+      control_assertion_dpi("", `SVAUNIT_VPI_CONTROL_SYSTEM_END_ASSERTION, $time());
 
-        //For each SVA verify if it is enabled and increase the counter
-        foreach(sva_info[index]) begin
-            if(sva_info[index].was_enable(test_name)) begin
-                nof_sva_enabled = nof_sva_enabled + 1;
-            end
-        end
+      foreach(sva_info[index]) begin
+         automatic bit disable_sva = 0;
 
-        return nof_sva_enabled;
-    endfunction
+         sva_info[index].set_enable(a_test_name, disable_sva);
+      end
+   endfunction
+   // }}}
 
-    /* Computes how many SVAs were tested during simulation
-     * @param test_name : the test name from which SVA were enabled and tested
-     * @return number of SVA which were tested during simulation
-     */
-    function int unsigned get_nof_tested_sva(string test_name);
-        // It stores the number of SVA tested during simulation
-        automatic int unsigned nof_sva_tested = 0;
+   /* Update SVA cover
+    * @param a_test_name : the test name from which SVA were enabled and tested
+    */
+   function void update_coverage(string a_test_name);
+      automatic int nof_attempts_failed_covered;
+      automatic int nof_attempts_successful_covered;
 
-        //For each SVA verify if it was tested and increase the counter
-        foreach(sva_info[index]) begin
-            if(sva_info[index].was_tested(test_name)) begin
-                nof_sva_tested = nof_sva_tested + 1;
-            end
-        end
+      foreach(cover_info[index]) begin
+         if(cover_info[index].is_enable(a_test_name)) begin
+            get_cover_statistics_dpi(cover_info[index].get_sva_name(), nof_attempts_failed_covered,
+               nof_attempts_successful_covered);
+            cover_info[index].set_nof_attempts_failed_covered(nof_attempts_failed_covered);
+            cover_info[index].set_nof_attempts_successfull_covered(nof_attempts_successful_covered);
+         end
+      end
+   endfunction
 
-        return nof_sva_tested;
-    endfunction
+   /* Computes how many SVAs are enabled during simulation
+    * @param a_test_name : the test name from which SVA were enabled and tested
+    * @return number of SVA which are enabled during simulation
+    */
+   function int unsigned get_nof_enabled_sva(string a_test_name);
+      // It stores the number of SVA enabled during simulation
+      automatic int unsigned nof_sva_enabled = 0;
 
-    // Get the total number of SVAs
-    function int unsigned get_nof_sva();
-        return sva_info.size();
-    endfunction
+      //For each SVA verify if it is enabled and increase the counter
+      foreach(sva_info[index]) begin
+         if(sva_info[index].was_enable(a_test_name)) begin
+            nof_sva_enabled = nof_sva_enabled + 1;
+         end
+      end
 
-    /* Form the report status of SVA
-     * @param test_name : the test name from which SVA were enabled and tested
-     * @return the report status for all SVAs
-     */
-    function string report_for_sva(string test_name, string test_type);
-        // Stores the report
-        static string report = "";
+      return nof_sva_enabled;
+   endfunction
 
-        // Stores extra report
-        static string extra = "";
+   /* Computes how many SVAs were tested during simulation
+    * @param a_test_name : the test name from which SVA were enabled and tested
+    * @return number of SVA which were tested during simulation
+    */
+   function int unsigned get_nof_tested_sva(string a_test_name);
+      // It stores the number of SVA tested during simulation
+      automatic int unsigned nof_sva_tested = 0;
 
-        // Stores how many SVAs were enabled during simulation
-        int unsigned nof_enabled_sva;
+      //For each SVA verify if it was tested and increase the counter
+      foreach(sva_info[index]) begin
+         if(sva_info[index].was_tested(a_test_name)) begin
+            nof_sva_tested = nof_sva_tested + 1;
+         end
+      end
 
-        // Stores how many SVAs were tested during simulation
-        int unsigned nof_tested_sva;
+      return nof_sva_tested;
+   endfunction
 
-        // Initialize counters
-        nof_enabled_sva = get_nof_enabled_sva(test_name);
-        nof_tested_sva = get_nof_tested_sva(test_name);
+   // Get the total number of SVAs
+   function int unsigned get_nof_sva();
+      return sva_info.size();
+   endfunction
 
-        // Header for SVAs
-        report = $sformatf("\n\n-------------------- %s::%s unit test: SVAs statistics --------------------\n\n", test_name, test_type);
+   /* Form the report status of SVA
+    * @param a_test_name : the test name from which SVA were enabled and tested
+    * @return the report status for all SVAs
+    */
+   function string report_for_sva(string a_test_name, string test_type);
+      // Stores the report
+      static string report = "";
 
-        // Print how many enabled SVA are from a total number of SVA
-        report = $sformatf("%s\t%0d/%0d SVA were enabled: \n", report, nof_enabled_sva, get_nof_sva());
+      // Stores extra report
+      static string extra = "";
 
-        // Form the SVAs enabled
-        foreach(sva_info[index]) begin
-            if(sva_info[index].was_enable(test_name)) begin
-                report = $sformatf("%s\t\t%s\n", report, sva_info[index].get_sva_name());
-            end
-        end
+      // Stores how many SVAs were enabled during simulation
+      int unsigned nof_enabled_sva;
 
-        // Print how many tested SVA are from a total number of enabled SVA
-        report = $sformatf("%s\n\n\t%0d/%0d SVA were exercised : \n", report, nof_tested_sva, sva_info.size());
+      // Stores how many SVAs were tested during simulation
+      int unsigned nof_tested_sva;
 
-        // Form the SVAs tested
-        foreach(sva_info[index]) begin
-            if(sva_info[index].was_tested(test_name)) begin
-                report = $sformatf("%s\t\t%s\n", report, sva_info[index].get_sva_name());
-            end
-        end
+      // Initialize counters
+      nof_enabled_sva = get_nof_enabled_sva(a_test_name);
+      nof_tested_sva = get_nof_tested_sva(a_test_name);
 
-        // Print how many not tested SVA are from a total number of enabled SVA
-        report = $sformatf("%s\n\n\t%0d/%0d SVA were not exercised : \n", report, sva_info.size() - nof_tested_sva, sva_info.size());
+      // Header for SVAs
+      report = $sformatf("\n\n-------------------- %s::%s : SVAs statistics --------------------\n\n",
+         a_test_name, test_type);
 
-        // Form the SVAs not tested
-        foreach(sva_info[index]) begin
-            if(!sva_info[index].was_tested(test_name)) begin
-                report = $sformatf("%s\t\t%s\n", report, sva_info[index].get_sva_name());
-            end
-        end
+      // Print how many enabled SVA are from a total number of SVA
+      report = $sformatf("%s\t%0d/%0d SVA were enabled: \n", report, nof_enabled_sva, get_nof_sva());
 
-        // Header for cover SVAs
-        report = $sformatf("%s\n\n-------------------- %s::%s unit test: Cover statistics --------------------\n\n", report, test_name, test_type);
+      // Form the SVAs enabled
+      foreach(sva_info[index]) begin
+         if(sva_info[index].was_enable(a_test_name)) begin
+            report = $sformatf("%s\t\t%s\n", report, sva_info[index].get_sva_name());
+         end
+      end
 
-        // Form the cover SVA
-        foreach(cover_assertion_info[index]) begin
-            if(cover_assertion_info[index].is_enable(test_name)) begin
-                extra = $sformatf("%0d SUCCEEDED, %0d FAILED", cover_assertion_info[index].get_nof_attempts_successful_covered(), cover_assertion_info[index].get_nof_attempts_failed_covered());
+      // Print how many tested SVA are from a total number of enabled SVA
+      report = $sformatf("%s\n\n\t%0d/%0d SVA were exercised : \n", report, nof_tested_sva, sva_info.size());
 
-                report = $sformatf("%s\t%s %s\n", report, cover_assertion_info[index].get_sva_name(), extra);
-            end
-        end
+      // Form the SVAs tested
+      foreach(sva_info[index]) begin
+         if(sva_info[index].was_tested(a_test_name)) begin
+            report = $sformatf("%s\t\t%s\n", report, sva_info[index].get_sva_name());
+         end
+      end
 
-        return report;
-    endfunction
+      // Print how many not tested SVA are from a total number of enabled SVA
+      report = $sformatf("%s\n\n\t%0d/%0d SVA were not exercised : \n",
+         report, sva_info.size() - nof_tested_sva, sva_info.size());
+
+      // Form the SVAs not tested
+      foreach(sva_info[index]) begin
+         if(!sva_info[index].was_tested(a_test_name)) begin
+            report = $sformatf("%s\t\t%s\n", report, sva_info[index].get_sva_name());
+         end
+      end
+
+      // Header for cover SVAs
+      report = $sformatf("%s\n\n-------------------- %s::%s : Cover statistics --------------------\n\n", report,
+         a_test_name, test_type);
+
+      // Form the cover SVA
+      foreach(cover_info[index]) begin
+         if(cover_info[index].is_enable(a_test_name)) begin
+            extra = $sformatf("%0d SUCCEEDED, %0d FAILED", cover_info[index]
+               .get_nof_attempts_successful_covered(), cover_info[index].get_nof_attempts_failed_covered());
+
+            report = $sformatf("%s\t%s %s\n", report, cover_info[index].get_sva_name(), extra);
+         end
+      end
+
+      return report;
+   endfunction
 endinterface
 
 `endif

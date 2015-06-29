@@ -46,6 +46,18 @@ API Specification</title>
 	<pre class="comment">Svaunit base class for tests and test suites<br></pre>
 				</li>
 				<li class="list-group-item">
+					<a name="class_svaunit_base_sequence"></a>
+					<span class="signature">
+
+
+<a href="svaunit_pkg-svaunit_base_sequence.html"><b>		svaunit_base_sequence
+</b></a>
+
+
+					</span>
+	<pre class="comment">SVAUnit base virtual sequence<br></pre>
+				</li>
+				<li class="list-group-item">
 					<a name="class_svaunit_concurrent_assertion_details"></a>
 					<span class="signature">
 
@@ -67,7 +79,7 @@ API Specification</title>
 
 
 					</span>
-	<pre class="comment">SVA info class - it contains the SVA name, the SVA type
+	<pre class="comment">SVA info class - it contains the SVA name, the SVA path, the SVA type
 if SVA was enabled during test,
 if it was tested, a list of details and coverage counters<br></pre>
 				</li>
@@ -108,10 +120,40 @@ if it was tested, a list of details and coverage counters<br></pre>
 	<pre class="comment">Customized reporter class<br></pre>
 				</li>
 				<li class="list-group-item">
+					<a name="class_svaunit_sequence_test"></a>
+					<span class="signature">
+
+
+<a href="svaunit_pkg-svaunit_sequence_test.html"><b>		svaunit_sequence_test
+</b></a>
+
+    #(
+      
+  type SEQ_TYPE
+      = <a href="svaunit_pkg-svaunit_base_sequence.html">svaunit_base_sequence</a>
+    )
+
+					</span>
+	<pre class="comment">SVAUnit test class which starts a sequence
+SEQ_TYPE : sequence type used to check a scenario<br></pre>
+				</li>
+				<li class="list-group-item">
+					<a name="class_svaunit_sequencer"></a>
+					<span class="signature">
+
+
+<a href="svaunit_pkg-svaunit_sequencer.html"><b>		svaunit_sequencer
+</b></a>
+
+
+					</span>
+	<pre class="comment">SVAUnit sequencer class<br></pre>
+				</li>
+				<li class="list-group-item">
 					<a name="class_svaunit_test"></a>
 					<span class="signature">
 
-virtual 
+
 <a href="svaunit_pkg-svaunit_test.html"><b>		svaunit_test
 </b></a>
 
@@ -123,13 +165,25 @@ virtual
 					<a name="class_svaunit_test_suite"></a>
 					<span class="signature">
 
-virtual 
+
 <a href="svaunit_pkg-svaunit_test_suite.html"><b>		svaunit_test_suite
 </b></a>
 
 
 					</span>
 	<pre class="comment">Svaunit test suite class definition<br></pre>
+				</li>
+				<li class="list-group-item">
+					<a name="class_svaunit_vpi_wrapper"></a>
+					<span class="signature">
+
+
+<a href="svaunit_pkg-svaunit_vpi_wrapper.html"><b>		svaunit_vpi_wrapper
+</b></a>
+
+
+					</span>
+	<pre class="comment">VPI wrapper - it contains a pointer to VPI interface and SVAUnit API's<br></pre>
 				</li>
 		</ul>
 
@@ -148,7 +202,7 @@ virtual
 	</div>
 
 	<div class="footer">
-		<hr><p class="text-center">Generated  on Wed Apr 29 10:13:43 EEST 2015 using <a href="http://www.dvteclipse.com/" target="_new">Specador<sup>TM</sup></a> Version 15.1.8</p>
+		<hr><p class="text-center">Generated  on Mon Jun 22 13:21:36 EEST 2015 using <a href="http://www.dvteclipse.com/" target="_new">Specador<sup>TM</sup></a> Version 15.1.13</p>
     </div>
 
 	<script src="lib/jquery/js/jquery.js"></script>

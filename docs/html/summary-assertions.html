@@ -23,7 +23,7 @@ API Specification</title>
 
 		<br>
 		<div class="btn-group">
-				<button data-scroll=#concurrent_assertions type="button" class="btn btn-default">Concurrent Assertions <span class="badge">31</span></button>
+				<button data-scroll=#concurrent_assertions type="button" class="btn btn-default">Concurrent Assertions <span class="badge">32</span></button>
 	<button data-scroll=#immediate_assertions type="button" class="btn btn-default">Immediate Assertions <span class="badge">20</span></button>
 	
 	
@@ -425,6 +425,18 @@ API Specification</title>
 
 							an_sva_property
 					</li>
+					<li class="list-group-item">
+						<a name="concurent_assertion_ANOTHER_SVA"></a>
+						<span class="signature">
+
+	<b>another_interface.ANOTHER_SVA</b>
+
+
+						</span>
+	<pre class="comment">Check that slverr is LOW when one of sel, enable or ready is LOW<br></pre>
+
+							an_sva_property
+					</li>
 			</ul>
 
 	</div>
@@ -439,7 +451,7 @@ API Specification</title>
 						<a name="immediate_assertion_SVAUNIT_FAIL_IF_ALL_SUCCEEDED_ERR"></a>
 						<span class="signature">
 
-	<b>svaunit_pkg::svaunit_test.SVAUNIT_FAIL_IF_ALL_SUCCEEDED_ERR</b>
+	<b>svaunit_pkg::svaunit_vpi_wrapper.SVAUNIT_FAIL_IF_ALL_SUCCEEDED_ERR</b>
 
 
 						</span>
@@ -450,18 +462,18 @@ API Specification</title>
 						<a name="immediate_assertion_SVAUNIT_FAIL_IF_ERR"></a>
 						<span class="signature">
 
-	<b>svaunit_pkg::svaunit_test.SVAUNIT_FAIL_IF_ERR</b>
+	<b>svaunit_pkg::svaunit_vpi_wrapper.SVAUNIT_FAIL_IF_ERR</b>
 
 
 						</span>
 
-							check_expression(!(expression))==1
+							check_expression(!(a_expression))==1
 					</li>
 					<li class="list-group-item">
 						<a name="immediate_assertion_SVAUNIT_FAIL_IF_SVA_DOES_NOT_EXISTS_ERR"></a>
 						<span class="signature">
 
-	<b>svaunit_pkg::svaunit_test.SVAUNIT_FAIL_IF_SVA_DOES_NOT_EXISTS_ERR</b>
+	<b>svaunit_pkg::svaunit_vpi_wrapper.SVAUNIT_FAIL_IF_SVA_DOES_NOT_EXISTS_ERR</b>
 
 
 						</span>
@@ -472,84 +484,84 @@ API Specification</title>
 						<a name="immediate_assertion_SVAUNIT_FAIL_IF_SVA_FINISHED_ERR"></a>
 						<span class="signature">
 
-	<b>svaunit_pkg::svaunit_test.SVAUNIT_FAIL_IF_SVA_FINISHED_ERR</b>
+	<b>svaunit_pkg::svaunit_vpi_wrapper.SVAUNIT_FAIL_IF_SVA_FINISHED_ERR</b>
 
 
 						</span>
 
-							check_expression(!(is_finished(assertion_name)))==1
+							check_expression(!(assertion.sva_is_finished()))==1
 					</li>
 					<li class="list-group-item">
 						<a name="immediate_assertion_SVAUNIT_FAIL_IF_SVA_IS_ENABLE_ERR"></a>
 						<span class="signature">
 
-	<b>svaunit_pkg::svaunit_test.SVAUNIT_FAIL_IF_SVA_IS_ENABLE_ERR</b>
+	<b>svaunit_pkg::svaunit_vpi_wrapper.SVAUNIT_FAIL_IF_SVA_IS_ENABLE_ERR</b>
 
 
 						</span>
 
-							check_expression(!is_enable(assertion_name))==1
+							check_expression(!assertion.is_enable(test_name))==1
 					</li>
 					<li class="list-group-item">
 						<a name="immediate_assertion_SVAUNIT_FAIL_IF_SVA_NOT_FINISHED_ERR"></a>
 						<span class="signature">
 
-	<b>svaunit_pkg::svaunit_test.SVAUNIT_FAIL_IF_SVA_NOT_FINISHED_ERR</b>
+	<b>svaunit_pkg::svaunit_vpi_wrapper.SVAUNIT_FAIL_IF_SVA_NOT_FINISHED_ERR</b>
 
 
 						</span>
 
-							check_expression(!(is_not_finished(assertion_name)))==1
+							check_expression(!(assertion.sva_is_not_finished()))==1
 					</li>
 					<li class="list-group-item">
 						<a name="immediate_assertion_SVAUNIT_FAIL_IF_SVA_NOT_STARTED_ERR"></a>
 						<span class="signature">
 
-	<b>svaunit_pkg::svaunit_test.SVAUNIT_FAIL_IF_SVA_NOT_STARTED_ERR</b>
+	<b>svaunit_pkg::svaunit_vpi_wrapper.SVAUNIT_FAIL_IF_SVA_NOT_STARTED_ERR</b>
 
 
 						</span>
 
-							check_expression(!(first_state_not_start(assertion_name)))==1
+							check_expression(!(assertion.sva_first_state_not_start()))==1
 					</li>
 					<li class="list-group-item">
 						<a name="immediate_assertion_SVAUNIT_FAIL_IF_SVA_NOT_SUCCEEDED_ERR"></a>
 						<span class="signature">
 
-	<b>svaunit_pkg::svaunit_test.SVAUNIT_FAIL_IF_SVA_NOT_SUCCEEDED_ERR</b>
+	<b>svaunit_pkg::svaunit_vpi_wrapper.SVAUNIT_FAIL_IF_SVA_NOT_SUCCEEDED_ERR</b>
 
 
 						</span>
 
-							check_expression(assertion_succeeded(assertion_name))==1
+							check_expression(assertion.sva_succeeded())==1
 					</li>
 					<li class="list-group-item">
 						<a name="immediate_assertion_SVAUNIT_FAIL_IF_SVA_STARTED_BUT_NOT_FINISHED_ERR"></a>
 						<span class="signature">
 
-	<b>svaunit_pkg::svaunit_test.SVAUNIT_FAIL_IF_SVA_STARTED_BUT_NOT_FINISHED_ERR</b>
+	<b>svaunit_pkg::svaunit_vpi_wrapper.SVAUNIT_FAIL_IF_SVA_STARTED_BUT_NOT_FINISHED_ERR</b>
 
 
 						</span>
 
-							check_expression(!(assertion_started_but_not_finished(assertion_name)))==1
+							check_expression(!(assertion.sva_has_started_but_has_not_finished()))==1
 					</li>
 					<li class="list-group-item">
 						<a name="immediate_assertion_SVAUNIT_FAIL_IF_SVA_SUCCEEDED_ERR"></a>
 						<span class="signature">
 
-	<b>svaunit_pkg::svaunit_test.SVAUNIT_FAIL_IF_SVA_SUCCEEDED_ERR</b>
+	<b>svaunit_pkg::svaunit_vpi_wrapper.SVAUNIT_FAIL_IF_SVA_SUCCEEDED_ERR</b>
 
 
 						</span>
 
-							check_expression(!(assertion_succeeded(assertion_name)))==1
+							check_expression(!(assertion.sva_succeeded()))==1
 					</li>
 					<li class="list-group-item">
 						<a name="immediate_assertion_SVAUNIT_PASS_IF_ALL_SUCCEEDED_ERR"></a>
 						<span class="signature">
 
-	<b>svaunit_pkg::svaunit_test.SVAUNIT_PASS_IF_ALL_SUCCEEDED_ERR</b>
+	<b>svaunit_pkg::svaunit_vpi_wrapper.SVAUNIT_PASS_IF_ALL_SUCCEEDED_ERR</b>
 
 
 						</span>
@@ -560,18 +572,18 @@ API Specification</title>
 						<a name="immediate_assertion_SVAUNIT_PASS_IF_ERR"></a>
 						<span class="signature">
 
-	<b>svaunit_pkg::svaunit_test.SVAUNIT_PASS_IF_ERR</b>
+	<b>svaunit_pkg::svaunit_vpi_wrapper.SVAUNIT_PASS_IF_ERR</b>
 
 
 						</span>
 
-							check_expression(expression)==1
+							check_expression(a_expression)==1
 					</li>
 					<li class="list-group-item">
 						<a name="immediate_assertion_SVAUNIT_PASS_IF_SVA_DOES_NOT_EXISTS_ERR"></a>
 						<span class="signature">
 
-	<b>svaunit_pkg::svaunit_test.SVAUNIT_PASS_IF_SVA_DOES_NOT_EXISTS_ERR</b>
+	<b>svaunit_pkg::svaunit_vpi_wrapper.SVAUNIT_PASS_IF_SVA_DOES_NOT_EXISTS_ERR</b>
 
 
 						</span>
@@ -582,78 +594,78 @@ API Specification</title>
 						<a name="immediate_assertion_SVAUNIT_PASS_IF_SVA_FINISHED_ERR"></a>
 						<span class="signature">
 
-	<b>svaunit_pkg::svaunit_test.SVAUNIT_PASS_IF_SVA_FINISHED_ERR</b>
+	<b>svaunit_pkg::svaunit_vpi_wrapper.SVAUNIT_PASS_IF_SVA_FINISHED_ERR</b>
 
 
 						</span>
 
-							check_expression(is_finished(assertion_name))==1
+							check_expression(assertion.sva_is_finished())==1
 					</li>
 					<li class="list-group-item">
 						<a name="immediate_assertion_SVAUNIT_PASS_IF_SVA_IS_ENABLE_ERR"></a>
 						<span class="signature">
 
-	<b>svaunit_pkg::svaunit_test.SVAUNIT_PASS_IF_SVA_IS_ENABLE_ERR</b>
+	<b>svaunit_pkg::svaunit_vpi_wrapper.SVAUNIT_PASS_IF_SVA_IS_ENABLE_ERR</b>
 
 
 						</span>
 
-							check_expression(is_enable(assertion_name))==1
+							check_expression(assertion.is_enable(test_name))==1
 					</li>
 					<li class="list-group-item">
 						<a name="immediate_assertion_SVAUNIT_PASS_IF_SVA_NOT_FINISHED_ERR"></a>
 						<span class="signature">
 
-	<b>svaunit_pkg::svaunit_test.SVAUNIT_PASS_IF_SVA_NOT_FINISHED_ERR</b>
+	<b>svaunit_pkg::svaunit_vpi_wrapper.SVAUNIT_PASS_IF_SVA_NOT_FINISHED_ERR</b>
 
 
 						</span>
 
-							check_expression(is_not_finished(assertion_name))==1
+							check_expression(assertion.sva_is_not_finished())==1
 					</li>
 					<li class="list-group-item">
 						<a name="immediate_assertion_SVAUNIT_PASS_IF_SVA_NOT_STARTED_ERR"></a>
 						<span class="signature">
 
-	<b>svaunit_pkg::svaunit_test.SVAUNIT_PASS_IF_SVA_NOT_STARTED_ERR</b>
+	<b>svaunit_pkg::svaunit_vpi_wrapper.SVAUNIT_PASS_IF_SVA_NOT_STARTED_ERR</b>
 
 
 						</span>
 
-							check_expression(first_state_not_start(assertion_name))==1
+							check_expression(assertion.sva_first_state_not_start())==1
 					</li>
 					<li class="list-group-item">
 						<a name="immediate_assertion_SVAUNIT_PASS_IF_SVA_NOT_SUCCEEDED_ERR"></a>
 						<span class="signature">
 
-	<b>svaunit_pkg::svaunit_test.SVAUNIT_PASS_IF_SVA_NOT_SUCCEEDED_ERR</b>
+	<b>svaunit_pkg::svaunit_vpi_wrapper.SVAUNIT_PASS_IF_SVA_NOT_SUCCEEDED_ERR</b>
 
 
 						</span>
 
-							check_expression(!(assertion_succeeded(assertion_name)))==1
+							check_expression(!(assertion.sva_succeeded()))==1
 					</li>
 					<li class="list-group-item">
 						<a name="immediate_assertion_SVAUNIT_PASS_IF_SVA_STARTED_BUT_NOT_FINISHED_ERR"></a>
 						<span class="signature">
 
-	<b>svaunit_pkg::svaunit_test.SVAUNIT_PASS_IF_SVA_STARTED_BUT_NOT_FINISHED_ERR</b>
+	<b>svaunit_pkg::svaunit_vpi_wrapper.SVAUNIT_PASS_IF_SVA_STARTED_BUT_NOT_FINISHED_ERR</b>
 
 
 						</span>
 
-							check_expression(assertion_started_but_not_finished(assertion_name))==1
+							check_expression(assertion.sva_has_started_but_has_not_finished())==1
 					</li>
 					<li class="list-group-item">
 						<a name="immediate_assertion_SVAUNIT_PASS_IF_SVA_SUCCEEDED_ERR"></a>
 						<span class="signature">
 
-	<b>svaunit_pkg::svaunit_test.SVAUNIT_PASS_IF_SVA_SUCCEEDED_ERR</b>
+	<b>svaunit_pkg::svaunit_vpi_wrapper.SVAUNIT_PASS_IF_SVA_SUCCEEDED_ERR</b>
 
 
 						</span>
 
-							check_expression(assertion_succeeded(assertion_name))==1
+							check_expression(assertion.sva_succeeded())==1
 					</li>
 			</ul>
 
@@ -663,7 +675,7 @@ API Specification</title>
 	</div>
 
 	<div class="footer">
-		<hr><p class="text-center">Generated  on Wed Apr 29 10:13:44 EEST 2015 using <a href="http://www.dvteclipse.com/" target="_new">Specador<sup>TM</sup></a> Version 15.1.8</p>
+		<hr><p class="text-center">Generated  on Mon Jun 22 13:21:36 EEST 2015 using <a href="http://www.dvteclipse.com/" target="_new">Specador<sup>TM</sup></a> Version 15.1.13</p>
     </div>
 
 	<script src="lib/jquery/js/jquery.js"></script>

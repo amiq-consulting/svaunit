@@ -30,13 +30,13 @@ API Specification</title>
 		<br>
 		<div class="btn-group">
 				
+	<button data-scroll=#constructor type="button" class="btn btn-default">Constructor <span class="badge">1</span></button>
+	<button data-scroll=#typedefs type="button" class="btn btn-default">Typedefs <span class="badge">1</span></button>
 	
 	
+	<button data-scroll=#variables type="button" class="btn btn-default">Variables <span class="badge">1</span></button>
 	
-	
-	
-	
-	<button data-scroll=#functions type="button" class="btn btn-default">Functions <span class="badge">1</span></button>
+	<button data-scroll=#functions type="button" class="btn btn-default">Functions <span class="badge">6</span></button>
 	
 
 	<button data-scroll=#inheritance_diagram type="button" class="btn btn-default">Inheritance Diagram</button>
@@ -54,14 +54,84 @@ API Specification</title>
 <!-- ========= Parameters ======= -->
 
 <!-- ========= Constructor ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#constructor">
+			<h4 class="panel-title">
+					Constructor <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+					<ul id="constructor" class="list-group panel-collapse collapse in">
+					<li class="list-group-item">
+						<a name="constructor_new"></a>
+						<span class="signature">
+
+	 function 	
+
+	<b>		new
+</b>()
+
+
+						</span>
+	<pre class="comment">Creates an instance of the class.<br></pre>
+
+					</li>
+			</ul>
+
+	</div>
 
 <!-- ========= Typedefs ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#typedefs">
+			<h4 class="panel-title">
+					Typedefs <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+					<ul id="typedefs" class="list-group panel-collapse collapse in">
+					<li class="list-group-item">
+						<a name="typedef_type_id"></a>
+						<span class="signature">
+
+	 <b>		type_id
+</b>
+
+		-> uvm_object_registry#(svaunit_reporter, "svaunit_reporter")
+	
+
+
+						</span>
+
+					</li>
+			</ul>
+
+	</div>
 
 <!-- ========= Structs ======= -->
 
 <!-- ========= Enums ======= -->
 
 <!-- ========= Variables ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#variables">
+			<h4 class="panel-title">
+					Variables <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+					<ul id="variables" class="list-group panel-collapse collapse in">
+					<li class="list-group-item">
+						<a name="variable_type_name"></a>
+						<span class="signature">
+
+const static 	string
+ <b>		type_name
+</b>
+
+
+						</span>
+
+					</li>
+			</ul>
+
+	</div>
 
 <!-- ========= Constraints ======= -->
 
@@ -73,6 +143,24 @@ API Specification</title>
 			</h4>
 		</div>
 					<ul id="functions" class="list-group panel-collapse collapse in">
+					<li class="list-group-item">
+						<a name="function___m_uvm_field_automation"></a>
+						<span class="signature">
+
+	 function 	void
+
+	<b>		__m_uvm_field_automation
+</b>(	uvm_object
+tmp_data__,
+	int
+what__,
+	string
+str__)
+
+
+						</span>
+
+					</li>
 					<li class="list-group-item">
 						<a name="function_compose_message"></a>
 						<span class="signature">
@@ -96,6 +184,59 @@ line)
 
 						</span>
 	<pre class="comment">Constructs the string to be displayed<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>severity</b> : message severity<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>name</b> : component name<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>id</b>   : report id<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>message</b>  : the message to be displayed<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>filename</b> : the file where the message should appear<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>line</b>     : the line where the message should appear<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_create"></a>
+						<span class="signature">
+
+	 function 	uvm_object
+
+	<b>		create
+</b>(	string
+name = "")
+
+
+						</span>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_object_type"></a>
+						<span class="signature">
+
+	virtual  function 	uvm_object_wrapper
+
+	<b>		get_object_type
+</b>()
+
+
+						</span>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_type"></a>
+						<span class="signature">
+
+	static  function 	<a href="svaunit_pkg-svaunit_reporter.html#typedef_type_id">type_id</a>
+
+	<b>		get_type
+</b>()
+
+
+						</span>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_type_name"></a>
+						<span class="signature">
+
+	virtual  function 	string
+
+	<b>		get_type_name
+</b>()
+
+
+						</span>
 
 					</li>
 			</ul>
@@ -191,7 +332,7 @@ line)
 	</div>
 
 	<div class="footer">
-		<hr><p class="text-center">Generated  on Wed Apr 29 10:13:55 EEST 2015 using <a href="http://www.dvteclipse.com/" target="_new">Specador<sup>TM</sup></a> Version 15.1.8</p>
+		<hr><p class="text-center">Generated  on Mon Jun 22 13:21:47 EEST 2015 using <a href="http://www.dvteclipse.com/" target="_new">Specador<sup>TM</sup></a> Version 15.1.13</p>
     </div>
 
 	<script src="lib/jquery/js/jquery.js"></script>

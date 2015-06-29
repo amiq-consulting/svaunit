@@ -19,7 +19,6 @@
  *******************************************************************************/
 
 `ifndef ____IF_SVAUNIT___TB
-//protection against multiple includes
 `define ____IF_SVAUNIT___TB
 
 // SVAUnit testbench template

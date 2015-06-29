@@ -166,15 +166,15 @@ str__)
 						<a name="function_add_sva_state"></a>
 						<span class="signature">
 
-	 function 	void
+	virtual  function 	void
 
 	<b>		add_sva_state
 </b>(	<a href="svaunit_pkg-svaunit_concurrent_assertion_state_type.html">svaunit_concurrent_assertion_state_type</a>
-end_state)
+a_state)
 
 
 						</span>
-	<pre class="comment">Add end state for the current attempt of the assertion<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>end_state</b> : SVA state to be added<br></pre>
+	<pre class="comment">Add a state for the current attempt of the assertion<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_state</b> : SVA state to be added<br></pre>
 
 					</li>
 					<li class="list-group-item">
@@ -195,21 +195,21 @@ name = "")
 						<a name="function_create_new_detail"></a>
 						<span class="signature">
 
-	 function 	void
+	virtual  function 	void
 
 	<b>		create_new_detail
-</b>(	string
-crt_test_name,
-	<a href="svaunit_pkg-svaunit_concurrent_assertion_state_type.html">svaunit_concurrent_assertion_state_type</a>
-sva_state,
-	time
-sva_time_start,
-	time
-sva_time_end)
+</b>(			ref 	string
+a_test_name,
+			ref 	<a href="svaunit_pkg-svaunit_concurrent_assertion_state_type.html">svaunit_concurrent_assertion_state_type</a>
+a_sva_state,
+			ref 	time
+a_sva_time_start,
+			ref 	time
+a_sva_time_end)
 
 
 						</span>
-	<pre class="comment">Create new detail for an SVA<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>crt_test_name</b> : test name where this attempt was found<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>sva_state</b> : SVA state to be added<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>sva_time_start</b> : SVA start time to be added<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>sva_time_end</b> : SVA end time to be added<br></pre>
+	<pre class="comment">Create new detail for an SVA<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_test_name</b> : test name where this attempt was found<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_state</b> : SVA state to be added<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_time_start</b> : SVA start time to be added<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_time_end</b> : SVA end time to be added<br></pre>
 
 					</li>
 					<li class="list-group-item">
@@ -229,22 +229,22 @@ sva_time_end)
 						<a name="function_get_sva_details"></a>
 						<span class="signature">
 
-	 function 	string
+	virtual  function 	string
 
 	<b>		get_sva_details
-</b>(	string
-crt_test_name)
+</b>(			ref 	string
+a_test_name)
 
 
 						</span>
-	<pre class="comment">Print the SVA details for a given test name<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;a string with all SVA details<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>crt_test_name</b> : test name from where the user want's to print SVA info<br></pre>
+	<pre class="comment">Print the SVA details for a given test name<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;a string with all SVA details<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_test_name</b> : test name from where the user want's to print SVA info<br></pre>
 
 					</li>
 					<li class="list-group-item">
 						<a name="function_get_sva_end_time"></a>
 						<span class="signature">
 
-	 function 	time
+	virtual  function 	time
 
 	<b>		get_sva_end_time
 </b>()
@@ -258,7 +258,7 @@ crt_test_name)
 						<a name="function_get_sva_first_state"></a>
 						<span class="signature">
 
-	 function 	<a href="svaunit_pkg-svaunit_concurrent_assertion_state_type.html">svaunit_concurrent_assertion_state_type</a>
+	virtual  function 	<a href="svaunit_pkg-svaunit_concurrent_assertion_state_type.html">svaunit_concurrent_assertion_state_type</a>
 
 	<b>		get_sva_first_state
 </b>()
@@ -272,7 +272,7 @@ crt_test_name)
 						<a name="function_get_sva_last_state"></a>
 						<span class="signature">
 
-	 function 	<a href="svaunit_pkg-svaunit_concurrent_assertion_state_type.html">svaunit_concurrent_assertion_state_type</a>
+	virtual  function 	<a href="svaunit_pkg-svaunit_concurrent_assertion_state_type.html">svaunit_concurrent_assertion_state_type</a>
 
 	<b>		get_sva_last_state
 </b>()
@@ -286,7 +286,7 @@ crt_test_name)
 						<a name="function_get_sva_start_time"></a>
 						<span class="signature">
 
-	 function 	time
+	virtual  function 	time
 
 	<b>		get_sva_start_time
 </b>()
@@ -326,53 +326,52 @@ crt_test_name)
 						<a name="function_set_sva_end_time"></a>
 						<span class="signature">
 
-	 function 	void
+	virtual  function 	void
 
 	<b>		set_sva_end_time
 </b>(	time
-crt_sva_end_time)
+a_sva_end_time)
 
 
 						</span>
-	<pre class="comment">Set end time for the current attempt of SVA
-*<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>crt_sva_end_time</b> : current end time<br></pre>
+	<pre class="comment">Set end time for the current attempt of SVA<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_end_time</b> : current end time<br></pre>
 
 					</li>
 					<li class="list-group-item">
 						<a name="function_set_sva_start_time"></a>
 						<span class="signature">
 
-	 function 	void
+	virtual  function 	void
 
 	<b>		set_sva_start_time
 </b>(	time
-crt_sva_start_time)
+a_sva_start_time)
 
 
 						</span>
-	<pre class="comment">Set start time for the current attempt of SVA<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>crt_sva_start_time</b> : current start time<br></pre>
+	<pre class="comment">Set start time for the current attempt of SVA<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_start_time</b> : current start time<br></pre>
 
 					</li>
 					<li class="list-group-item">
 						<a name="function_set_sva_test_name"></a>
 						<span class="signature">
 
-	 function 	void
+	virtual  function 	void
 
 	<b>		set_sva_test_name
-</b>(	string
-crt_test_name)
+</b>(			ref 	string
+a_test_name)
 
 
 						</span>
-	<pre class="comment">Set test name for the current attempt of SVA<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>crt_test_name<br></pre>
+	<pre class="comment">Set test name for the current attempt of SVA<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_test_name</b> : the current test name<br></pre>
 
 					</li>
 					<li class="list-group-item">
 						<a name="function_sva_failed"></a>
 						<span class="signature">
 
-	 function 	bit
+	virtual  function 	bit
 
 	<b>		sva_failed
 </b>()
@@ -386,7 +385,7 @@ crt_test_name)
 						<a name="function_sva_first_state_not_start"></a>
 						<span class="signature">
 
-	 function 	bit
+	virtual  function 	bit
 
 	<b>		sva_first_state_not_start
 </b>()
@@ -400,7 +399,7 @@ crt_test_name)
 						<a name="function_sva_has_started_but_has_not_finished"></a>
 						<span class="signature">
 
-	 function 	bit
+	virtual  function 	bit
 
 	<b>		sva_has_started_but_has_not_finished
 </b>()
@@ -414,7 +413,7 @@ crt_test_name)
 						<a name="function_sva_is_finished"></a>
 						<span class="signature">
 
-	 function 	bit
+	virtual  function 	bit
 
 	<b>		sva_is_finished
 </b>()
@@ -428,7 +427,7 @@ crt_test_name)
 						<a name="function_sva_is_not_finished"></a>
 						<span class="signature">
 
-	 function 	bit
+	virtual  function 	bit
 
 	<b>		sva_is_not_finished
 </b>()
@@ -442,7 +441,7 @@ crt_test_name)
 						<a name="function_sva_started"></a>
 						<span class="signature">
 
-	 function 	bit
+	virtual  function 	bit
 
 	<b>		sva_started
 </b>()
@@ -456,7 +455,7 @@ crt_test_name)
 						<a name="function_sva_succeeded"></a>
 						<span class="signature">
 
-	 function 	bit
+	virtual  function 	bit
 
 	<b>		sva_succeeded
 </b>()
@@ -555,7 +554,7 @@ crt_test_name)
 	</div>
 
 	<div class="footer">
-		<hr><p class="text-center">Generated  on Wed Apr 29 10:13:53 EEST 2015 using <a href="http://www.dvteclipse.com/" target="_new">Specador<sup>TM</sup></a> Version 15.1.8</p>
+		<hr><p class="text-center">Generated  on Mon Jun 22 13:21:46 EEST 2015 using <a href="http://www.dvteclipse.com/" target="_new">Specador<sup>TM</sup></a> Version 15.1.13</p>
     </div>
 
 	<script src="lib/jquery/js/jquery.js"></script>

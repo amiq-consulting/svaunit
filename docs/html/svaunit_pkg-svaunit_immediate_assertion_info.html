@@ -34,9 +34,9 @@ API Specification</title>
 	<button data-scroll=#typedefs type="button" class="btn btn-default">Typedefs <span class="badge">1</span></button>
 	
 	
-	<button data-scroll=#variables type="button" class="btn btn-default">Variables <span class="badge">2</span></button>
+	<button data-scroll=#variables type="button" class="btn btn-default">Variables <span class="badge">3</span></button>
 	
-	<button data-scroll=#functions type="button" class="btn btn-default">Functions <span class="badge">17</span></button>
+	<button data-scroll=#functions type="button" class="btn btn-default">Functions <span class="badge">18</span></button>
 	
 
 	<button data-scroll=#inheritance_diagram type="button" class="btn btn-default">Inheritance Diagram</button>
@@ -119,16 +119,29 @@ name = "svaunit_immediate_assertion_info")
 		</div>
 					<ul id="variables" class="list-group panel-collapse collapse in">
 					<li class="list-group-item">
-						<a name="variable_immediate_assertion_details"></a>
+						<a name="variable_checks_details"></a>
 						<span class="signature">
 
 	<a href="svaunit_pkg-svaunit_immediate_assertion_details.html">svaunit_immediate_assertion_details</a> []
- <b>		immediate_assertion_details
+ <b>		checks_details
 </b>
 
 
 						</span>
 	<pre class="comment">Will store a list of details for immediate assertion<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="variable_sva_tested"></a>
+						<span class="signature">
+
+	<a href="svaunit_pkg-svaunit_concurrent_assertion_info.html">svaunit_concurrent_assertion_info</a>
+ <b>		sva_tested
+</b>
+
+
+						</span>
+	<pre class="comment">Pointer to the SVA which is tested<br></pre>
 
 					</li>
 					<li class="list-group-item">
@@ -176,22 +189,39 @@ str__)
 
 					</li>
 					<li class="list-group-item">
-						<a name="function_add_new_detail_immediate_assertion"></a>
+						<a name="function_add_new_check_detail"></a>
 						<span class="signature">
 
-	 function 	void
+	virtual  function 	void
 
-	<b>		add_new_detail_immediate_assertion
+	<b>		add_new_check_detail
 </b>(	string
-immediate_assertion,
+a_check_name,
+	string
+a_test_name,
 	time
-crt_time,
+a_time,
 	<a href="svaunit_pkg-svaunit_status_type.html">svaunit_status_type</a>
-status)
+a_status)
 
 
 						</span>
-	<pre class="comment">Add new detail to a immediate assertion<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>immediate_assertion</b> : name of the immediate assertion to be added<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>crt_time</b> : current time at which the immediate assertion was tested<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>status</b> : status of the current immediate assertion tested<br></pre>
+	<pre class="comment">Add new detail to a immediate assertion<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_check_name</b> : name of the immediate assertion to be added<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_test_name</b> : the name of the test where the immediate assertion is executed<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_time</b> : current time at which the immediate assertion was tested<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_status</b> : status of the current immediate assertion tested<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_check_exists"></a>
+						<span class="signature">
+
+	virtual  function 	bit
+
+	<b>		check_exists
+</b>(	string
+a_check_name)
+
+
+						</span>
+	<pre class="comment">Verify that a specific immediate assertion exists into the list<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;1 if the immediate assertion exists and 0 otherwise<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_check_name</b> : name of the immediate assertion to be found in list<br></pre>
 
 					</li>
 					<li class="list-group-item">
@@ -226,26 +256,41 @@ name = "")
 						<a name="function_details_exists"></a>
 						<span class="signature">
 
-	 function 	bit
+	virtual  function 	bit
 
 	<b>		details_exists
-</b>(	string
-check_name,
-	string [$]
-lof_checks)
+</b>(			input 	string
+a_check_name,
+			ref 	string [$]
+a_lof_checks)
 
 
 						</span>
-	<pre class="comment">Verify if an SVA assertion exists into SVA list<br></pre>
+	<pre class="comment">Verify if an SVA assertion exists into SVA list<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_check_name</b> : the SVAUnit check used to find inside the list of SVAUnit checks<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_lof_checks</b> : a list with all SVAUnit checks names<br></pre>
 
 					</li>
 					<li class="list-group-item">
-						<a name="function_get_immediate_assertion_details"></a>
+						<a name="function_get_checks"></a>
 						<span class="signature">
 
-	 function 	string
+	virtual  function 	<a href="svaunit_pkg-svaunit_immediate_assertion_info.html">svaunit_immediate_assertion_info</a>
 
-	<b>		get_immediate_assertion_details
+	<b>		get_checks
+</b>(	string
+a_test_name)
+
+
+						</span>
+	<pre class="comment">Get a copy with the current immediate assertion with only the details which belong to a given test<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the copy of the current immediate assertion with only the details which belong to a given test<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_test_name</b> : the test name where the immediate assertion was exercised<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_checks_for_sva"></a>
+						<span class="signature">
+
+	virtual  function 	string
+
+	<b>		get_checks_for_sva
 </b>()
 
 
@@ -254,27 +299,27 @@ lof_checks)
 
 					</li>
 					<li class="list-group-item">
-						<a name="function_get_immediate_assertion_names"></a>
+						<a name="function_get_checks_names"></a>
 						<span class="signature">
 
-	 function 	void
+	virtual  function 	void
 
-	<b>		get_immediate_assertion_names
+	<b>		get_checks_names
 </b>(			ref 	string [$]
-immediate_assertions_names)
+a_lof_used_checks)
 
 
 						</span>
-	<pre class="comment">Get a list with immediate assertion names which were used during test<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>the</b> string list which contains the name of the checks used in this unit test<br></pre>
+	<pre class="comment">Get a list with immediate assertion names which were used during test<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_lof_used_checks</b> : the string list which contains the name of the checks used in this unit test<br></pre>
 
 					</li>
 					<li class="list-group-item">
-						<a name="function_get_nof_times_sva_failed"></a>
+						<a name="function_get_nof_times_sva_has_failed"></a>
 						<span class="signature">
 
-	 function 	int unsigned
+	virtual  function 	int unsigned
 
-	<b>		get_nof_times_sva_failed
+	<b>		get_nof_times_sva_has_failed
 </b>()
 
 
@@ -283,12 +328,12 @@ immediate_assertions_names)
 
 					</li>
 					<li class="list-group-item">
-						<a name="function_get_nof_times_sva_tested"></a>
+						<a name="function_get_nof_times_sva_was_tested"></a>
 						<span class="signature">
 
-	 function 	int unsigned
+	virtual  function 	int unsigned
 
-	<b>		get_nof_times_sva_tested
+	<b>		get_nof_times_sva_was_tested
 </b>()
 
 
@@ -313,7 +358,7 @@ immediate_assertions_names)
 						<a name="function_get_sva_failed_details"></a>
 						<span class="signature">
 
-	 function 	string
+	virtual  function 	string
 
 	<b>		get_sva_failed_details
 </b>()
@@ -324,17 +369,17 @@ immediate_assertions_names)
 
 					</li>
 					<li class="list-group-item">
-						<a name="function_get_sva_tested_name"></a>
+						<a name="function_get_sva_tested"></a>
 						<span class="signature">
 
-	 function 	string
+	virtual  function 	<a href="svaunit_pkg-svaunit_concurrent_assertion_info.html">svaunit_concurrent_assertion_info</a>
 
-	<b>		get_sva_tested_name
+	<b>		get_sva_tested
 </b>()
 
 
 						</span>
-	<pre class="comment">Get the name of the immediate assertion which is tested<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the name of the immediate assertion which is tested<br></pre>
+	<pre class="comment">Get the SVA which is tested<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the SVA tested<br></pre>
 
 					</li>
 					<li class="list-group-item">
@@ -364,27 +409,12 @@ immediate_assertions_names)
 
 					</li>
 					<li class="list-group-item">
-						<a name="function_immediate_assertion_exists"></a>
+						<a name="function_print_checks"></a>
 						<span class="signature">
 
-	 function 	bit
+	virtual  function 	void
 
-	<b>		immediate_assertion_exists
-</b>(	string
-immediate_assertion)
-
-
-						</span>
-	<pre class="comment">Verify that a specific immediate assertion exists into the list<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;1 if the immediate assertion exists and 0 otherwise<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>immediate_assertion</b> : name of the immediate assertion to be found in list<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_print_immediate_assertion"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		print_immediate_assertion
+	<b>		print_checks
 </b>()
 
 
@@ -393,18 +423,18 @@ immediate_assertion)
 
 					</li>
 					<li class="list-group-item">
-						<a name="function_set_sva_name"></a>
+						<a name="function_set_sva"></a>
 						<span class="signature">
 
-	 function 	void
+	virtual  function 	void
 
-	<b>		set_sva_name
-</b>(	string
-crt_sva_name)
+	<b>		set_sva
+</b>(	<a href="svaunit_pkg-svaunit_concurrent_assertion_info.html">svaunit_concurrent_assertion_info</a>
+a_sva)
 
 
 						</span>
-	<pre class="comment">Set new name for SVA<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>crt_sva_name</b> : new SVA name to be modified<br></pre>
+	<pre class="comment">Set pointer to the SVA which needs to be checked<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva</b> : new SVA to be checked<br></pre>
 
 					</li>
 			</ul>
@@ -444,36 +474,39 @@ crt_sva_name)
 			<map name="_collaboration_diagram">
 <area shape="rect" id="node1" href="svaunit_pkg-svaunit_immediate_assertion_info.html"  alt="" coords="245,473,574,503">
 <area shape="rect" id="node2"  alt="" coords="350,286,469,317">
-<area shape="poly" id="edge1"  alt="" coords="393,475,369,448,349,411,347,387,354,364,367,343,382,325,386,328,371,346,359,366,353,388,355,410,373,445,397,471">
-<area shape="rect" id="node4" href="svaunit_pkg-svaunit_immediate_assertion_details.html"  alt="" coords="397,379,755,410">
-<area shape="poly" id="edge5"  alt="" coords="433,471,538,414,541,418,435,476">
+<area shape="poly" id="edge1"  alt="" coords="297,476,268,466,240,453,215,435,194,412,185,391,188,372,201,356,221,343,276,322,335,309,337,315,277,328,224,347,204,360,193,374,190,390,198,409,218,431,242,448,270,461,298,471">
+<area shape="rect" id="node4" href="svaunit_pkg-svaunit_concurrent_assertion_info.html"  alt="" coords="240,379,579,410">
+<area shape="poly" id="edge6"  alt="" coords="407,473,407,423,412,423,412,473">
+<area shape="rect" id="node13" href="svaunit_pkg-svaunit_immediate_assertion_details.html"  alt="" coords="603,379,962,410">
+<area shape="poly" id="edge22"  alt="" coords="464,471,713,410,715,415,465,476">
 <area shape="rect" id="node3"  alt="" coords="5,193,104,223">
 <area shape="poly" id="edge2"  alt="" coords="350,303,278,300,199,294,127,283,98,274,77,263,66,251,59,237,63,235,70,248,80,259,100,269,128,277,199,289,279,295,350,297">
 <area shape="rect" id="node5"  alt="" coords="355,193,570,223">
-<area shape="poly" id="edge6"  alt="" coords="350,301,269,297,187,288,152,281,127,273,113,262,112,254,117,246,146,234,201,225,341,212,342,218,201,230,147,239,120,250,118,255,118,259,129,268,154,276,187,283,270,291,350,296">
-<area shape="poly" id="edge3"  alt="" coords="550,382,445,325,447,320,553,378">
-<area shape="poly" id="edge7"  alt="" coords="391,225,374,235,360,249,357,256,358,263,371,277,367,281,353,265,352,256,355,247,370,231,389,220">
+<area shape="poly" id="edge7"  alt="" coords="350,301,269,297,187,288,152,281,127,273,113,262,112,254,117,246,146,234,201,225,341,212,342,218,201,230,147,239,120,250,118,255,118,259,129,268,154,276,187,283,270,291,350,296">
+<area shape="poly" id="edge3"  alt="" coords="407,380,407,330,412,330,412,380">
+<area shape="poly" id="edge8"  alt="" coords="391,225,374,235,360,249,357,256,358,263,371,277,367,281,353,265,352,256,355,247,370,231,389,220">
 <area shape="rect" id="node6"  alt="" coords="387,6,554,37">
-<area shape="poly" id="edge8"  alt="" coords="461,193,467,50,472,50,466,193">
-<area shape="poly" id="edge9"  alt="" coords="458,224,436,263,427,276,423,274,431,260,453,221">
+<area shape="poly" id="edge9"  alt="" coords="461,193,467,50,472,50,466,193">
+<area shape="poly" id="edge10"  alt="" coords="458,224,436,263,427,276,423,274,431,260,453,221">
 <area shape="rect" id="node7"  alt="" coords="142,99,279,130">
-<area shape="poly" id="edge10"  alt="" coords="354,197,313,186,272,170,250,157,231,141,235,137,253,153,275,166,314,181,356,192">
+<area shape="poly" id="edge11"  alt="" coords="354,197,313,186,272,170,250,157,231,141,235,137,253,153,275,166,314,181,356,192">
 <area shape="rect" id="node9"  alt="" coords="303,99,422,130">
-<area shape="poly" id="edge13"  alt="" coords="411,196,391,185,374,170,363,144,367,142,378,166,394,181,414,191">
+<area shape="poly" id="edge14"  alt="" coords="411,196,391,185,374,170,363,144,367,142,378,166,394,181,414,191">
 <area shape="rect" id="node10"  alt="" coords="563,99,701,130">
-<area shape="poly" id="edge15"  alt="" coords="486,191,594,134,596,138,489,196">
+<area shape="poly" id="edge16"  alt="" coords="486,191,594,134,596,138,489,196">
 <area shape="rect" id="node11"  alt="" coords="725,99,853,130">
-<area shape="poly" id="edge17"  alt="" coords="541,191,650,165,744,132,746,137,651,171,542,196">
-<area shape="poly" id="edge20"  alt="" coords="529,220,546,227,560,237,566,249,561,263,549,273,530,280,483,292,482,287,528,275,546,268,557,260,561,249,556,240,544,232,527,225">
+<area shape="poly" id="edge18"  alt="" coords="541,191,650,165,744,132,746,137,651,171,542,196">
+<area shape="poly" id="edge21"  alt="" coords="529,220,546,227,560,237,566,249,561,263,549,273,530,280,483,292,482,287,528,275,546,268,557,260,561,249,556,240,544,232,527,225">
 <area shape="rect" id="node8"  alt="" coords="73,6,210,37">
-<area shape="poly" id="edge11"  alt="" coords="170,102,154,91,140,76,136,63,134,50,140,49,141,62,145,73,157,87,173,98">
-<area shape="poly" id="edge12"  alt="" coords="229,98,262,78,302,59,377,36,379,42,304,64,265,82,232,102">
-<area shape="poly" id="edge14"  alt="" coords="363,99,369,79,382,59,409,40,412,44,386,63,374,81,368,101">
+<area shape="poly" id="edge12"  alt="" coords="170,102,154,91,140,76,136,63,134,50,140,49,141,62,145,73,157,87,173,98">
+<area shape="poly" id="edge13"  alt="" coords="229,98,262,78,302,59,377,36,379,42,304,64,265,82,232,102">
+<area shape="poly" id="edge15"  alt="" coords="363,99,369,79,382,59,409,40,412,44,386,63,374,81,368,101">
 <area shape="poly" id="edge4"  alt="" coords="693,127,744,140,772,153,782,168,786,184,785,198,781,213,762,239,735,264,716,274,690,282,625,294,551,300,482,302,482,297,551,294,624,288,689,277,714,269,732,259,758,236,776,210,780,197,781,184,777,171,769,157,742,145,692,132">
-<area shape="poly" id="edge16"  alt="" coords="606,102,561,77,505,45,507,40,564,72,609,97">
+<area shape="poly" id="edge17"  alt="" coords="606,102,561,77,505,45,507,40,564,72,609,97">
 <area shape="rect" id="node12"  alt="" coords="697,6,882,37">
-<area shape="poly" id="edge18"  alt="" coords="787,100,787,50,792,50,792,100">
-<area shape="poly" id="edge19"  alt="" coords="750,102,630,64,543,42,545,37,631,59,752,97"></map>
+<area shape="poly" id="edge19"  alt="" coords="787,100,787,50,792,50,792,100">
+<area shape="poly" id="edge20"  alt="" coords="750,102,630,64,543,42,545,37,631,59,752,97">
+<area shape="poly" id="edge5"  alt="" coords="727,383,477,322,479,317,728,377"></map>
 		</ul>
 
 	</div>
@@ -487,9 +520,11 @@ crt_sva_name)
 				<ul id="direct_associations_diagram" class="list-group panel-collapse collapse">
 			<img src="svaunit_pkg-svaunit_immediate_assertion_info_direct_associations.png" border="0" usemap="#_direct_associations_diagram" />
 			<map name="_direct_associations_diagram">
-<area shape="rect" id="node1" href="svaunit_pkg-svaunit_immediate_assertion_info.html"  alt="" coords="6,5,335,35">
-<area shape="rect" id="node2" href="svaunit_pkg-svaunit_immediate_assertion_details.html"  alt="" coords="617,5,975,35">
-<area shape="poly" id="edge1"  alt="" coords="336,17,603,17,603,23,336,23"></map>
+<area shape="rect" id="node1" href="svaunit_pkg-svaunit_immediate_assertion_info.html"  alt="" coords="6,33,335,63">
+<area shape="rect" id="node2" href="svaunit_pkg-svaunit_concurrent_assertion_info.html"  alt="" coords="531,5,869,35">
+<area shape="poly" id="edge1"  alt="" coords="335,37,516,27,517,32,336,42">
+<area shape="rect" id="node3" href="svaunit_pkg-svaunit_immediate_assertion_details.html"  alt="" coords="521,59,879,90">
+<area shape="poly" id="edge2"  alt="" coords="336,59,360,60,507,67,507,72,360,65,335,64"></map>
 		</ul>
 
 	</div>
@@ -501,7 +536,7 @@ crt_sva_name)
 	</div>
 
 	<div class="footer">
-		<hr><p class="text-center">Generated  on Wed Apr 29 10:13:54 EEST 2015 using <a href="http://www.dvteclipse.com/" target="_new">Specador<sup>TM</sup></a> Version 15.1.8</p>
+		<hr><p class="text-center">Generated  on Mon Jun 22 13:21:46 EEST 2015 using <a href="http://www.dvteclipse.com/" target="_new">Specador<sup>TM</sup></a> Version 15.1.13</p>
     </div>
 
 	<script src="lib/jquery/js/jquery.js"></script>

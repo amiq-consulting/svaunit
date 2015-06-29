@@ -34,9 +34,9 @@ API Specification</title>
 	<button data-scroll=#typedefs type="button" class="btn btn-default">Typedefs <span class="badge">1</span></button>
 	
 	
-	<button data-scroll=#variables type="button" class="btn btn-default">Variables <span class="badge">3</span></button>
+	<button data-scroll=#variables type="button" class="btn btn-default">Variables <span class="badge">5</span></button>
 	
-	<button data-scroll=#functions type="button" class="btn btn-default">Functions <span class="badge">15</span></button>
+	<button data-scroll=#functions type="button" class="btn btn-default">Functions <span class="badge">16</span></button>
 	
 
 	<button data-scroll=#inheritance_diagram type="button" class="btn btn-default">Inheritance Diagram</button>
@@ -119,11 +119,11 @@ name = "svaunit_immediate_assertion_details")
 		</div>
 					<ul id="variables" class="list-group panel-collapse collapse in">
 					<li class="list-group-item">
-						<a name="variable_immediate_assertion_time"></a>
+						<a name="variable_attempt_time"></a>
 						<span class="signature">
 
 	time [$]
- <b>		immediate_assertion_time
+ <b>		attempt_time
 </b>
 
 
@@ -132,16 +132,42 @@ name = "svaunit_immediate_assertion_details")
 
 					</li>
 					<li class="list-group-item">
-						<a name="variable_immediate_assertions_status"></a>
+						<a name="variable_check_name"></a>
+						<span class="signature">
+
+	string
+ <b>		check_name
+</b>
+
+
+						</span>
+	<pre class="comment">Will store the name of the immediate assertion tested into current test<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="variable_check_states"></a>
 						<span class="signature">
 
 	<a href="svaunit_pkg-svaunit_status_type.html">svaunit_status_type</a> [$]
- <b>		immediate_assertions_status
+ <b>		check_states
 </b>
 
 
 						</span>
 	<pre class="comment">Will store the status of the immediate assertion<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="variable_tests_names"></a>
+						<span class="signature">
+
+	string [$]
+ <b>		tests_names
+</b>
+
+
+						</span>
+	<pre class="comment">Will store the names of the tests where the current immediate assertion is executed<br></pre>
 
 					</li>
 					<li class="list-group-item">
@@ -189,50 +215,68 @@ str__)
 
 					</li>
 					<li class="list-group-item">
-						<a name="function_add_immediate_assertion_status"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		add_immediate_assertion_status
-</b>(	<a href="svaunit_pkg-svaunit_status_type.html">svaunit_status_type</a>
-crt_immediate_assertion_status)
-
-
-						</span>
-	<pre class="comment">Add status for the immediate assertion<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>crt_immediate_assertion_status</b> : status of the current attempt of immediate assertion<br></pre>
-
-					</li>
-					<li class="list-group-item">
-						<a name="function_add_immediate_assertion_test_time"></a>
-						<span class="signature">
-
-	 function 	void
-
-	<b>		add_immediate_assertion_test_time
-</b>(	time
-crt_immediate_assertion_test_time)
-
-
-						</span>
-	<pre class="comment">Add test time for the immediate assertion<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>crt_immediate_assertion_test_time</b> : current time when the immediate assertion was tested<br></pre>
-
-					</li>
-					<li class="list-group-item">
 						<a name="function_add_new_detail"></a>
 						<span class="signature">
 
-	 function 	void
+	virtual  function 	void
 
 	<b>		add_new_detail
-</b>(	time
-test_time,
+</b>(	string
+a_test_name,
+	time
+a_test_time,
 	<a href="svaunit_pkg-svaunit_status_type.html">svaunit_status_type</a>
-status)
+a_status)
 
 
 						</span>
-	<pre class="comment">Add new details for the immediate assertion : set test time and status for the current attempt of the immediate assertion<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>test_time</b> : the time at which the immediate assertion was tested<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>status</b> : the current status of the immediate assertion<br></pre>
+	<pre class="comment">Add new details for the immediate assertion :
+set test time and status for the current attempt of the immediate assertion<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_test_name</b> : the name of the test where the immediate assertion is executed<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_test_time</b> : the time at which the immediate assertion was tested<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_status</b> : the current status of the immediate assertion<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_add_status"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		add_status
+</b>(	<a href="svaunit_pkg-svaunit_status_type.html">svaunit_status_type</a>
+a_status)
+
+
+						</span>
+	<pre class="comment">Add status for the immediate assertion<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_status</b> : status of the current attempt of immediate assertion<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_add_test_name"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		add_test_name
+</b>(			ref 	string
+a_test_name)
+
+
+						</span>
+	<pre class="comment">Add test name for the immediate assertion<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_test_name</b> : current test name when the immediate assertion was exercised<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_add_test_time"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		add_test_time
+</b>(	time
+a_test_time)
+
+
+						</span>
+	<pre class="comment">Add test time for the immediate assertion<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_test_time</b> : current time when the immediate assertion was tested<br></pre>
 
 					</li>
 					<li class="list-group-item">
@@ -264,31 +308,34 @@ name = "")
 
 					</li>
 					<li class="list-group-item">
-						<a name="function_create_new_detail_immediat_assertion"></a>
+						<a name="function_create_new_check_detail"></a>
 						<span class="signature">
 
-	 function 	void
+	virtual  function 	void
 
-	<b>		create_new_detail_immediat_assertion
+	<b>		create_new_check_detail
 </b>(	string
-immediate_assertion,
+a_check_name,
+	string
+a_test_name,
 	time
-test_time,
+a_test_time,
 	<a href="svaunit_pkg-svaunit_status_type.html">svaunit_status_type</a>
-status)
+a_status)
 
 
 						</span>
-	<pre class="comment">Create new details for the immediate assertion : set name, the test time and the status for the current attempt of the immediate assertion<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>immediate_assertion</b> : the name of immediate assertion which is tested<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>test_time</b> : the time at which the immediate assertion was tested<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>status</b> : the current status of the immediate assertion<br></pre>
+	<pre class="comment">Create new details for the immediate assertion :
+set name, the test time and the status for the current attempt of the immediate assertion<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_check_name</b> : the name of immediate assertion which is tested<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_test_name</b> : the name of the test where the immediate assertion is executed<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_test_time</b> : the time at which the immediate assertion was tested<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_status</b> : the current status of the immediate assertion<br></pre>
 
 					</li>
 					<li class="list-group-item">
-						<a name="function_get_immediate_assertion_detail"></a>
+						<a name="function_get_check_attempts"></a>
 						<span class="signature">
 
-	 function 	string
+	virtual  function 	string
 
-	<b>		get_immediate_assertion_detail
+	<b>		get_check_attempts
 </b>()
 
 
@@ -297,12 +344,12 @@ status)
 
 					</li>
 					<li class="list-group-item">
-						<a name="function_get_immediate_assertion_name"></a>
+						<a name="function_get_check_name"></a>
 						<span class="signature">
 
-	 function 	string
+	virtual  function 	string
 
-	<b>		get_immediate_assertion_name
+	<b>		get_check_name
 </b>()
 
 
@@ -311,12 +358,12 @@ status)
 
 					</li>
 					<li class="list-group-item">
-						<a name="function_get_nof_times_immediate_assertion_pass"></a>
+						<a name="function_get_nof_times_check_has_passed"></a>
 						<span class="signature">
 
-	 function 	int unsigned
+	virtual  function 	int unsigned
 
-	<b>		get_nof_times_immediate_assertion_pass
+	<b>		get_nof_times_check_has_passed
 </b>()
 
 
@@ -325,12 +372,12 @@ status)
 
 					</li>
 					<li class="list-group-item">
-						<a name="function_get_nof_times_immediate_assertion_tested"></a>
+						<a name="function_get_nof_times_check_was_tested"></a>
 						<span class="signature">
 
-	 function 	int unsigned
+	virtual  function 	int unsigned
 
-	<b>		get_nof_times_immediate_assertion_tested
+	<b>		get_nof_times_check_was_tested
 </b>()
 
 
@@ -378,18 +425,18 @@ status)
 
 					</li>
 					<li class="list-group-item">
-						<a name="function_set_immediate_assertion_name"></a>
+						<a name="function_set_check_name"></a>
 						<span class="signature">
 
-	 function 	void
+	virtual  function 	void
 
-	<b>		set_immediate_assertion_name
-</b>(	string
-immediate_assertion)
+	<b>		set_check_name
+</b>(			ref 	string
+a_check_name)
 
 
 						</span>
-	<pre class="comment">Set immediate assertion name<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>immediate_assertion</b> : current immediate_assertion name to be added<br></pre>
+	<pre class="comment">Set immediate assertion name<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_check_name</b> : current a_check_name name to be added<br></pre>
 
 					</li>
 			</ul>
@@ -481,7 +528,7 @@ immediate_assertion)
 	</div>
 
 	<div class="footer">
-		<hr><p class="text-center">Generated  on Wed Apr 29 10:13:54 EEST 2015 using <a href="http://www.dvteclipse.com/" target="_new">Specador<sup>TM</sup></a> Version 15.1.8</p>
+		<hr><p class="text-center">Generated  on Mon Jun 22 13:21:46 EEST 2015 using <a href="http://www.dvteclipse.com/" target="_new">Specador<sup>TM</sup></a> Version 15.1.13</p>
     </div>
 
 	<script src="lib/jquery/js/jquery.js"></script>

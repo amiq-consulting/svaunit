@@ -21,7 +21,7 @@
  #                        [-t[est] <name>]                                                          --> specify a particular test to run (default: ${default_test})"
  #                        [-s[eed] <value>]                                                         --> specify a particular seed for the simulation (default: ${default_seed})"
  #                        [-i]                                                                      --> run in interactive mode"
- #                        [-sim[ulator]   { ius | questa | vcs} ]                                   --> specify what simulator to use (default: ${default_tool})"
+ #                        [-tool          { ius | questa | vcs} ]                                   --> specify what simulator to use (default: ${default_tool})"
  #                        [-in_reg]                                                                 --> specify if the current invocation is for running a test in regression"
  #                        [-reg]                                                                    --> starts a regression"
  #                        [-uvm           { uvm1.1 | uvm1.2} ]                                      --> specify the UVM version(default: ${default_compile_option})""
@@ -31,7 +31,7 @@
  #                        [-f[ile] <name> ]                                                         --> specify the file with an example  (default: ${FILE})"
  #
  #         run_svaunit.sh  -h[elp]                                                                  --> print this message"
- # Example of using : ./run_svaunit.sh -tool ius -uvm uvm1.2 -f examples/apb_tests/apb_files.f -top apb_top -test x_z_ts -i -c yes  
+ # Example of using : ./run_svaunit.sh -tool ius -uvm uvm1.2 -f examples/ex_apb/apb_files.f -top apb_top -test x_z_ts -i -c yes  
  # Example of using : ./run_svaunit.sh -reg
  #########################################################################################
 
@@ -192,7 +192,7 @@ run_with_ius_test() {
 
 # Compile and run with QUESTA
 run_with_questa_test() {
-    EXTRA_OPTIONS=" ${EXTRA_OPTIONS} -assertdebug -assertcover -sva "
+    EXTRA_OPTIONS=" ${EXTRA_OPTIONS} -assertdebug -assertcover -sva"
     if [ "$run_mode" = "interactive" ]; then
         rm -rf vsim_cmds.do
         touch vsim_cmds.do

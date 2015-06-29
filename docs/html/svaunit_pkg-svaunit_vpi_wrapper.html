@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>svaunit
+API Specification</title>
+
+	<meta name="author" content="">
+	<meta name="description" content="svaunit API Specification">
+	<meta name="generator" content="Specador. Copyright (C) 2005-2015 AMIQ EDA ">
+	<meta name="keywords" content="SystemVerilog, HTML Documentation, Specador, AMIQ EDA, svaunit API Specification">
+
+	<link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+	<link href="css/content.css" rel="stylesheet">
+	<link href="css/custom.css" rel="stylesheet">
+</head>
+<body>
+
+	<div class="container-fluid">
+<!-- ========= Title ======= -->
+<h2>class      		<a href="summary-svaunit_pkg.html">svaunit_pkg</a>
+:: svaunit_vpi_wrapper
+</h2>
+
+
+<!-- ========= Top Buttons ======= -->
+		<br>
+		<div class="btn-group">
+				
+	<button data-scroll=#constructor type="button" class="btn btn-default">Constructor <span class="badge">1</span></button>
+	<button data-scroll=#typedefs type="button" class="btn btn-default">Typedefs <span class="badge">1</span></button>
+	
+	
+	<button data-scroll=#variables type="button" class="btn btn-default">Variables <span class="badge">3</span></button>
+	
+	<button data-scroll=#functions type="button" class="btn btn-default">Functions <span class="badge">81</span></button>
+	
+
+	<button data-scroll=#inheritance_diagram type="button" class="btn btn-default">Inheritance Diagram</button>
+	<button data-scroll=#collaboration_diagram type="button" class="btn btn-default">Collaboration Diagram</button>
+	<button data-scroll=#direct_associations_diagram type="button" class="btn btn-default">Direct Associations Diagram</button>
+
+		</div>
+		<br><br>
+
+<!-- ========= Inheritance Tree ======= -->
+
+<!-- ========= Description ======= -->
+	<pre class="comment">VPI wrapper - it contains a pointer to VPI interface and SVAUnit API's<br></pre>
+
+<!-- ========= Parameters ======= -->
+
+<!-- ========= Constructor ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#constructor">
+			<h4 class="panel-title">
+					Constructor <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+					<ul id="constructor" class="list-group panel-collapse collapse in">
+					<li class="list-group-item">
+						<a name="constructor_new"></a>
+						<span class="signature">
+
+	 function 	
+
+	<b>		new
+</b>(	string
+name = "svaunit_vpi_wrapper")
+
+
+						</span>
+	<pre class="comment">Constructor for an svaunit_vpi_wrapper<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>name</b>   : instance name for svaunit_vpi_wrapper object<br></pre>
+
+					</li>
+			</ul>
+
+	</div>
+
+<!-- ========= Typedefs ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#typedefs">
+			<h4 class="panel-title">
+					Typedefs <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+					<ul id="typedefs" class="list-group panel-collapse collapse in">
+					<li class="list-group-item">
+						<a name="typedef_type_id"></a>
+						<span class="signature">
+
+	 <b>		type_id
+</b>
+
+		-> uvm_object_registry#(svaunit_vpi_wrapper, "svaunit_vpi_wrapper")
+	
+
+
+						</span>
+
+					</li>
+			</ul>
+
+	</div>
+
+<!-- ========= Structs ======= -->
+
+<!-- ========= Enums ======= -->
+
+<!-- ========= Variables ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#variables">
+			<h4 class="panel-title">
+					Variables <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+					<ul id="variables" class="list-group panel-collapse collapse in">
+					<li class="list-group-item">
+						<a name="variable_current_check_status"></a>
+						<span class="signature">
+
+	<a href="svaunit_pkg-svaunit_status_type.html">svaunit_status_type</a>
+ <b>		current_check_status
+</b>
+
+
+						</span>
+	<pre class="comment">Stores the current status of the check used<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="variable_stop_test"></a>
+						<span class="signature">
+
+	bit
+ <b>		stop_test
+</b>
+
+
+						</span>
+	<pre class="comment">When this bit is 1, the test should stop<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="variable_type_name"></a>
+						<span class="signature">
+
+const static 	string
+ <b>		type_name
+</b>
+
+
+						</span>
+
+					</li>
+			</ul>
+
+	</div>
+
+<!-- ========= Constraints ======= -->
+
+<!-- ========= Functions ======= -->
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#functions">
+			<h4 class="panel-title">
+					Functions <span class="glyphicon glyphicon-chevron-down"></span>
+			</h4>
+		</div>
+					<ul id="functions" class="list-group panel-collapse collapse in">
+					<li class="list-group-item">
+						<a name="function___m_uvm_field_automation"></a>
+						<span class="signature">
+
+	 function 	void
+
+	<b>		__m_uvm_field_automation
+</b>(	uvm_object
+tmp_data__,
+	int
+what__,
+	string
+str__)
+
+
+						</span>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_assertion_started_but_not_finished"></a>
+						<span class="signature">
+
+	virtual  function 	bit
+
+	<b>		assertion_started_but_not_finished
+</b>(	string
+a_sva_name)
+
+
+						</span>
+	<pre class="comment">Verify that the SVA with a given name or path started but has not finished<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;1 if the assertion started but has not finished and 0 otherwise<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_assertion_succeeded"></a>
+						<span class="signature">
+
+	virtual  function 	bit
+
+	<b>		assertion_succeeded
+</b>(	string
+a_sva_name)
+
+
+						</span>
+	<pre class="comment">Verify that the SVA with a given name or path succeeded<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;1 if the assertion succeeded and 0 otherwise<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_create"></a>
+						<span class="signature">
+
+	 function 	uvm_object
+
+	<b>		create
+</b>(	string
+name = "")
+
+
+						</span>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_disable_all_assertions"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		disable_all_assertions
+</b>()
+
+
+						</span>
+	<pre class="comment">Will disable the starting of any new attempt for all SVAs
+(this will have no effect on any existing attempts or if SVA was already disable;
+on default all SVAs are enable)<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_disable_assertion"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		disable_assertion
+</b>(	string
+a_sva_name)
+
+
+						</span>
+	<pre class="comment">Will disable the starting of any new attempt for a given SVA
+(this will have no effect on any existing attempts or if SVA was already disable;
+on default all SVAs are enable)<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_disable_step_all_assertions"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		disable_step_all_assertions
+</b>()
+
+
+						</span>
+	<pre class="comment">Will disable step callback for all SVAs
+(this will have no effect if step callback is not enabled or it was already disabled)<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_disable_step_assertion"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		disable_step_assertion
+</b>(	string
+a_sva_name)
+
+
+						</span>
+	<pre class="comment">Will disable step callback for a given SVA
+(this will have no effect if step callback is not enabled or it was already disabled)<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_enable_all_assertions"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		enable_all_assertions
+</b>()
+
+
+						</span>
+	<pre class="comment">Will enable starting any new attempts for all SVAs
+(this will have no effect if SVA was already enable or on any current attempt)<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_enable_assertion"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		enable_assertion
+</b>(	string
+a_sva_name)
+
+
+						</span>
+	<pre class="comment">Will enable starting any new attempts for a given SVA
+(this will have no effect if SVA was already enable or on any current attempt)<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_enable_step_all_assertions"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		enable_step_all_assertions
+</b>()
+
+
+						</span>
+	<pre class="comment">Will enable step callback for all SVAs
+(by default, stepping is disabled; this will have no effect if stepping was already enabled;
+the stepping mode cannot be modified after the assertion attempt has started)<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_enable_step_assertion"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		enable_step_assertion
+</b>(	string
+a_sva_name)
+
+
+						</span>
+	<pre class="comment">Will enable step callback for a given SVA
+(by default, stepping is disabled; this will have no effect if stepping was already enabled;
+the stepping mode cannot be modified after the assertion attempt has started)<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_fail_if"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		fail_if
+</b>(	bit
+a_expression,
+	string
+a_error_msg = "Default message",
+	int unsigned
+a_line = 0,
+	string
+a_filename = "")
+
+
+						</span>
+	<pre class="comment">Verify if the expression is FALSE - the test will fail if the expression is FALSE<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_expression</b> : the expression to be checked<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_filename</b> : the file name where the check is exercised<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_fail_if_all_sva_succeeded"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		fail_if_all_sva_succeeded
+</b>(	string
+a_error_msg)
+
+
+						</span>
+	<pre class="comment">Verify if all SVAs succeeded - the test will fail if all SVA succeeded<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_error_msg</b> : custom error message which will be printed when the check fails<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_fail_if_sva_does_not_exists"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		fail_if_sva_does_not_exists
+</b>(	string
+a_sva_name,
+	string
+a_error_msg = "Default message",
+	int unsigned
+a_line = 0,
+	string
+a_filename = "")
+
+
+						</span>
+	<pre class="comment">Verify if a given SVA exists - the test will fail if SVA does not exists<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_filename</b> : the file name where the check is exercised<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_fail_if_sva_enabled"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		fail_if_sva_enabled
+</b>(	string
+a_sva_name,
+	string
+a_error_msg = "Default message",
+	int unsigned
+a_line = 0,
+	string
+a_filename = "")
+
+
+						</span>
+	<pre class="comment">Verify if a given SVA is enabled - the test will fail if SVA is enable<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_filename</b> : the file name where the check is exercised<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_fail_if_sva_finished"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		fail_if_sva_finished
+</b>(	string
+a_sva_name,
+	string
+a_error_msg = "Default message",
+	int unsigned
+a_line = 0,
+	string
+a_filename = "")
+
+
+						</span>
+	<pre class="comment">Verify if a given SVA finished - the test will fail if the assertion finished<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_filename</b> : the file name where the check is exercised<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_fail_if_sva_not_finished"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		fail_if_sva_not_finished
+</b>(	string
+a_sva_name,
+	string
+a_error_msg = "Default message",
+	int unsigned
+a_line = 0,
+	string
+a_filename = "")
+
+
+						</span>
+	<pre class="comment">Verify if a given SVA didn't finished - the test will fail if the assertion didn't finished<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_filename</b> : the file name where the check is exercised<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_fail_if_sva_not_started"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		fail_if_sva_not_started
+</b>(	string
+a_sva_name,
+	string
+a_error_msg = "Default message",
+	int unsigned
+a_line = 0,
+	string
+a_filename = "")
+
+
+						</span>
+	<pre class="comment">Verify if a given SVA didn't started - the test will fail if the assertion didn't started<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_filename</b> : the file name where the check is exercised<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_fail_if_sva_not_succeeded"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		fail_if_sva_not_succeeded
+</b>(	string
+a_sva_name,
+	string
+a_error_msg = "Default message",
+	int unsigned
+a_line = 0,
+	string
+a_filename = "")
+
+
+						</span>
+	<pre class="comment">Verify if a given SVA didn't succeeded (the assertion should have succeeded), the test should fail<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_filename</b> : the file name where the check is exercised<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_fail_if_sva_started_but_not_finished"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		fail_if_sva_started_but_not_finished
+</b>(	string
+a_sva_name,
+	string
+a_error_msg = "Default message",
+	int unsigned
+a_line = 0,
+	string
+a_filename = "")
+
+
+						</span>
+	<pre class="comment">Verify if a given SVA didn't finished  but the first state is START,
+the test will fail if the assertion didn't finished but the first state is START<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_filename</b> : the file name where the check is exercised<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_fail_if_sva_succeeded"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		fail_if_sva_succeeded
+</b>(	string
+a_sva_name,
+	string
+a_error_msg = "Default message",
+	int unsigned
+a_line = 0,
+	string
+a_filename = "")
+
+
+						</span>
+	<pre class="comment">Verify if a given SVA succeeded - the test will fail if SVA succeeded<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_filename</b> : the file name where the check is exercised<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_find"></a>
+						<span class="signature">
+
+	virtual  function 	int
+
+	<b>		find
+</b>(	string
+a_s1,
+	string
+a_s2)
+
+
+						</span>
+	<pre class="comment">Find the position of the first character of the first match of s2 in s1<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the position of the first character of the first match.
+If no matches were found, the function will return -1<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_s1</b> : the string used to search in the s2<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_s2</b> : the string to search for.<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_first_state_not_start"></a>
+						<span class="signature">
+
+	virtual  function 	bit
+
+	<b>		first_state_not_start
+</b>(	string
+a_sva_name)
+
+
+						</span>
+	<pre class="comment">Verify that the first state of an SVA with a given name or path is not start<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;1 if the first state of assertion is not start and 0 otherwise<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_check_for_sva"></a>
+						<span class="signature">
+
+	virtual  function 	<a href="svaunit_pkg-svaunit_immediate_assertion_info.html">svaunit_immediate_assertion_info</a>
+
+	<b>		get_check_for_sva
+</b>(	string
+a_sva_name)
+
+
+						</span>
+	<pre class="comment">Get the immediate assertion info which corresponds to a given SVA<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the immediate assertion info which corresponds to a given SVA<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : a string represents the SVA name used to select the immediate assertion<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_checks_for_test"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		get_checks_for_test
+</b>(			input 	string
+a_test_name,
+			ref 	<a href="svaunit_pkg-svaunit_immediate_assertion_info.html">svaunit_immediate_assertion_info</a> [$]
+a_checks_for_test)
+
+
+						</span>
+	<pre class="comment">Get the immediate assertions info which corresponds to a given test<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_test_name</b> : a string represents the test name used to select the immediate assertion<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_checks_for_test</b> : a list of immediate assertions info which corresponds to a given test<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_checks_names"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		get_checks_names
+</b>(			ref 	<a href="svaunit_pkg-svaunit_immediate_assertion_info.html">svaunit_immediate_assertion_info</a> [$]
+a_lof_used_checks,
+			ref 	string [$]
+a_lof_used_checks_names)
+
+
+						</span>
+	<pre class="comment">Get a list with names for all immediate assertion used<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_lof_used_checks</b> : list of immediate assertions from where the report is made<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_lof_used_checks_names</b> : list which contains the names of the checks used in this unit test<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_checks_not_used_names"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		get_checks_not_used_names
+</b>(			ref 	<a href="svaunit_pkg-svaunit_immediate_assertion_info.html">svaunit_immediate_assertion_info</a> [$]
+a_lof_used_checks,
+			ref 	string [$]
+a_lof_not_used_checks_names)
+
+
+						</span>
+	<pre class="comment">Get a list with names for all immediate assertion used which were not used<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_lof_used_checks</b> : list of immediate assertions from where the report is made<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_lof_not_used_checks_names</b> : list which contains the name of the checks not used in this unit test<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_first_state"></a>
+						<span class="signature">
+
+	virtual  function 	<a href="svaunit_pkg-svaunit_concurrent_assertion_state_type.html">svaunit_concurrent_assertion_state_type</a>
+
+	<b>		get_first_state
+</b>(	string
+a_sva_name)
+
+
+						</span>
+	<pre class="comment">Get the first state of an SVA with a given name or path<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the first state of assertion<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_last_state"></a>
+						<span class="signature">
+
+	virtual  function 	<a href="svaunit_pkg-svaunit_concurrent_assertion_state_type.html">svaunit_concurrent_assertion_state_type</a>
+
+	<b>		get_last_state
+</b>(	string
+a_sva_name)
+
+
+						</span>
+	<pre class="comment">Get the last state of an SVA with a given name or path<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the last state of assertion<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_nof_sva"></a>
+						<span class="signature">
+
+	virtual  function 	int unsigned
+
+	<b>		get_nof_sva
+</b>()
+
+
+						</span>
+	<pre class="comment">Get the total number of SVAs<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_nof_tested_sva"></a>
+						<span class="signature">
+
+	virtual  function 	int unsigned
+
+	<b>		get_nof_tested_sva
+</b>(	string
+a_test_name)
+
+
+						</span>
+	<pre class="comment">Get the total number of SVAs tested from all tests<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the total number of SVAs tested from all tests<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_test_name</b> : the name of the test where the SVA was exercised<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_nof_times_assertion_failed"></a>
+						<span class="signature">
+
+	virtual  function 	int
+
+	<b>		get_nof_times_assertion_failed
+</b>(	string
+a_sva_name)
+
+
+						</span>
+	<pre class="comment">Compute the number of times an SVA with a given name or path has failed<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the number of times an assertion failed<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_nof_times_assertion_started"></a>
+						<span class="signature">
+
+	virtual  function 	int
+
+	<b>		get_nof_times_assertion_started
+</b>(	string
+a_sva_name)
+
+
+						</span>
+	<pre class="comment">Compute the number of times an SVA with a given name or path started<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the number of times an assertion started<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_nof_times_assertion_succeeded"></a>
+						<span class="signature">
+
+	virtual  function 	int
+
+	<b>		get_nof_times_assertion_succeeded
+</b>(	string
+a_sva_name)
+
+
+						</span>
+	<pre class="comment">Compute the number of times an SVA with a given name or path succeeded<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the number of times an assertion succeeded<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_nof_times_check_has_passed"></a>
+						<span class="signature">
+
+	virtual  function 	int unsigned
+
+	<b>		get_nof_times_check_has_passed
+</b>(			input 	string
+a_check_name,
+			ref 	<a href="svaunit_pkg-svaunit_immediate_assertion_info.html">svaunit_immediate_assertion_info</a> [$]
+a_lof_used_checks)
+
+
+						</span>
+	<pre class="comment">Get the number of times an immediate assertion passed during simulation<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the number of times an immediate assertion passed during simulation<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_check_name</b> : the check name<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_lof_used_checks</b> : list of immediate assertions from where the report is made<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_nof_times_check_was_tested"></a>
+						<span class="signature">
+
+	virtual  function 	int unsigned
+
+	<b>		get_nof_times_check_was_tested
+</b>(			input 	string
+a_check_name,
+			ref 	<a href="svaunit_pkg-svaunit_immediate_assertion_info.html">svaunit_immediate_assertion_info</a> [$]
+a_lof_used_checks)
+
+
+						</span>
+	<pre class="comment">Get the number of times an immediate assertion was tested during simulation<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the number of times an immediate assertion was tested during simulation<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_check_name</b> : the check name<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_lof_used_checks</b> : list of immediate assertions from where the report is made<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_object_type"></a>
+						<span class="signature">
+
+	virtual  function 	uvm_object_wrapper
+
+	<b>		get_object_type
+</b>()
+
+
+						</span>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_status_as_string"></a>
+						<span class="signature">
+
+	virtual  function 	string
+
+	<b>		get_status_as_string
+</b>()
+
+
+						</span>
+	<pre class="comment">Form the status to be printed as a string<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;a string represents the status to be printed<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_sva_not_tested"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		get_sva_not_tested
+</b>(			input 	string
+a_test_name,
+			ref 	<a href="svaunit_pkg-svaunit_concurrent_assertion_info.html">svaunit_concurrent_assertion_info</a> [$]
+a_sva_not_tested)
+
+
+						</span>
+	<pre class="comment">Get all SVA from all tests which have not been tested<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_test_name</b> : the name of the test where the SVA was exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_not_tested</b> : list of all SVAs which have not been tested<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_sva_not_tested_names"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		get_sva_not_tested_names
+</b>(			ref 	<a href="svaunit_pkg-svaunit_concurrent_assertion_info.html">svaunit_concurrent_assertion_info</a> [$]
+a_not_tested_sva,
+			ref 	string [$]
+a_not_tested_sva_names)
+
+
+						</span>
+	<pre class="comment">Get the names of the SVAs which were not tested during test<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_not_tested_sva</b> : the SVAs which were not tested during a given test<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_not_tested_sva_names</b> : list of SVAUnit checks names which have not been tested<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_sva_tested"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		get_sva_tested
+</b>(			input 	string
+a_test_name,
+			ref 	<a href="svaunit_pkg-svaunit_concurrent_assertion_info.html">svaunit_concurrent_assertion_info</a> [$]
+a_sva_tested)
+
+
+						</span>
+	<pre class="comment">Get a list of all SVAs which have been tested from a_test_name<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_test_name</b> : the name of the test where the SVA was exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_tested</b> : a list of all SVAs which have the same tested status<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_sva_tested_names"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		get_sva_tested_names
+</b>(			ref 	<a href="svaunit_pkg-svaunit_concurrent_assertion_info.html">svaunit_concurrent_assertion_info</a> [$]
+a_tested_sva,
+			ref 	string [$]
+a_tested_sva_names)
+
+
+						</span>
+	<pre class="comment">Get the names of the SVAs which were tested during test<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_tested_sva</b> : the SVAs which were tested during a given test<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_tested_sva_names</b> : list of SVAs names which were tested during test<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_test_name"></a>
+						<span class="signature">
+
+	virtual  function 	string
+
+	<b>		get_test_name
+</b>()
+
+
+						</span>
+	<pre class="comment">Will return the name of the test where the VPI wrapper is instantiated<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;a string with the name of the test where this component is instantiated<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_total_nof_checks"></a>
+						<span class="signature">
+
+	virtual  function 	int unsigned
+
+	<b>		get_total_nof_checks
+</b>()
+
+
+						</span>
+	<pre class="comment">Get immediate assertions from all tests<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the total number of immediate assertions<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_type"></a>
+						<span class="signature">
+
+	static  function 	<a href="svaunit_pkg-svaunit_vpi_wrapper.html#typedef_type_id">type_id</a>
+
+	<b>		get_type
+</b>()
+
+
+						</span>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_get_type_name"></a>
+						<span class="signature">
+
+	virtual  function 	string
+
+	<b>		get_type_name
+</b>()
+
+
+						</span>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_is_enable"></a>
+						<span class="signature">
+
+	virtual  function 	bit
+
+	<b>		is_enable
+</b>(	string
+a_sva_name)
+
+
+						</span>
+	<pre class="comment">Verify that an SVA with a given name or path is enable<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;1 if the assertion is enable and 0 otherwise<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_is_finished"></a>
+						<span class="signature">
+
+	virtual  function 	bit
+
+	<b>		is_finished
+</b>(	string
+a_sva_name)
+
+
+						</span>
+	<pre class="comment">Verify that an SVA with a given name or path has finished<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;1 if the assertion has finished and 0 otherwise<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_is_not_finished"></a>
+						<span class="signature">
+
+	virtual  function 	bit
+
+	<b>		is_not_finished
+</b>(	string
+a_sva_name)
+
+
+						</span>
+	<pre class="comment">Verify that an SVA with a given name or path has not finished<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;1 if the assertion has not finished and 0 otherwise<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_kill_all_assertions"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		kill_all_assertions
+</b>(	time
+a_sim_time)
+
+
+						</span>
+	<pre class="comment">Will discard any attempts of all SVAs
+(the SVA will remain enabled and does not reset any state used by any SVA)<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sim_time</b> : the simulation time from which the SVA attempts will be killed<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_kill_assertion"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		kill_assertion
+</b>(	string
+a_sva_name,
+	time
+a_sim_time)
+
+
+						</span>
+	<pre class="comment">Will discard any attempts of a given SVA
+(the SVA will remain enabled and does not reset any state used by this SVA)<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sim_time</b> : the simulation time from which the SVA attempts will be killed<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_pass_assertion"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		pass_assertion
+</b>()
+
+
+						</span>
+	<pre class="comment">Automatic check verified at the end of test for all enabled SVAs, if there are not any checks in unit test<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_pass_if"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		pass_if
+</b>(	bit
+a_expression,
+	string
+a_error_msg = "Default message",
+	int unsigned
+a_line = 0,
+	string
+a_filename = "")
+
+
+						</span>
+	<pre class="comment">Verify if the expression is FALSE - the test will pass if the expression is FALSE<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_expression</b> : the expression to be checked<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_filename</b> : the file name where the check is exercised<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_pass_if_all_sva_succeeded"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		pass_if_all_sva_succeeded
+</b>(	string
+a_error_msg)
+
+
+						</span>
+	<pre class="comment">Verify if all SVAs succeeded - the test will pass if all SVA succeeded<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_error_msg</b> : custom error message which will be printed when the check fails<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_pass_if_sva_does_not_exists"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		pass_if_sva_does_not_exists
+</b>(	string
+a_sva_name,
+	string
+a_error_msg = "Default message",
+	int unsigned
+a_line = 0,
+	string
+a_filename = "")
+
+
+						</span>
+	<pre class="comment">Verify if a given SVA exists - the test will pass if SVA does not exists<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_filename</b> : the file name where the check is exercised<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_pass_if_sva_enabled"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		pass_if_sva_enabled
+</b>(	string
+a_sva_name,
+	string
+a_error_msg = "Default message",
+	int unsigned
+a_line = 0,
+	string
+a_filename = "")
+
+
+						</span>
+	<pre class="comment">Verify if a given SVA is enabled - the test will pass if SVA is enable<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_filename</b> : the file name where the check is exercised<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_pass_if_sva_finished"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		pass_if_sva_finished
+</b>(	string
+a_sva_name,
+	string
+a_error_msg = "Default message",
+	int unsigned
+a_line = 0,
+	string
+a_filename = "")
+
+
+						</span>
+	<pre class="comment">Verify if a given SVA finished - the test will pass if the assertion finished<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_filename</b> : the file name where the check is exercised<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_pass_if_sva_not_finished"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		pass_if_sva_not_finished
+</b>(	string
+a_sva_name,
+	string
+a_error_msg = "Default message",
+	int unsigned
+a_line = 0,
+	string
+a_filename = "")
+
+
+						</span>
+	<pre class="comment">Verify if a given SVA didn't finished - the test will pass if the assertion didn't finished<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_filename</b> : the file name where the check is exercised<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_pass_if_sva_not_started"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		pass_if_sva_not_started
+</b>(	string
+a_sva_name,
+	string
+a_error_msg = "Default message",
+	int unsigned
+a_line = 0,
+	string
+a_filename = "")
+
+
+						</span>
+	<pre class="comment">Verify if a given SVA didn't started - the test will pass if the assertion didn't started<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_filename</b> : the file name where the check is exercised<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_pass_if_sva_not_succeeded"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		pass_if_sva_not_succeeded
+</b>(	string
+a_sva_name,
+	string
+a_error_msg = "Default message",
+	int unsigned
+a_line = 0,
+	string
+a_filename = "")
+
+
+						</span>
+	<pre class="comment">Verify if a given SVA didn't succeeded (the assertion should have failed),
+the test will pass if the assertion didn't succeeded<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_filename</b> : the file name where the check is exercised<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_pass_if_sva_started_but_not_finished"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		pass_if_sva_started_but_not_finished
+</b>(	string
+a_sva_name,
+	string
+a_error_msg = "Default message",
+	int unsigned
+a_line = 0,
+	string
+a_filename = "")
+
+
+						</span>
+	<pre class="comment">Verify if a given SVA didn't finished  but the first state is START,
+the test will pass if the assertion didn't finished but the first state is START<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_filename</b> : the file name where the check is exercised<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_pass_if_sva_succeeded"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		pass_if_sva_succeeded
+</b>(	string
+a_sva_name,
+	string
+a_error_msg = "Default message",
+	int unsigned
+a_line = 0,
+	string
+a_filename = "")
+
+
+						</span>
+	<pre class="comment">Verify if a given SVA succeeded - the test will fail if SVA does not succeeded<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_error_msg</b> : user error message to be printed if the check fails<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_line</b> : the line number where the check is exercised<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_filename</b> : the file name where the check is exercised<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_print_checks"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		print_checks
+</b>()
+
+
+						</span>
+	<pre class="comment">Print a report for all checks tested for the current unit test<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_print_checks_from_specific_list"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		print_checks_from_specific_list
+</b>(			input 	string
+a_test_name,
+			ref 	<a href="svaunit_pkg-svaunit_immediate_assertion_info.html">svaunit_immediate_assertion_info</a> [$]
+a_lof_used_checks)
+
+
+						</span>
+	<pre class="comment">Print a report for all checks tested from a specific list with immediate assertions<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_lof_used_checks</b> : list of immediate assertions from where the report is made<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_test_name</b> : the name of the test used to print it's checks<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_print_failed_sva"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		print_failed_sva
+</b>()
+
+
+						</span>
+	<pre class="comment">Print a report for all SVA which have failed<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_print_failed_sva_for_specific_list"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		print_failed_sva_for_specific_list
+</b>(			ref 	string
+a_test_name,
+			ref 	<a href="svaunit_pkg-svaunit_immediate_assertion_info.html">svaunit_immediate_assertion_info</a> [$]
+a_lof_used_checks)
+
+
+						</span>
+	<pre class="comment">Print a report for all SVA which have failed<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_test_name</b> : the name of the test used to print it's checks<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_lof_used_checks</b> : list of immediate assertions from where the report is made<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_print_report"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		print_report
+</b>()
+
+
+						</span>
+	<pre class="comment">Will print the report for the current immediate assertions<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_print_status"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		print_status
+</b>()
+
+
+						</span>
+	<pre class="comment">Form the status to be printed<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;a string represents the status to be printed<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_print_sva"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		print_sva
+</b>()
+
+
+						</span>
+	<pre class="comment">Print a list with all SVAs and with its status<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_print_sva_and_checks"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		print_sva_and_checks
+</b>()
+
+
+						</span>
+	<pre class="comment">Print a report for all checks tested for the SVAs<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_print_sva_and_checks_for_specific_list"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		print_sva_and_checks_for_specific_list
+</b>(			ref 	string
+a_test_name,
+			ref 	<a href="svaunit_pkg-svaunit_immediate_assertion_info.html">svaunit_immediate_assertion_info</a> [$]
+a_lof_used_checks)
+
+
+						</span>
+	<pre class="comment">Print a report for all checks tested for the SVAs from a specific list with immediate assertions<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_test_name</b> : the name of the test used to print it's checks<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_lof_used_checks</b> : list of immediate assertions from where the report is made<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_print_sva_info"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		print_sva_info
+</b>(			ref 	string
+a_sva_name)
+
+
+						</span>
+	<pre class="comment">Will print assertion info for an SVA with a given name<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name to be found in SVA list<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_reset_all_assertions"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		reset_all_assertions
+</b>()
+
+
+						</span>
+	<pre class="comment">Will discard all current attempts in progress for all SVAs and resets the SVAs to initial state<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_reset_assertion"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		reset_assertion
+</b>(	string
+a_sva_name)
+
+
+						</span>
+	<pre class="comment">Will discard all current attempts in progress for an SVA with a given name or path
+and resets the SVA to its initial state<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : assertion name or path to be found in SVA list<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_set_test_name_vpi"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		set_test_name_vpi
+</b>(	string
+a_test_name)
+
+
+						</span>
+	<pre class="comment">Set test name in VPI interface<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_test_name</b> : the name of the test to be added inside VPI interface<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_system_end_all_assertions"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		system_end_all_assertions
+</b>()
+
+
+						</span>
+	<pre class="comment">Will discard any attempt in progress and disable any SVA to be started
+(all callbacks will be removed)<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_system_off_all_assertions"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		system_off_all_assertions
+</b>()
+
+
+						</span>
+	<pre class="comment">------------------------------- SYSTEM OFF --------------------------------
+Will disable any SVA to being started and all current attempts will be considered as unterminated<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_system_on_all_assertions"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		system_on_all_assertions
+</b>()
+
+
+						</span>
+	<pre class="comment">------------------------------- SYSTEM ON --------------------------------
+Will restart the SVAs after it was stopped<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_system_reset_all_assertions"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		system_reset_all_assertions
+</b>()
+
+
+						</span>
+	<pre class="comment">Will discard all attempts in progress for all SVAs and restore the entire assertion system to its initial state.
+(The vpiAssertionStepSuccess and vpiAssertionStepFailure callbacks will be removed)<br></pre>
+
+					</li>
+					<li class="list-group-item">
+						<a name="function_update_coverage"></a>
+						<span class="signature">
+
+	virtual  function 	void
+
+	<b>		update_coverage
+</b>()
+
+
+						</span>
+	<pre class="comment">Update the test's status according to the number of failed assertions<br></pre>
+
+					</li>
+			</ul>
+
+	</div>
+
+<!-- ========= Tasks ======= -->
+
+<!-- ========= Diagrams ======= -->
+
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#inheritance_diagram">
+			<h4 class="panel-title">
+					Inheritance Diagram <span class="glyphicon glyphicon-chevron-right"></span>
+			</h4>
+		</div>
+				<ul id="inheritance_diagram" class="list-group panel-collapse collapse">
+			<img src="svaunit_pkg-svaunit_vpi_wrapper_inheritance.png" border="0" usemap="#_inheritance_diagram" />
+			<map name="_inheritance_diagram">
+<area shape="rect" id="node1" href="svaunit_pkg-svaunit_vpi_wrapper.html"  alt="" coords="385,5,589,35">
+<area shape="rect" id="node2"  alt="" coords="185,5,303,35">
+<area shape="poly" id="edge1"  alt="" coords="385,23,317,23,317,17,385,17">
+<area shape="rect" id="node3"  alt="" coords="5,5,104,35">
+<area shape="poly" id="edge2"  alt="" coords="185,23,118,23,118,17,185,17"></map>
+		</ul>
+
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#collaboration_diagram">
+			<h4 class="panel-title">
+					Collaboration Diagram <span class="glyphicon glyphicon-chevron-right"></span>
+			</h4>
+		</div>
+				<ul id="collaboration_diagram" class="list-group panel-collapse collapse">
+			<img src="svaunit_pkg-svaunit_vpi_wrapper_collaboration.png" border="0" usemap="#_collaboration_diagram" />
+			<map name="_collaboration_diagram">
+<area shape="rect" id="node1" href="svaunit_pkg-svaunit_vpi_wrapper.html"  alt="" coords="307,379,511,410">
+<area shape="rect" id="node2"  alt="" coords="350,286,469,317">
+<area shape="poly" id="edge1"  alt="" coords="407,380,407,330,412,330,412,380">
+<area shape="rect" id="node3"  alt="" coords="5,193,104,223">
+<area shape="poly" id="edge2"  alt="" coords="350,303,278,300,199,294,127,283,98,274,77,263,66,251,59,237,63,235,70,248,80,259,100,269,128,277,199,289,279,295,350,297">
+<area shape="rect" id="node4"  alt="" coords="355,193,570,223">
+<area shape="poly" id="edge4"  alt="" coords="350,301,269,297,187,288,152,281,127,273,113,262,112,254,117,246,146,234,201,225,341,212,342,218,201,230,147,239,120,250,118,255,118,259,129,268,154,276,187,283,270,291,350,296">
+<area shape="poly" id="edge5"  alt="" coords="391,225,374,235,360,249,357,256,358,263,371,277,367,281,353,265,352,256,355,247,370,231,389,220">
+<area shape="rect" id="node5"  alt="" coords="386,6,553,37">
+<area shape="poly" id="edge6"  alt="" coords="461,193,466,50,471,50,466,193">
+<area shape="poly" id="edge7"  alt="" coords="458,224,436,263,427,276,423,274,431,260,453,221">
+<area shape="rect" id="node6"  alt="" coords="141,99,278,130">
+<area shape="poly" id="edge8"  alt="" coords="355,197,312,186,271,170,249,157,230,141,233,137,252,153,273,166,314,181,356,192">
+<area shape="rect" id="node8"  alt="" coords="302,99,421,130">
+<area shape="poly" id="edge11"  alt="" coords="410,196,390,185,373,170,361,144,366,142,377,166,393,180,413,191">
+<area shape="rect" id="node9"  alt="" coords="562,99,699,130">
+<area shape="poly" id="edge13"  alt="" coords="486,191,557,152,592,134,595,138,560,157,489,196">
+<area shape="rect" id="node10"  alt="" coords="724,99,852,130">
+<area shape="poly" id="edge15"  alt="" coords="540,191,649,165,743,132,745,137,650,171,541,196">
+<area shape="poly" id="edge18"  alt="" coords="529,220,546,227,560,237,566,249,561,263,549,273,530,280,483,292,482,287,528,275,546,268,557,260,561,249,556,240,544,232,527,225">
+<area shape="rect" id="node7"  alt="" coords="71,6,209,37">
+<area shape="poly" id="edge9"  alt="" coords="169,102,152,91,139,76,134,63,133,50,138,49,139,62,144,73,156,87,172,98">
+<area shape="poly" id="edge10"  alt="" coords="228,98,261,78,300,59,376,36,377,42,302,64,264,82,231,102">
+<area shape="poly" id="edge12"  alt="" coords="361,99,368,79,381,59,408,40,411,44,385,63,373,81,366,101">
+<area shape="poly" id="edge3"  alt="" coords="693,127,744,140,772,153,782,168,786,184,785,198,781,213,762,239,735,264,716,274,690,282,625,294,551,300,482,302,482,297,551,294,624,288,689,277,714,269,732,259,758,236,776,210,780,197,781,184,777,171,769,157,742,145,692,132">
+<area shape="poly" id="edge14"  alt="" coords="605,102,560,77,504,45,506,40,563,72,608,97">
+<area shape="rect" id="node11"  alt="" coords="695,6,881,37">
+<area shape="poly" id="edge16"  alt="" coords="785,100,785,50,791,50,791,100">
+<area shape="poly" id="edge17"  alt="" coords="749,102,629,64,542,42,543,37,630,59,751,97"></map>
+		</ul>
+
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading" data-toggle="collapse" data-target="#direct_associations_diagram">
+			<h4 class="panel-title">
+					Direct Associations Diagram <span class="glyphicon glyphicon-chevron-right"></span>
+			</h4>
+		</div>
+				<ul id="direct_associations_diagram" class="list-group panel-collapse collapse">
+			<img src="svaunit_pkg-svaunit_vpi_wrapper_direct_associations.png" border="0" usemap="#_direct_associations_diagram" />
+			<map name="_direct_associations_diagram">
+<area shape="rect" id="node1" href="svaunit_pkg-svaunit_vpi_wrapper.html"  alt="" coords="6,5,210,35"></map>
+		</ul>
+
+	</div>
+
+<!-- ========= Generated From ======= -->
+		<hr>Generated from: <a href="../../sv/svaunit_vpi_wrapper.svh">svaunit_vpi_wrapper.svh</a>
+
+
+	</div>
+
+	<div class="footer">
+		<hr><p class="text-center">Generated  on Mon Jun 22 13:21:48 EEST 2015 using <a href="http://www.dvteclipse.com/" target="_new">Specador<sup>TM</sup></a> Version 15.1.13</p>
+    </div>
+
+	<script src="lib/jquery/js/jquery.js"></script>
+	<script src="lib/jquery/js/jquery.scrollUp.js"></script>
+	<script src="lib/bootstrap/js/bootstrap.js"></script>
+	<script src="js/content.js"></script>
+	<script src="js/custom.js"></script>
+
+	</body>
+</html>
+
+

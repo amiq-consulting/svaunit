@@ -22,7 +22,7 @@
 //protection against multiple includes
 `define ____IF_SVAUNIT___SV
 
-`include  "src_svaunit/svaunit_pkg.sv"
+`include  "sv/svaunit_pkg.sv"
 import svaunit_pkg::*;
 
 // SVAUnit test template
@@ -47,11 +47,6 @@ class svaunit_ut extends svaunit_test;
 
         // TODO : Get the virtual interface from UVM config db
     endfunction
-
-
-    task pre_test();
-        // TODO : Initialize signals
-    endtask
 
     task test();
         // TODO : Create scenarios for an SVA

@@ -8,19 +8,19 @@
 sv/svaunit_vpi_interface.sv
 sv/svaunit_pkg.sv
 
-+incdir+examples/simple
-+incdir+examples/simple/sv
-+incdir+examples/simple/tests
-examples/simple/tests/simple_pkg.sv
-examples/simple/sv/top.sv
++incdir+examples/ex_simple
++incdir+examples/ex_simple/sv
++incdir+examples/ex_simple/tests
+examples/ex_simple/tests/amiq_svaunit_ex_simple_pkg.sv
+examples/ex_simple/sv/top.sv
 
 
-+incdir+examples/apb_tests
-+incdir+examples/apb_tests/sv
-+incdir+examples/apb_tests/tests
-examples/apb_tests/sv/amiq_apb_if.sv
-examples/apb_tests/tests/apb_tests_pkg.sv
-examples/apb_tests/sv/apb_top.sv
++incdir+examples/ex_apb
++incdir+examples/ex_apb/sv
++incdir+examples/ex_apb/tests
+examples/ex_apb/sv/amiq_apb_if.sv
+examples/ex_apb/tests/amiq_svaunit_ex_apb_test_pkg.sv
+examples/ex_apb/sv/apb_top.sv
 
 
 

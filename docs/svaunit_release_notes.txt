@@ -1,0 +1,37 @@
+Release 2.0 @29.06.2015
+---------------------------------------
+* Support for sequence based driving
+   - Added svaunit_sequence_base class, which extends uvm_sequence.
+   - Added svaunit_sequencer class, which extends uvm_virtual_sequencer, used to process a sequence.
+   - Added a pointer to svaunit_sequencer into svaunit_test.
+   - Added svaunit_sequence_test#(type seq_type=svaunit_sequence_base) class which extends svaunit_test,
+     used to start a sequence inside its test() method.
+     
+* Updated API used for the setting up the infrastructure
+   - Added the macro `add_test(test_or_seq_type) to create, instantiate and start a test or a sequence 
+     from a test suite.
+     
+* API is now accessible through a wrapper class
+   - Added svaunit_vpi_wrapper class, which contains all SVAUnit APIs.
+   - Added a pointer to svaunit_vpi_wrapper into svaunit_test and svaunit_sequence_base.
+   
+* pre_test() task is now deprecated.
+
+* Added svaunit_versions_defines.svh file which stores the svaunit version numbers.
+
+* Support for nested interfaces
+   - Update DPI-C functions to identify nested interfaces.
+
+* Support for multiple SVA instances.
+   - Added a string to svaunit_concurrent_assertion_info class to identify the SVA by it's name or by it's path.
+   - Update SVAUnit APIs to identify an SVA also by it's path.
+   
+* UVM compliance reinforced using the Verissimo SystemVerilog Testbench Linter
+   - Removed redundant code in svaunit_test and svaunit_test_suite.
+   - Refactor the variables and methods.
+   
+
+Release 1.0 @29.04.2015
+---------------------------------------
+* First version
+   

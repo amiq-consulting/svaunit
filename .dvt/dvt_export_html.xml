@@ -17,8 +17,8 @@ API Specification</title>
     <filter-string/>
     <project-nature>vlog</project-nature>
     <export-vlog-package>svaunit_pkg</export-vlog-package>
-    <export-vlog-package>simple_pkg</export-vlog-package>
-    <export-vlog-package>apb_tests_pkg</export-vlog-package>
+    <export-vlog-package>amiq_svaunit_ex_simple_pkg</export-vlog-package>
+    <export-vlog-package>amiq_svaunit_ex_apb_test_pkg</export-vlog-package>
     <export-vlog-packages>true</export-vlog-packages>
     <export-vlog-global-scope>true</export-vlog-global-scope>
     <export-vlog-modules>true</export-vlog-modules>

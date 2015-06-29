@@ -36,7 +36,7 @@ API Specification</title>
 	
 	<button data-scroll=#variables type="button" class="btn btn-default">Variables <span class="badge">1</span></button>
 	
-	<button data-scroll=#functions type="button" class="btn btn-default">Functions <span class="badge">33</span></button>
+	<button data-scroll=#functions type="button" class="btn btn-default">Functions <span class="badge">34</span></button>
 	
 
 	<button data-scroll=#inheritance_diagram type="button" class="btn btn-default">Inheritance Diagram</button>
@@ -49,7 +49,7 @@ API Specification</title>
 <!-- ========= Inheritance Tree ======= -->
 
 <!-- ========= Description ======= -->
-	<pre class="comment">SVA info class - it contains the SVA name, the SVA type
+	<pre class="comment">SVA info class - it contains the SVA name, the SVA path, the SVA type
 if SVA was enabled during test,
 if it was tested, a list of details and coverage counters<br></pre>
 
@@ -168,21 +168,21 @@ str__)
 						<a name="function_add_new_detail_sva"></a>
 						<span class="signature">
 
-	 function 	void
+	virtual  function 	void
 
 	<b>		add_new_detail_sva
-</b>(	string
-crt_test_name,
-	<a href="svaunit_pkg-svaunit_concurrent_assertion_state_type.html">svaunit_concurrent_assertion_state_type</a>
-crt_sva_state,
-	time
-crt_sva_start_time,
-	time
-crt_sva_end_time)
+</b>(			ref 	string
+a_test_name,
+			ref 	<a href="svaunit_pkg-svaunit_concurrent_assertion_state_type.html">svaunit_concurrent_assertion_state_type</a>
+a_sva_state,
+			ref 	time
+a_sva_start_time,
+			ref 	time
+a_sva_end_time)
 
 
 						</span>
-	<pre class="comment">Add new SVA details<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>crt_test_name</b> : test name where this attempt was found<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>crt_sva_state</b> : SVA state to be added<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>crt_sva_start_time</b> : SVA start time to be added<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>crt_sva_end_time</b> : SVA end time to be added<br></pre>
+	<pre class="comment">Add new SVA details<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_test_name</b> : test name where this attempt was found<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_state</b> : SVA state to be added<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_start_time</b> : SVA start time to be added<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_end_time</b> : SVA end time to be added<br></pre>
 
 					</li>
 					<li class="list-group-item">
@@ -203,24 +203,26 @@ name = "")
 						<a name="function_create_new_sva"></a>
 						<span class="signature">
 
-	 function 	void
+	virtual  function 	void
 
 	<b>		create_new_sva
-</b>(	string
-crt_sva_name,
-	string
-crt_sva_type)
+</b>(			ref 	string
+a_sva_name,
+			ref 	string
+a_sva_path,
+			ref 	string
+a_sva_type)
 
 
 						</span>
-	<pre class="comment">Create new SVA - the first detail is IDLE (the start and end time are the current time)<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>crt_sva_name</b> : current name to initialize the new SVA<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>crt_sva_type</b> : current type to initialize the new SVA<br></pre>
+	<pre class="comment">Create new SVA - the first detail is IDLE (the start and end time are the current time)<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_name</b> : current name to initialize the new SVA<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_path</b> : the path to the SVA which need to be created<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_type</b> : current type to initialize the new SVA<br></pre>
 
 					</li>
 					<li class="list-group-item">
 						<a name="function_get_last_index_sva_finished"></a>
 						<span class="signature">
 
-	 function 	int unsigned
+	virtual  function 	int unsigned
 
 	<b>		get_last_index_sva_finished
 </b>()
@@ -234,35 +236,35 @@ crt_sva_type)
 						<a name="function_get_nof_attempts_failed_covered"></a>
 						<span class="signature">
 
-	 function 	int unsigned
+	virtual  function 	int unsigned
 
 	<b>		get_nof_attempts_failed_covered
 </b>()
 
 
 						</span>
-	<pre class="comment">Get the number of failures for an SVA cover<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the nof_attempts_failed_covered counter<br></pre>
+	<pre class="comment">Get the number of failures for an SVA cover<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the nof_cover_failures counter<br></pre>
 
 					</li>
 					<li class="list-group-item">
 						<a name="function_get_nof_attempts_successful_covered"></a>
 						<span class="signature">
 
-	 function 	int unsigned
+	virtual  function 	int unsigned
 
 	<b>		get_nof_attempts_successful_covered
 </b>()
 
 
 						</span>
-	<pre class="comment">Get the number of successful attempts for an SVA cover<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the nof_attempts_successfull_covered counter<br></pre>
+	<pre class="comment">Get the number of successful attempts for an SVA cover<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;the nof_cover_successfull counter<br></pre>
 
 					</li>
 					<li class="list-group-item">
 						<a name="function_get_nof_incomplete_sva_details"></a>
 						<span class="signature">
 
-	 function 	int unsigned
+	virtual  function 	int unsigned
 
 	<b>		get_nof_incomplete_sva_details
 </b>()
@@ -276,7 +278,7 @@ crt_sva_type)
 						<a name="function_get_nof_times_sva_fails"></a>
 						<span class="signature">
 
-	 function 	int unsigned
+	virtual  function 	int unsigned
 
 	<b>		get_nof_times_sva_fails
 </b>()
@@ -290,7 +292,7 @@ crt_sva_type)
 						<a name="function_get_nof_times_sva_started"></a>
 						<span class="signature">
 
-	 function 	int unsigned
+	virtual  function 	int unsigned
 
 	<b>		get_nof_times_sva_started
 </b>()
@@ -304,7 +306,7 @@ crt_sva_type)
 						<a name="function_get_nof_times_sva_succeeded"></a>
 						<span class="signature">
 
-	 function 	int unsigned
+	virtual  function 	int unsigned
 
 	<b>		get_nof_times_sva_succeeded
 </b>()
@@ -331,7 +333,7 @@ crt_sva_type)
 						<a name="function_get_sva_first_state"></a>
 						<span class="signature">
 
-	 function 	<a href="svaunit_pkg-svaunit_concurrent_assertion_state_type.html">svaunit_concurrent_assertion_state_type</a>
+	virtual  function 	<a href="svaunit_pkg-svaunit_concurrent_assertion_state_type.html">svaunit_concurrent_assertion_state_type</a>
 
 	<b>		get_sva_first_state
 </b>()
@@ -345,7 +347,7 @@ crt_sva_type)
 						<a name="function_get_sva_last_state"></a>
 						<span class="signature">
 
-	 function 	<a href="svaunit_pkg-svaunit_concurrent_assertion_state_type.html">svaunit_concurrent_assertion_state_type</a>
+	virtual  function 	<a href="svaunit_pkg-svaunit_concurrent_assertion_state_type.html">svaunit_concurrent_assertion_state_type</a>
 
 	<b>		get_sva_last_state
 </b>()
@@ -359,7 +361,7 @@ crt_sva_type)
 						<a name="function_get_sva_name"></a>
 						<span class="signature">
 
-	 function 	string
+	virtual  function 	string
 
 	<b>		get_sva_name
 </b>()
@@ -370,10 +372,24 @@ crt_sva_type)
 
 					</li>
 					<li class="list-group-item">
+						<a name="function_get_sva_path"></a>
+						<span class="signature">
+
+	virtual  function 	string
+
+	<b>		get_sva_path
+</b>()
+
+
+						</span>
+	<pre class="comment">Get SVA path<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;SVA name<br></pre>
+
+					</li>
+					<li class="list-group-item">
 						<a name="function_get_sva_type"></a>
 						<span class="signature">
 
-	 function 	string
+	virtual  function 	string
 
 	<b>		get_sva_type
 </b>()
@@ -413,99 +429,99 @@ crt_sva_type)
 						<a name="function_is_enable"></a>
 						<span class="signature">
 
-	 function 	bit
+	virtual  function 	bit
 
 	<b>		is_enable
 </b>(	string
-test_name)
+a_test_name)
 
 
 						</span>
-	<pre class="comment">Get the enable bit - it shows that the SVA is enable during test<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;SVA status - if it is enabled or not<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>test_name</b> : the test name where the assertion have been tested<br></pre>
+	<pre class="comment">Get the enable bit - it shows that the SVA is enable during test<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;SVA status - if it is enabled or not<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_test_name</b> : the test name where the assertion have been tested<br></pre>
 
 					</li>
 					<li class="list-group-item">
 						<a name="function_print_sva_info"></a>
 						<span class="signature">
 
-	 function 	void
+	virtual  function 	void
 
 	<b>		print_sva_info
 </b>(	string
-crt_test_name)
+a_test_name)
 
 
 						</span>
-	<pre class="comment">Print SVA info for a given test<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>crt_test_name</b> : test name from where the user want's to print SVA info<br></pre>
+	<pre class="comment">Print SVA info for a given test<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_test_name</b> : test name from where the user wants to print SVA info<br></pre>
 
 					</li>
 					<li class="list-group-item">
 						<a name="function_set_enable"></a>
 						<span class="signature">
 
-	 function 	void
+	virtual  function 	void
 
 	<b>		set_enable
-</b>(	string
-test_name,
-	bit
-enable_bit)
+</b>(			ref 	string
+a_test_name,
+			ref 	bit
+a_enable_bit)
 
 
 						</span>
-	<pre class="comment">Set the enable bit with a given bit<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>test_name</b> : the test name where the assertion have been tested<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>enable_bit</b> : current enable bit to set<br></pre>
+	<pre class="comment">Set the enable bit with a given bit<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_test_name</b> : the test name where the assertion have been tested<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_enable_bit</b> : current enable bit to set<br></pre>
 
 					</li>
 					<li class="list-group-item">
 						<a name="function_set_nof_attempts_failed_covered"></a>
 						<span class="signature">
 
-	 function 	void
+	virtual  function 	void
 
 	<b>		set_nof_attempts_failed_covered
 </b>(	int
-crt_nof_attempts_failed_covered)
+a_nof_attempts_failed)
 
 
 						</span>
-	<pre class="comment">Sets the nof_attempts_failed_covered counter with the given number<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>crt_nof_attempts_failed_covered</b> : current number to set the counter<br></pre>
+	<pre class="comment">Sets the nof_cover_failures counter with the given number<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_nof_attempts_failed</b> : current number to set the counter<br></pre>
 
 					</li>
 					<li class="list-group-item">
 						<a name="function_set_nof_attempts_successfull_covered"></a>
 						<span class="signature">
 
-	 function 	void
+	virtual  function 	void
 
 	<b>		set_nof_attempts_successfull_covered
 </b>(	int
-crt_nof_attempts_successfull_covered)
+a_nof_attempts_successfull)
 
 
 						</span>
-	<pre class="comment">Sets the nof_attempts_successfull_covered counter with the given number<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>crt_nof_attempts_successfull_covered</b> : current number to set the counter<br></pre>
+	<pre class="comment">Sets the nof_cover_successfull counter with the given number<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_nof_attempts_successfull</b> : current number to set the counter<br></pre>
 
 					</li>
 					<li class="list-group-item">
 						<a name="function_set_tested"></a>
 						<span class="signature">
 
-	 function 	void
+	virtual  function 	void
 
 	<b>		set_tested
 </b>(	string
-test_name)
+a_test_name)
 
 
 						</span>
-	<pre class="comment">Set the tested bit with 1<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>test_name</b> : the test name where the assertion have been tested<br></pre>
+	<pre class="comment">Set the tested bit with 1<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_test_name</b> : the test name where the assertion have been tested<br></pre>
 
 					</li>
 					<li class="list-group-item">
 						<a name="function_sva_failed"></a>
 						<span class="signature">
 
-	 function 	bit
+	virtual  function 	bit
 
 	<b>		sva_failed
 </b>()
@@ -519,7 +535,7 @@ test_name)
 						<a name="function_sva_first_state_not_start"></a>
 						<span class="signature">
 
-	 function 	bit
+	virtual  function 	bit
 
 	<b>		sva_first_state_not_start
 </b>()
@@ -533,7 +549,7 @@ test_name)
 						<a name="function_sva_has_started_but_has_not_finished"></a>
 						<span class="signature">
 
-	 function 	bit
+	virtual  function 	bit
 
 	<b>		sva_has_started_but_has_not_finished
 </b>()
@@ -547,7 +563,7 @@ test_name)
 						<a name="function_sva_is_finished"></a>
 						<span class="signature">
 
-	 function 	bit
+	virtual  function 	bit
 
 	<b>		sva_is_finished
 </b>()
@@ -561,7 +577,7 @@ test_name)
 						<a name="function_sva_is_not_finished"></a>
 						<span class="signature">
 
-	 function 	bit
+	virtual  function 	bit
 
 	<b>		sva_is_not_finished
 </b>()
@@ -575,7 +591,7 @@ test_name)
 						<a name="function_sva_succeeded"></a>
 						<span class="signature">
 
-	 function 	bit
+	virtual  function 	bit
 
 	<b>		sva_succeeded
 </b>()
@@ -589,52 +605,52 @@ test_name)
 						<a name="function_update_details"></a>
 						<span class="signature">
 
-	 function 	void
+	virtual  function 	void
 
 	<b>		update_details
 </b>(	string
-crt_test_name,
+a_test_name,
 	time
-crt_sva_start_time,
+a_sva_start_time,
 	time
-crt_sva_end_time,
+a_sva_end_time,
 	<a href="svaunit_pkg-svaunit_concurrent_assertion_state_type.html">svaunit_concurrent_assertion_state_type</a>
-crt_sva_state)
+a_sva_state)
 
 
 						</span>
-	<pre class="comment">Update detail for current SVA attempt if there it was an attempt at given start time, add end time and current state
-else add new detail to SVA info<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>crt_test_name</b> : test name where this attempt was found<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>crt_sva_start_time</b> : SVA start time<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>crt_sva_state</b> : SVA state<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>crt_sva_end_time</b> : SVA end time<br></pre>
+	<pre class="comment">Update detail for current SVA attempt if there it was an attempt at given start time,
+add end time and current state else add new detail to SVA info<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_test_name</b> : test name where this attempt was found<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_start_time</b> : SVA start time<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_state</b> : SVA state<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_sva_end_time</b> : SVA end time<br></pre>
 
 					</li>
 					<li class="list-group-item">
 						<a name="function_was_enable"></a>
 						<span class="signature">
 
-	 function 	bit
+	virtual  function 	bit
 
 	<b>		was_enable
 </b>(	string
-test_name)
+a_test_name)
 
 
 						</span>
-	<pre class="comment">Verify if the SVA was enabled during test<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;1 if the SVA was enabled in given test and 0 otherwise<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>test_name</b> : the test name where the assertion have been tested<br></pre>
+	<pre class="comment">Verify if the SVA was enabled during test<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;1 if the SVA was enabled in given test and 0 otherwise<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_test_name</b> : the test name where the assertion have been tested<br></pre>
 
 					</li>
 					<li class="list-group-item">
 						<a name="function_was_tested"></a>
 						<span class="signature">
 
-	 function 	<a href="svaunit_pkg-svaunit_sva_tested_type.html">svaunit_sva_tested_type</a>
+	virtual  function 	<a href="svaunit_pkg-svaunit_sva_tested_type.html">svaunit_sva_tested_type</a>
 
 	<b>		was_tested
 </b>(	string
-test_name)
+a_test_name)
 
 
 						</span>
-	<pre class="comment">Get the tested bit - it shows that the SVA was tested during test<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;SVA status - if it is tested or not<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>test_name</b> : the test name where the assertion have been tested<br></pre>
+	<pre class="comment">Get the tested bit - it shows that the SVA was tested during test<br><br><b>Returns:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;SVA status - if it is tested or not<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>a_test_name</b> : the test name where the assertion have been tested<br></pre>
 
 					</li>
 			</ul>
@@ -726,7 +742,7 @@ test_name)
 	</div>
 
 	<div class="footer">
-		<hr><p class="text-center">Generated  on Wed Apr 29 10:13:54 EEST 2015 using <a href="http://www.dvteclipse.com/" target="_new">Specador<sup>TM</sup></a> Version 15.1.8</p>
+		<hr><p class="text-center">Generated  on Mon Jun 22 13:21:46 EEST 2015 using <a href="http://www.dvteclipse.com/" target="_new">Specador<sup>TM</sup></a> Version 15.1.13</p>
     </div>
 
 	<script src="lib/jquery/js/jquery.js"></script>
