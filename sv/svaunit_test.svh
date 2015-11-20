@@ -353,12 +353,297 @@ class svaunit_test extends svaunit_base;
                end
             join
             print_report();
+            create_html_report();
          end
 
          // Drop objection mechanism for this test
          uvm_test_done.drop_objection(this, "", 1);
       end
    endtask
+
+   // Function used to retrieve the UNIX user name
+   //@return the user name which is stored in $USER variable
+   virtual function string get_user_name();
+      // A string which contains the user_name as given format
+      string user_name;
+
+      // File descriptor for creating and opening a temporary file
+      int file_id;
+
+      // File descriptor used for getting the date from temporary file
+      int read_id;
+
+      // Create the temporary file used to extract the user name from UNIX
+      $system("echo $USER > svaunit_user_name.date");
+
+      // Open the file
+      file_id = $fopen("svaunit_user_name.date", "r");
+
+      // Read the date from the file into a string
+      read_id = $fgets(user_name, file_id);
+
+      // Close the temporary file
+      $fclose(file_id);
+
+      return user_name.substr(0, user_name.len() - 2);
+   endfunction
+
+   // Function used to return a string with the current date with a given format
+   //@param a_date_format : the date format
+   //@return a string which contains the date with the given format
+   virtual function string get_date_with_format(string a_date_format);
+      // A string which contains the date as given format
+      string date;
+
+      // File descriptor for creating and opening a temporary file
+      int file_id;
+
+      // File descriptor used for getting the date from temporary file
+      int read_id;
+
+      // Create the temporary file used to extract the date from UNIX
+      $system($sformatf("date +%s > svaunit.date", a_date_format));
+
+      // Open the file
+      file_id = $fopen("svaunit.date", "r");
+
+      // Read the date from the file into a string
+      read_id = $fgets(date, file_id);
+
+      // Close the temporary file
+      $fclose(file_id);
+
+      return date.substr(0, date.len() - 2);
+   endfunction
+
+   // Virtual function used to create HTML header
+   //@return the header formed by user
+   virtual function string create_html_header();
+      return $sformatf("Automatically generated on %s by %s with %s",
+         get_date_with_format("%Y-%m-%d"), get_user_name(), `SVAUNIT_VERSION_STRING);
+   endfunction
+
+   // Function used to set the html style
+   virtual function string create_html_style();
+      return $sformatf("<!DOCTYPE html>                                                   \n\
+            <html>                                                                        \n\
+            <head>                                                                        \n\
+            <title>SVAUnit %s report</title>                                              \n\
+            <style>                                                                       \n\
+            /*Blog Page*/                                                                 \n\
+            h2 {                                                                          \n\
+               color: #555;                                                               \n\
+               font-size: 21px;                                                           \n\
+               line-height: 32px;                                                         \n\
+               margin-bottom: 10px;                                                       \n\
+            }                                                                             \n\
+            h2 a {                                                                        \n\
+               color: #585f69;                                                            \n\
+               line-height: 32px;                                                         \n\
+            }                                                                             \n\
+            a:focus  {                                                                    \n\
+               color: #ee3424;                                                            \n\
+            }                                                                             \n\
+            .color-green {                                                                \n\
+               color: #ee3424;                                                            \n\
+            }                                                                             \n\
+                                                                                          \n\
+            a.read-more:hover {                                                           \n\
+               color:#ee3424;                                                             \n\
+            }                                                                             \n\
+                                                                                          \n\
+            .linked:hover {                                                               \n\
+               color:#ee3424;                                                             \n\
+            }                                                                             \n\
+            h2 a:hover {                                                                  \n\
+               color: #72c02c;                                                            \n\
+               text-decoration: none;                                                     \n\
+            }                                                                             \n\
+                                                                                          \n\
+            .headline-md {                                                                \n\
+               margin-top: 9px;                                                           \n\
+            }                                                                             \n\
+            body {                                                                        \n\
+               color: #000333;                                                            \n\
+               font-size: 13px;                                                           \n\
+               line-height: 1.6;                                                          \n\
+            }                                                                             \n\
+            p,                                                                            \n\
+            li,                                                                           \n\
+            li a,                                                                         \n\
+            label {                                                                       \n\
+               color: #555;                                                               \n\
+            }                                                                             \n\
+            span {                                                                        \n\
+               color: #777;                                                               \n\
+               font-size: 12px;                                                           \n\
+               position: absolute;                                                        \n\
+            }                                                                             \n\
+            table, th, td {                                                               \n\
+               border: 1px solid black;                                                   \n\
+               border-collapse: collapse;                                                 \n\
+               vertical-align: middle;                                                    \n\
+               color: #00355f;                                                            \n\
+            }                                                                             \n\
+                                                                                          \n\
+            p {                                                                           \n\
+               font-family: \"Times New Roman\";                                          \n\
+            }                                                                             \n\
+            </style>                                                                      \n\
+            </head>                                                                       \n", get_test_name());
+   endfunction
+
+   // Create a HTML file - it will be started only when simulate a single test
+   virtual function void create_html_report();
+      // File descriptor
+      int fileid;
+
+      // The string used to name the SVAUnit HTML report - it will be: svaunit_<test_name>_report_<current_date>.html
+      string report_name = $sformatf("svaunit_%s_report_%s.html", get_test_name(), get_date_with_format("%Y%m%d"));
+
+      fileid = $fopen(report_name);
+
+      // Verify that a file could be created, if not print an error
+      if (fileid == 0) begin
+         `uvm_error("SVAUNIT_TEST_NO_FILE", "Can not open the HTML file to prepare the report");
+      end else begin
+         // Stores the name of immediate assertions that were used
+         string checks_names[$];
+
+         // Stores the name of the SVAs that were exercised
+         string tested_sva_names[$];
+
+         // Stores the name of the SVAs that were not exercised
+         string not_tested_sva_names[$];
+
+         // Stores the info regarding the SVAUnit report
+         string svaunit_report;
+
+         // Stores the total number of failing checks for simulation
+         int unsigned total_nof_failing_checks;
+
+         // Stores the total number of passing checks for simulation
+         int unsigned total_nof_passing_checks;
+
+         get_sva_tested_names(tested_sva_names);
+         get_sva_not_tested_names(not_tested_sva_names);
+         get_checks_names(checks_names);
+
+         foreach(tested_sva_names[index]) begin
+            foreach(checks_names[check_index]) begin
+               foreach(lof_checks[an_index]) begin
+                  if(lof_checks[an_index].sva_tested.get_sva_path() == tested_sva_names[index]) begin
+                     foreach(lof_checks[an_index].checks_details[details_index]) begin
+                        string check_name = lof_checks[an_index].checks_details[details_index].get_check_name();
+                        if(check_name == checks_names[check_index]) begin
+                           int nof_check_passed =
+                           lof_checks[an_index].checks_details[details_index].get_nof_times_check_has_passed();
+                           int nof_check_tested =
+                           lof_checks[an_index].checks_details[details_index].get_nof_times_check_was_tested();
+
+                           if(nof_check_passed == nof_check_tested) begin
+                              // The check passed
+                              total_nof_passing_checks = total_nof_passing_checks + 1;
+                           end else begin
+                              // The check has failed
+                              total_nof_failing_checks = total_nof_failing_checks + 1;
+                           end
+                        end
+                     end
+                  end
+               end
+            end
+
+            svaunit_report = $sformatf("Total number of SVAs: %0d<br />\
+                                       Exercised SVAs: %0d<br />\
+                                       Executed checks: %0d<br />\
+                                       Failing checks: %0d<br />\
+                                       Passing checks: %0d<br />\n",
+               (tested_sva_names.size() + not_tested_sva_names.size()), tested_sva_names.size(),
+               total_nof_failing_checks + total_nof_passing_checks, total_nof_failing_checks, 
+               total_nof_passing_checks);
+         end
+
+         $fwrite(fileid, $sformatf("%s\n<body>                                                   \n\
+            <h2>SVAUnit regression report</h2>                                                   \n\
+            <p>%s</p>\n<p>%s</p>                                                                 \n\
+            <table border=\"0\" cellspacing=\"0\">                                               \n\
+            <colgroup width=\"%0d\"></colgroup>\n<colgroup span=\"%0d\"></colgroup> \n\
+            <tbody>\n<tr>                                                                        \n\
+            <td style=\"border: 1px solid #ffffff;\" align=\"RIGHT\" height=\"28\"></td>         \n\
+            <td style=\"border-bottom: 1px solid #ffffff; border-left: 1px solid #ffffff;          \
+               border-top: 1px solid #ffffff;\" align=\"RIGHT\"></td>                            \n\
+            <td colspan=\"%0d\" align=\"CENTER\"><b>SVAUnit checks</b></td>\n</tr>\n<tr>         \n\
+            <td style=\"border-right: 1px solid #ffffff; border-left: 1px solid #ffffff;\"         \
+               align=\"RIGHT\" height=\"28\"></td>\n<td align=\"RIGHT\"></td>", create_html_style(),
+               create_html_header(), svaunit_report, checks_names.size(), checks_names.size(), checks_names.size()));
+
+         foreach(checks_names[index]) begin
+            $fwrite(fileid, $sformatf("<td align=\"CENTER\"><b>%s</b></td>\n", checks_names[index]));
+         end
+         $fwrite(fileid, $sformatf("</tr>\n<tr>\n\
+            <td rowspan=\"%0d\" align=\"CENTER\" height=\"%0d\"><b>S<br />V<br />A<br />s<br /></b></td>\n",
+               (tested_sva_names.size() + not_tested_sva_names.size() + 1), tested_sva_names.size() + 1));
+
+         foreach(tested_sva_names[index]) begin
+            string cell_symbol;
+            svaunit_concurrent_assertion_info crt_sva = vpiw.get_assertion(tested_sva_names[index]);
+
+            $fwrite(fileid, $sformatf("<tr><td align=\"LEFT\"><b><a title=\"%s\">%s</a></b></td>\n",
+                  tested_sva_names[index], crt_sva.get_sva_name()));
+
+            foreach(checks_names[check_index]) begin
+               bit check_has_been_used = 0;
+
+               foreach(lof_checks[an_index]) begin
+                  if(lof_checks[an_index].sva_tested.get_sva_path() == tested_sva_names[index]) begin
+                     foreach(lof_checks[an_index].checks_details[details_index]) begin
+                        string check_name = lof_checks[an_index].checks_details[details_index].get_check_name();
+                        if(check_name == checks_names[check_index]) begin
+                           int nof_check_passed =
+                           lof_checks[an_index].checks_details[details_index].get_nof_times_check_has_passed();
+                           int nof_check_tested =
+                           lof_checks[an_index].checks_details[details_index].get_nof_times_check_was_tested();
+                           check_has_been_used = 1;
+
+                           // The check passed
+                           if(nof_check_passed == nof_check_tested) begin
+                              cell_symbol = "bgcolor=\"#c6efce\">&#x2713;";
+                           end else begin
+                              // The check has failed
+                              cell_symbol = "bgcolor=\"#ee3424\">&#x2717;";
+                           end
+                        end
+                     end
+                  end
+               end
+
+               // The check has not being used for the SVA
+               if(check_has_been_used == 0) begin
+                  cell_symbol = "bgcolor=\"#fff3cf\">?";
+               end
+               $fwrite(fileid, $sformatf("<td align=\"CENTER\" %s</td>\n", cell_symbol));
+            end
+            $fwrite(fileid,"</tr>\n");
+         end
+
+         foreach(not_tested_sva_names[index]) begin
+            svaunit_concurrent_assertion_info crt_sva = vpiw.get_assertion(not_tested_sva_names[index]);
+
+            $fwrite(fileid, $sformatf("<tr>\n\
+               <td align=\"LEFT\"><b><a title=\"%s\">%s</a></b></td>\n",
+                  not_tested_sva_names[index], crt_sva.get_sva_name()));
+
+            foreach(checks_names[check_index]) begin
+               // The check has not being used for the SVA
+               $fwrite(fileid, "<td align=\"CENTER\" bgcolor=\"#fff3cf\">?</td>\n");
+            end
+            $fwrite(fileid,"</tr>\n");
+         end
+         $fwrite(fileid, "</tbody>\n</table>\n</body>\n</html>\n");
+         $fclose(fileid);
+      end
+   endfunction
    // }}}
 
    // {{{ Print functions

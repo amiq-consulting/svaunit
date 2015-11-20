@@ -73,7 +73,7 @@ name = "svaunit_immediate_assertion_info")
 
 
 						</span>
-	<pre class="comment">Constructor for an svaunit_immediate_assertion_info<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>name</b> : instance name for svaunit_immediate_assertion_details object<br></pre>
+	<pre class="comment">Constructor for an svaunit_immediate_assertion_info<br><br><b>Arguments:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<b>name</b> : instance name for svaunit_immediate_assertion_info object<br></pre>
 
 					</li>
 			</ul>
@@ -174,7 +174,7 @@ const static 	string
 						<a name="function___m_uvm_field_automation"></a>
 						<span class="signature">
 
-	 function 	void
+	virtual  function 	void
 
 	<b>		__m_uvm_field_automation
 </b>(	uvm_object
@@ -242,7 +242,7 @@ a_check_name)
 						<a name="function_create"></a>
 						<span class="signature">
 
-	 function 	uvm_object
+	virtual  function 	uvm_object
 
 	<b>		create
 </b>(	string
@@ -444,7 +444,6 @@ a_sva)
 <!-- ========= Tasks ======= -->
 
 <!-- ========= Diagrams ======= -->
-
 	<div class="panel panel-default">
 		<div class="panel-heading" data-toggle="collapse" data-target="#inheritance_diagram">
 			<h4 class="panel-title">
@@ -459,6 +458,7 @@ a_sva)
 <area shape="poly" id="edge1"  alt="" coords="384,23,317,23,317,17,384,17">
 <area shape="rect" id="node3"  alt="" coords="5,5,104,35">
 <area shape="poly" id="edge2"  alt="" coords="185,23,118,23,118,17,185,17"></map>
+			<br><a href="vlog-legend-classes.html"><span class="label label-primary">Legend</span></a><br>
 		</ul>
 
 	</div>
@@ -472,41 +472,41 @@ a_sva)
 				<ul id="collaboration_diagram" class="list-group panel-collapse collapse">
 			<img src="svaunit_pkg-svaunit_immediate_assertion_info_collaboration.png" border="0" usemap="#_collaboration_diagram" />
 			<map name="_collaboration_diagram">
-<area shape="rect" id="node1" href="svaunit_pkg-svaunit_immediate_assertion_info.html"  alt="" coords="245,473,574,503">
-<area shape="rect" id="node2"  alt="" coords="350,286,469,317">
-<area shape="poly" id="edge1"  alt="" coords="297,476,268,466,240,453,215,435,194,412,185,391,188,372,201,356,221,343,276,322,335,309,337,315,277,328,224,347,204,360,193,374,190,390,198,409,218,431,242,448,270,461,298,471">
-<area shape="rect" id="node4" href="svaunit_pkg-svaunit_concurrent_assertion_info.html"  alt="" coords="240,379,579,410">
-<area shape="poly" id="edge6"  alt="" coords="407,473,407,423,412,423,412,473">
-<area shape="rect" id="node13" href="svaunit_pkg-svaunit_immediate_assertion_details.html"  alt="" coords="603,379,962,410">
-<area shape="poly" id="edge22"  alt="" coords="464,471,713,410,715,415,465,476">
-<area shape="rect" id="node3"  alt="" coords="5,193,104,223">
-<area shape="poly" id="edge2"  alt="" coords="350,303,278,300,199,294,127,283,98,274,77,263,66,251,59,237,63,235,70,248,80,259,100,269,128,277,199,289,279,295,350,297">
-<area shape="rect" id="node5"  alt="" coords="355,193,570,223">
-<area shape="poly" id="edge7"  alt="" coords="350,301,269,297,187,288,152,281,127,273,113,262,112,254,117,246,146,234,201,225,341,212,342,218,201,230,147,239,120,250,118,255,118,259,129,268,154,276,187,283,270,291,350,296">
-<area shape="poly" id="edge3"  alt="" coords="407,380,407,330,412,330,412,380">
-<area shape="poly" id="edge8"  alt="" coords="391,225,374,235,360,249,357,256,358,263,371,277,367,281,353,265,352,256,355,247,370,231,389,220">
-<area shape="rect" id="node6"  alt="" coords="387,6,554,37">
-<area shape="poly" id="edge9"  alt="" coords="461,193,467,50,472,50,466,193">
-<area shape="poly" id="edge10"  alt="" coords="458,224,436,263,427,276,423,274,431,260,453,221">
-<area shape="rect" id="node7"  alt="" coords="142,99,279,130">
-<area shape="poly" id="edge11"  alt="" coords="354,197,313,186,272,170,250,157,231,141,235,137,253,153,275,166,314,181,356,192">
-<area shape="rect" id="node9"  alt="" coords="303,99,422,130">
-<area shape="poly" id="edge14"  alt="" coords="411,196,391,185,374,170,363,144,367,142,378,166,394,181,414,191">
-<area shape="rect" id="node10"  alt="" coords="563,99,701,130">
-<area shape="poly" id="edge16"  alt="" coords="486,191,594,134,596,138,489,196">
-<area shape="rect" id="node11"  alt="" coords="725,99,853,130">
-<area shape="poly" id="edge18"  alt="" coords="541,191,650,165,744,132,746,137,651,171,542,196">
-<area shape="poly" id="edge21"  alt="" coords="529,220,546,227,560,237,566,249,561,263,549,273,530,280,483,292,482,287,528,275,546,268,557,260,561,249,556,240,544,232,527,225">
-<area shape="rect" id="node8"  alt="" coords="73,6,210,37">
-<area shape="poly" id="edge12"  alt="" coords="170,102,154,91,140,76,136,63,134,50,140,49,141,62,145,73,157,87,173,98">
-<area shape="poly" id="edge13"  alt="" coords="229,98,262,78,302,59,377,36,379,42,304,64,265,82,232,102">
-<area shape="poly" id="edge15"  alt="" coords="363,99,369,79,382,59,409,40,412,44,386,63,374,81,368,101">
-<area shape="poly" id="edge4"  alt="" coords="693,127,744,140,772,153,782,168,786,184,785,198,781,213,762,239,735,264,716,274,690,282,625,294,551,300,482,302,482,297,551,294,624,288,689,277,714,269,732,259,758,236,776,210,780,197,781,184,777,171,769,157,742,145,692,132">
-<area shape="poly" id="edge17"  alt="" coords="606,102,561,77,505,45,507,40,564,72,609,97">
-<area shape="rect" id="node12"  alt="" coords="697,6,882,37">
-<area shape="poly" id="edge19"  alt="" coords="787,100,787,50,792,50,792,100">
-<area shape="poly" id="edge20"  alt="" coords="750,102,630,64,543,42,545,37,631,59,752,97">
-<area shape="poly" id="edge5"  alt="" coords="727,383,477,322,479,317,728,377"></map>
+<area shape="rect" id="node1" href="svaunit_pkg-svaunit_immediate_assertion_info.html"  alt="" coords="234,473,563,503">
+<area shape="rect" id="node2"  alt="" coords="339,286,458,317">
+<area shape="poly" id="edge1"  alt="" coords="286,476,257,466,229,453,204,435,183,412,174,391,177,372,190,356,210,343,265,322,325,309,326,315,266,328,213,347,194,360,182,374,179,390,188,409,207,431,232,448,259,461,288,471">
+<area shape="rect" id="node4" href="svaunit_pkg-svaunit_concurrent_assertion_info.html"  alt="" coords="229,379,568,410">
+<area shape="poly" id="edge6"  alt="" coords="396,473,396,423,401,423,401,473">
+<area shape="rect" id="node13" href="svaunit_pkg-svaunit_immediate_assertion_details.html"  alt="" coords="593,379,951,410">
+<area shape="poly" id="edge21"  alt="" coords="453,471,703,410,704,415,454,476">
+<area shape="rect" id="node3"  alt="" coords="48,193,147,223">
+<area shape="poly" id="edge2"  alt="" coords="339,301,216,291,159,280,120,264,109,251,101,237,106,235,113,248,123,259,160,275,216,285,339,296">
+<area shape="rect" id="node5"  alt="" coords="293,193,507,223">
+<area shape="poly" id="edge7"  alt="" coords="339,299,275,293,211,283,167,269,156,259,159,246,178,233,206,224,278,212,279,217,208,229,180,238,164,250,161,257,169,265,213,278,275,288,339,294">
+<area shape="poly" id="edge3"  alt="" coords="396,380,396,330,401,330,401,380">
+<area shape="poly" id="edge8"  alt="" coords="402,223,402,273,396,273,397,223">
+<area shape="rect" id="node6"  alt="" coords="319,6,486,37">
+<area shape="poly" id="edge9"  alt="" coords="398,193,400,50,405,50,403,193">
+<area shape="rect" id="node7"  alt="" coords="74,99,211,130">
+<area shape="poly" id="edge10"  alt="" coords="292,198,247,187,204,170,182,157,163,141,167,137,185,153,207,166,249,182,293,193">
+<area shape="rect" id="node9"  alt="" coords="235,99,354,130">
+<area shape="poly" id="edge13"  alt="" coords="344,196,324,185,306,170,294,144,299,142,310,166,327,181,347,191">
+<area shape="rect" id="node10"  alt="" coords="495,99,633,130">
+<area shape="poly" id="edge15"  alt="" coords="412,191,435,172,463,152,507,132,509,136,465,157,438,176,416,195">
+<area shape="rect" id="node11"  alt="" coords="657,99,785,130">
+<area shape="poly" id="edge17"  alt="" coords="456,191,554,165,667,131,669,136,555,171,457,196">
+<area shape="poly" id="edge20"  alt="" coords="448,220,475,237,482,249,478,263,459,282,456,278,474,260,476,250,472,241,446,225">
+<area shape="rect" id="node8"  alt="" coords="5,6,142,37">
+<area shape="poly" id="edge11"  alt="" coords="102,102,86,91,72,76,68,63,66,50,72,49,73,62,77,73,89,87,105,98">
+<area shape="poly" id="edge12"  alt="" coords="161,98,194,78,234,59,309,36,311,42,236,64,197,82,164,102">
+<area shape="poly" id="edge14"  alt="" coords="295,99,301,79,314,59,341,40,344,44,318,63,306,81,300,101">
+<area shape="poly" id="edge4"  alt="" coords="634,125,656,136,673,153,687,183,686,211,674,238,651,263,621,279,576,290,472,300,471,295,575,284,619,274,648,259,669,235,681,210,681,184,668,156,652,141,632,130">
+<area shape="poly" id="edge16"  alt="" coords="538,102,493,77,437,45,439,40,496,72,541,97">
+<area shape="rect" id="node12"  alt="" coords="629,6,814,37">
+<area shape="poly" id="edge18"  alt="" coords="719,100,719,50,724,50,724,100">
+<area shape="poly" id="edge19"  alt="" coords="682,102,562,64,475,42,477,37,563,59,684,97">
+<area shape="poly" id="edge5"  alt="" coords="716,383,467,322,468,317,718,377"></map>
+			<br><a href="vlog-legend-classes.html"><span class="label label-primary">Legend</span></a><br>
 		</ul>
 
 	</div>
@@ -525,6 +525,7 @@ a_sva)
 <area shape="poly" id="edge1"  alt="" coords="335,37,516,27,517,32,336,42">
 <area shape="rect" id="node3" href="svaunit_pkg-svaunit_immediate_assertion_details.html"  alt="" coords="521,59,879,90">
 <area shape="poly" id="edge2"  alt="" coords="336,59,360,60,507,67,507,72,360,65,335,64"></map>
+			<br><a href="vlog-legend-classes.html"><span class="label label-primary">Legend</span></a><br>
 		</ul>
 
 	</div>
@@ -536,7 +537,7 @@ a_sva)
 	</div>
 
 	<div class="footer">
-		<hr><p class="text-center">Generated  on Mon Jun 22 13:21:46 EEST 2015 using <a href="http://www.dvteclipse.com/" target="_new">Specador<sup>TM</sup></a> Version 15.1.13</p>
+		<hr><p class="text-center">Generated  on Fri Nov 20 17:10:43 EET 2015 using <a href="http://www.dvteclipse.com/" target="_new">Specador<sup>TM</sup></a> Version 15.1.32</p>
     </div>
 
 	<script src="lib/jquery/js/jquery.js"></script>
