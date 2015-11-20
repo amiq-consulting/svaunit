@@ -24,7 +24,7 @@
 // Version numbers to be used in creating version strings for printing
 // or programmatic testing against version numbers
 `define SVAUNIT_NAME SVAUNIT
-`define SVAUNIT_MAJOR_REV 3
+`define SVAUNIT_MAJOR_REV 2
 `define SVAUNIT_MINOR_REV 0
 
 // SVAUNIT_VERSION_STRING print as "SVAUNIT - M.m"

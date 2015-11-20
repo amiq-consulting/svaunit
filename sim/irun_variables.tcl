@@ -13,10 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# NAME: irun_variables.sh
-# PROJECT: svaunit
+# NAME:        irun_variables.sh
+# PROJECT:     svaunit
 # Description: Set simulation variables
 #########################################################################################
+
 set assert_report_incompletes 0
 set assert_stop_level failure
 assertion -logging -all -error off
