@@ -96,7 +96,7 @@ class svaunit_test extends svaunit_base;
       // Update nof_tests and nof_failures fields properly
       set_nof_tests(nof_times_check_tested);
       set_nof_failures(nof_times_check_tested - nof_times_check_passed);
-
+ 
       // Update status for SVA coverage
       vpiw.update_coverage();
 
