@@ -32,7 +32,7 @@ class svaunit_immediate_assertion_info extends uvm_object;
    svaunit_immediate_assertion_details checks_details[];
 
    /* Constructor for an svaunit_immediate_assertion_info
-    * @param name : instance name for svaunit_immediate_assertion_details object
+    * @param name : instance name for svaunit_immediate_assertion_info object
     */
    function new(input string name = "svaunit_immediate_assertion_info");
       super.new(name);

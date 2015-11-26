@@ -305,7 +305,7 @@ class svaunit_test_suite extends svaunit_test;
 
          if(n_tested_index.size() == 0) begin
             not_tested_index = a_sva_not_tested.find_index() with
-            (item == not_tested_sva_names[sva_index]);
+               (item == not_tested_sva_names[sva_index]);
 
             if(not_tested_index.size() == 0) begin
                a_sva_not_tested.push_back(not_tested_sva_names[sva_index]);
@@ -423,6 +423,7 @@ class svaunit_test_suite extends svaunit_test;
                end
             join
 
+            create_html_report();
             post_run();
          end
       end

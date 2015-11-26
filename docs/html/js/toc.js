@@ -1,11 +1,11 @@
-$('[data-toggle=collapse]').click(
-		function() {
-			$(this).find("span").toggleClass(
-					"glyphicon-chevron-right glyphicon-chevron-down");
-		});
+$('[data-toggle=collapse]').click(function() {
+    $(this).find("span").toggleClass("glyphicon-chevron-right glyphicon-chevron-down");
+});
 
 $('.select2').select2({
-	placeholder : ''
+    placeholder : '',
+    minimumInputLength : 3,
+    theme : "bootstrap"
 });
 
 $('button[data-select2-open]').click(function() {
@@ -13,5 +13,5 @@ $('button[data-select2-open]').click(function() {
 });
 
 $("#toc-search").on("change", function(e) {
-	parent.content.location.href = e.val;
+    parent.content.location.href = $(this).val();
 });
