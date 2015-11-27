@@ -1,3 +1,8 @@
+Release 3.0 @20.11.2015
+---------------------------------------
+* Added API to create HTML regression report, which is also included in the automatic report.
+
+
 Release 2.0 @29.06.2015
 ---------------------------------------
 * Support for sequence based driving

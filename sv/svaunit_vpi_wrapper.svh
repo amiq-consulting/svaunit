@@ -329,7 +329,7 @@ class svaunit_vpi_wrapper extends uvm_object;
     * @param a_sva : the assertion name or path to be found in SVA list
     * @return the assertion from SVA list
     */
-   local function svaunit_concurrent_assertion_info get_assertion(string a_sva);
+   virtual function svaunit_concurrent_assertion_info get_assertion(string a_sva);
       if(is_a_path(a_sva)) begin
          return get_assertion_from_path(a_sva);
       end else begin
@@ -1665,7 +1665,7 @@ class svaunit_vpi_wrapper extends uvm_object;
       end
 
       report = $sformatf("%s", report);
-
+      
       `uvm_info(a_test_name, $sformatf("%s\n", report), UVM_LOW)
    endfunction
 
