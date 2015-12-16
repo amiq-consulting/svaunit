@@ -381,12 +381,17 @@ void get_interfaces(std::vector<vpiHandle> &lof_interface_handles,
     }
   }
 
+
   if (interface_top != NULL) {
     // 3. scope
     if ((itr_internal_scope = vpi_iterate(vpiInternalScope, interface_top))
         != NULL) {
       while ((internal_scope = vpi_scan(itr_internal_scope)) != NULL) {
         if (vpi_get(vpiType, internal_scope) == vpiGenScope) {
+
+          lof_interface_handles.push_back(internal_scope);
+          get_interfaces(lof_interface_handles, internal_scope);
+
           if ((itr_internal_scope1 = vpi_iterate(vpiInternalScope,
               internal_scope)) != NULL) {
             while ((internal_scope1 = vpi_scan(itr_internal_scope1))

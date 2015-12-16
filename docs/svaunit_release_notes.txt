@@ -1,3 +1,8 @@
+Release 3.1 @16.12.2015
+---------------------------------------
+* Updated assertion registering logic due to inconsistency across different simulators;
+  - Assertions located under generate blocks are packaged differently depending on the simulator;
+
 Release 3.0 @20.11.2015
 ---------------------------------------
 * Added API to create HTML regression report, which is also included in the automatic report.
