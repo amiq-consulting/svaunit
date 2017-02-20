@@ -141,7 +141,7 @@ class svaunit_immediate_assertion_details extends uvm_object;
          star = "*";
       end
 
-      return $sformatf("%s   %s %0d/%0d times PASSED", star, check_name, get_nof_times_check_has_passed(),
+      return $sformatf("%s   %s %0d/%0d PASSED", star, check_name, get_nof_times_check_has_passed(),
          get_nof_times_check_was_tested());
    endfunction
 

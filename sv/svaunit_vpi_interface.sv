@@ -30,7 +30,7 @@ interface svaunit_vpi_interface();
 `include  "svaunit_version_defines.svh"
 
    // DPI-C API used to find SVAs using VPI API
-   import "DPI-C" context function void register_assertions_dpi();
+   import "DPI-C" context function void register_assertions_dpi(input int print_flag);
 
    /* Control assertion using vpi_control function
     * @param a_sva_name : the assertion used to apply control action on
@@ -58,6 +58,9 @@ interface svaunit_vpi_interface();
     */
    import "DPI-C" context function void set_test_name_to_vpi_dpi(input string a_test_name);
 
+   // Check that the current clock cycle has finished
+   import "DPI-C" function int dpi_check_flag();
+
    /* VPI API to update a given SVA
     * @param a_test_name : test name from where this function is called
     * @param a_sva_name : SVA name to be updated
@@ -77,6 +80,9 @@ interface svaunit_vpi_interface();
    // Stores the test name to be simulated
    string test_name;
 
+   // "End of time slot" flag (1 - reached; 0 - not reached);
+   bit eots_flag = 0;
+
    // Will store the info for all assertions from an interface
    svaunit_concurrent_assertion_info sva_info[];
 
@@ -94,7 +100,11 @@ interface svaunit_vpi_interface();
 
       `uvm_info("SVAUNIT", $sformatf("%s", svaunit_header), UVM_NONE)
       // Register the assertions from the interface
-      register_assertions_dpi();
+
+      if(uvm_top.get_report_verbosity_level() >= UVM_MEDIUM)
+         register_assertions_dpi(1);
+      else
+         register_assertions_dpi(0);
    end
 
    /* Set test name in VPI interface
@@ -179,12 +189,11 @@ interface svaunit_vpi_interface();
     * @param a_sva_path : the path to the SVA which need to be updated
     * @param a_sva_type : the type of the SVA to be updated
     * @param a_reason : callback reason
-    * @param a_start_time : the start attempt for this SVA
     * @param a_callback_time : the callback time for this SVA attempt
     * @param a_lof_sva : the list of SVAs which contains the SVA to be updated
     */
    function void update_sva_from_c(string a_test_name, string a_sva_name, string a_sva_path, string a_sva_type,
-         int a_reason, int a_start_time, int a_callback_time, svaunit_concurrent_assertion_info a_lof_sva[]);
+         int a_reason, int a_callback_time, svaunit_concurrent_assertion_info a_lof_sva[]);
 
       foreach(a_lof_sva[index]) begin
          if((a_lof_sva[index].get_sva_name() == a_sva_name) && (a_lof_sva[index].get_sva_type() == a_sva_type) &&
@@ -194,9 +203,8 @@ interface svaunit_vpi_interface();
 
             crt_state = svaunit_concurrent_assertion_state_type'(a_reason);
 
-            if(crt_state inside {SVAUNIT_START, SVAUNIT_SUCCESS, SVAUNIT_FAILURE, SVAUNIT_STEP_SUCCESS,
-                     SVAUNIT_STEP_FAILURE, SVAUNIT_DISABLE, SVAUNIT_ENABLE, SVAUNIT_RESET, SVAUNIT_KILL}) begin
-               a_lof_sva[index].update_details(a_test_name, a_start_time, a_callback_time, crt_state);
+            if(crt_state inside {SVAUNIT_SUCCESS, SVAUNIT_FAILURE, SVAUNIT_DISABLE, SVAUNIT_ENABLE, SVAUNIT_RESET, SVAUNIT_KILL}) begin
+               a_lof_sva[index].add_new_detail_sva(a_test_name, crt_state, a_callback_time);
             end
          end
       end
@@ -241,20 +249,20 @@ interface svaunit_vpi_interface();
     * @param a_sva_path : path to the SVA
     * @param a_sva_type : the type of the SVA to be updated
     * @param a_reason : callback reason
-    * @param a_start_time : the start attempt for this SVA
     * @param a_callback_time : the callback time for this SVA attempt
+    * @param a_start_time : the start attempt for this SVA
     */
    function void pass_info_to_sv_dpi(string a_test_name, string a_sva_name, string a_sva_path, string a_sva_type,
          int a_reason, int a_callback_time, int a_start_time);
 
       if(a_sva_type == "vpiCover") begin
-         update_sva_from_c(a_test_name, a_sva_name, a_sva_path, a_sva_type, a_reason, a_start_time, a_callback_time,
+         update_sva_from_c(a_test_name, a_sva_name, a_sva_path, a_sva_type, a_reason, a_callback_time,
             cover_info);
       end else if(a_sva_type == "vpiAssert") begin
-         update_sva_from_c(a_test_name, a_sva_name, a_sva_path, a_sva_type, a_reason, a_start_time, a_callback_time,
+         update_sva_from_c(a_test_name, a_sva_name, a_sva_path, a_sva_type, a_reason, a_callback_time,
             sva_info);
       end else if((a_sva_type == "vpiPropertyInst") || (a_sva_type == "vpiPropertyDecl")) begin
-         update_sva_from_c(a_test_name, a_sva_name, a_sva_path, a_sva_type, a_reason, a_start_time, a_callback_time,
+         update_sva_from_c(a_test_name, a_sva_name, a_sva_path, a_sva_type, a_reason, a_callback_time,
             property_info);
       end
    endfunction
@@ -277,7 +285,7 @@ interface svaunit_vpi_interface();
     * @param a_sva_name : SVA name to be found
     * @return the SVA with the given name
     */
-   function svaunit_concurrent_assertion_info get_assertion_from_name(string a_sva_name);
+   function svaunit_concurrent_assertion_info get_assertion_by_name(string a_sva_name);
       foreach(sva_info[index]) begin
          if(sva_info[index].get_sva_name() == a_sva_name) begin
             return sva_info[index];
@@ -417,7 +425,6 @@ interface svaunit_vpi_interface();
     * the stepping mode cannot be modified after the assertion attempt has started)
     * @param a_test_name : the test name from which SVA were enabled and tested
     * @param a_sva : assertion which  needs to enable stepping for
-    * @param a_sva_name : assertion name to enable stepping for
     */
    function void enable_step_assertion(string a_test_name, svaunit_concurrent_assertion_info a_sva);
 
@@ -501,7 +508,7 @@ interface svaunit_vpi_interface();
       automatic int nof_attempts_successful_covered;
 
       foreach(cover_info[index]) begin
-         if(cover_info[index].is_enable(a_test_name)) begin
+         if(cover_info[index].sva_enabled(a_test_name)) begin
             get_cover_statistics_dpi(cover_info[index].get_sva_name(), nof_attempts_failed_covered,
                nof_attempts_successful_covered);
             cover_info[index].set_nof_attempts_failed_covered(nof_attempts_failed_covered);
@@ -546,7 +553,9 @@ interface svaunit_vpi_interface();
       return nof_sva_tested;
    endfunction
 
-   // Get the total number of SVAs
+   /* Get the total number of SVAs
+    * @return total number of SVAs
+    */
    function int unsigned get_nof_sva();
       return sva_info.size();
    endfunction
@@ -573,7 +582,7 @@ interface svaunit_vpi_interface();
       nof_tested_sva = get_nof_tested_sva(a_test_name);
 
       // Header for SVAs
-      report = $sformatf("\n\n-------------------- %s::%s : SVAs statistics --------------------\n\n",
+      report = $sformatf("\n\n-------------------- %s::%s : SVAs run statistics --------------------\n\n",
          a_test_name, test_type);
 
       // Print how many enabled SVA are from a total number of SVA
@@ -587,7 +596,7 @@ interface svaunit_vpi_interface();
       end
 
       // Print how many tested SVA are from a total number of enabled SVA
-      report = $sformatf("%s\n\n\t%0d/%0d SVA were exercised : \n", report, nof_tested_sva, sva_info.size());
+      report = $sformatf("%s\n\n\t%0d/%0d SVA were exercised: \n\n", report, nof_tested_sva, sva_info.size());
 
       // Form the SVAs tested
       foreach(sva_info[index]) begin
@@ -597,7 +606,7 @@ interface svaunit_vpi_interface();
       end
 
       // Print how many not tested SVA are from a total number of enabled SVA
-      report = $sformatf("%s\n\n\t%0d/%0d SVA were not exercised : \n",
+      report = $sformatf("%s\n\n\t%0d/%0d SVA were not exercised: \n\n",
          report, sva_info.size() - nof_tested_sva, sva_info.size());
 
       // Form the SVAs not tested
@@ -608,12 +617,12 @@ interface svaunit_vpi_interface();
       end
 
       // Header for cover SVAs
-      report = $sformatf("%s\n\n-------------------- %s::%s : Cover statistics --------------------\n\n", report,
+      report = $sformatf("%s\n\n-------------------- %s::%s: Cover statistics --------------------\n\n", report,
          a_test_name, test_type);
 
       // Form the cover SVA
       foreach(cover_info[index]) begin
-         if(cover_info[index].is_enable(a_test_name)) begin
+         if(cover_info[index].sva_enabled(a_test_name)) begin
             extra = $sformatf("%0d SUCCEEDED, %0d FAILED", cover_info[index]
                .get_nof_attempts_successful_covered(), cover_info[index].get_nof_attempts_failed_covered());
 
@@ -623,6 +632,18 @@ interface svaunit_vpi_interface();
 
       return report;
    endfunction
+
+   // Polls the until the "End of time slot" is set (i.e. time slot ended)
+   task wait_for_eots();
+      do begin
+         eots_flag = dpi_check_flag();
+         // We need a wait here. Beware #0 goes into an infinite loop. As specified in LRM, #0 sends you to NB region.
+         #1;
+      end while (eots_flag == 0);
+
+      // Clear the flag for next time slot
+      eots_flag = 0;
+   endtask
 endinterface
 
 `endif

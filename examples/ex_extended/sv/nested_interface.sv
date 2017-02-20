@@ -13,21 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * NAME:        svaunit_version_defines.svh
+ * NAME:        nested_interface.sv
  * PROJECT:     svaunit
- * Description: Macros used in project
+ * Description: Example of nested interface
  *******************************************************************************/
 
-`ifndef SVAUNIT_VERSION_DEFINES_SVH
-`define SVAUNIT_VERSION_DEFINES_SVH
+`ifndef ANOTHER_INTERFACE_SV
+`define ANOTHER_INTERFACE_SV
 
-// Version numbers to be used in creating version strings for printing
-// or programmatic testing against version numbers
-`define SVAUNIT_NAME SVAUNIT
-`define SVAUNIT_MAJOR_REV 3
-`define SVAUNIT_MINOR_REV 2
+// Example of nested interface
+interface nested_interface (input clk);
+	import uvm_pkg::*;
+	`include "uvm_macros.svh"
 
-// SVAUNIT_VERSION_STRING print as "SVAUNIT - M.m"
-`define SVAUNIT_VERSION_STRING `"`SVAUNIT_NAME``-```SVAUNIT_MAJOR_REV``.```SVAUNIT_MINOR_REV`"
+	//Select signal
+	logic read;
+
+	//Enable signal
+	logic read_and_clear;
+
+	//Property definition for valid read and read_and_clear values
+	property my_sva_property;
+		@(posedge clk)
+			~(read & read_and_clear);
+	endproperty
+	//Check that read and read_and_clear can not be 1 simultaneously
+	MY_NESTED_SVA: assert property (my_sva_property) else
+		`uvm_error("MY_NESTED_SVA", "read and read_and_clear can not be asserted simultaneously")
+
+endinterface
 
 `endif
+

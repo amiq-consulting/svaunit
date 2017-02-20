@@ -13,21 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * NAME:        svaunit_version_defines.svh
+ * NAME:        my_interface.sv
  * PROJECT:     svaunit
- * Description: Macros used in project
+ * Description: Example of one interface with a single SVA
  *******************************************************************************/
 
-`ifndef SVAUNIT_VERSION_DEFINES_SVH
-`define SVAUNIT_VERSION_DEFINES_SVH
+`ifndef MY_INTERFACE_SV
+`define MY_INTERFACE_SV
 
-// Version numbers to be used in creating version strings for printing
-// or programmatic testing against version numbers
-`define SVAUNIT_NAME SVAUNIT
-`define SVAUNIT_MAJOR_REV 3
-`define SVAUNIT_MINOR_REV 2
+`include  "nested_interface.sv"
 
-// SVAUNIT_VERSION_STRING print as "SVAUNIT - M.m"
-`define SVAUNIT_VERSION_STRING `"`SVAUNIT_NAME``-```SVAUNIT_MAJOR_REV``.```SVAUNIT_MINOR_REV`"
+// Example of one interface with a single SVA
+interface my_interface (input clk);
+	import uvm_pkg::*;
+	`include "uvm_macros.svh"
+
+	// nested_interface instance
+	nested_interface nested_if(.clk(clk));
+
+	// Signals
+	logic pattern;
+	logic load;
+
+	// Property definition for valid load and pattern values
+	property my_sva_property;
+		@(posedge clk)
+			load |-> pattern;
+	endproperty
+	// Check that if load is 1 on a clock cycle, pattern is also 1
+	MY_SVA: assert property (my_sva_property) else
+		`uvm_error("MY_SVA", "If load is 1, pattern should also be 1")
+
+endinterface
 
 `endif

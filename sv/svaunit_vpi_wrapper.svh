@@ -25,7 +25,7 @@
 class svaunit_vpi_wrapper extends uvm_object;
 
    // Pointer to VPI interface with SVAs, imports and exports to VPI API
-   local virtual svaunit_vpi_interface vpi_vif;
+   virtual svaunit_vpi_interface vpi_vif;
 
    // String with the name of the test which is currently running
    local string test_name;
@@ -34,7 +34,7 @@ class svaunit_vpi_wrapper extends uvm_object;
    `uvm_object_utils(svaunit_vpi_wrapper)
 
    // List of string which represents all the immediate assertions which can be tested
-   local const string LOF_ALL_SVAUNIT_CHECKS[20];
+   local const string LOF_ALL_SVAUNIT_CHECKS[9];
 
    // List of immediate assertions tested during a specific test
    local svaunit_immediate_assertion_info lof_checks[$];
@@ -58,26 +58,15 @@ class svaunit_vpi_wrapper extends uvm_object;
       end
 
       LOF_ALL_SVAUNIT_CHECKS = '{
-         "SVAUNIT_FAIL_IF_SVA_DOES_NOT_EXISTS_ERR",
-         "SVAUNIT_FAIL_IF_SVA_IS_ENABLE_ERR",
-         "SVAUNIT_FAIL_IF_SVA_SUCCEEDED_ERR",
-         "SVAUNIT_FAIL_IF_SVA_NOT_SUCCEEDED_ERR",
-         "SVAUNIT_FAIL_IF_SVA_STARTED_BUT_NOT_FINISHED_ERR",
-         "SVAUNIT_FAIL_IF_SVA_NOT_STARTED_ERR",
-         "SVAUNIT_FAIL_IF_SVA_FINISHED_ERR",
-         "SVAUNIT_FAIL_IF_SVA_NOT_FINISHED_ERR",
-         "SVAUNIT_FAIL_IF_ERR",
-         "SVAUNIT_FAIL_IF_ALL_SUCCEEDED_ERR",
-         "SVAUNIT_PASS_IF_SVA_DOES_NOT_EXISTS_ERR",
-         "SVAUNIT_PASS_IF_SVA_IS_ENABLE_ERR",
-         "SVAUNIT_PASS_IF_SVA_SUCCEEDED_ERR",
-         "SVAUNIT_PASS_IF_SVA_NOT_SUCCEEDED_ERR",
-         "SVAUNIT_PASS_IF_SVA_STARTED_BUT_NOT_FINISHED_ERR",
-         "SVAUNIT_PASS_IF_SVA_NOT_STARTED_ERR",
-         "SVAUNIT_PASS_IF_SVA_FINISHED_ERR",
-         "SVAUNIT_PASS_IF_SVA_NOT_FINISHED_ERR",
-         "SVAUNIT_PASS_IF_ERR",
-         "SVAUNIT_PASS_IF_ALL_SUCCEEDED_ERR"
+         "CHECK_SVA_EXISTS",
+         "CHECK_SVA_ENABLED",
+         "CHECK_SVA_DISABLED",
+         "CHECK_SVA_PASSED",
+         "CHECK_SVA_FAILED",
+         "CHECK_SVA_FINISHED",
+         "CHECK_SVA_NOT_FINISHED",
+         "CHECK_ALL_SVA_PASSED",
+         "CHECK_THAT"
       };
 
       current_check_status = SVAUNIT_DID_NOT_RUN;
@@ -198,7 +187,7 @@ class svaunit_vpi_wrapper extends uvm_object;
             int indexes[$];
 
             indexes =  a_lof_used_checks_names.find_index() with (
-               a_lof_used_checks[check_index].checks_details[detail_index].get_check_name() == item);
+                  a_lof_used_checks[check_index].checks_details[detail_index].get_check_name() == item);
 
             if(indexes.size() == 0) begin
                a_lof_used_checks_names.push_back(
@@ -301,12 +290,12 @@ class svaunit_vpi_wrapper extends uvm_object;
     * @param a_sva_path : assertion path to be found in SVA list
     * @return the assertion from SVA list
     */
-   local function svaunit_concurrent_assertion_info get_assertion_from_path(string a_sva_path);
+   local function svaunit_concurrent_assertion_info get_assertion_by_path(string a_sva_path);
       // Get the SVA from the SVA list
       svaunit_concurrent_assertion_info assertion = vpi_vif.get_assertion_from_path(a_sva_path);
 
       // Verify that the SVA exists or not
-      fail_if_sva_does_not_exists(a_sva_path, $sformatf("Assertion %s doesn't exists.", a_sva_path));
+      check_sva_exists(a_sva_path, $sformatf("Assertion %s doesn't exist.", a_sva_path));
 
       return assertion;
    endfunction
@@ -315,12 +304,12 @@ class svaunit_vpi_wrapper extends uvm_object;
     * @param a_sva_name : assertion name to be found in SVA list
     * @return the assertion from SVA list
     */
-   local function svaunit_concurrent_assertion_info get_assertion_from_name(string a_sva_name);
+   local function svaunit_concurrent_assertion_info get_assertion_by_name(string a_sva_name);
       // Get the SVA from the SVA list
-      svaunit_concurrent_assertion_info assertion = vpi_vif.get_assertion_from_name(a_sva_name);
+      svaunit_concurrent_assertion_info assertion = vpi_vif.get_assertion_by_name(a_sva_name);
 
       // Verify that the SVA exists or not
-      fail_if_sva_does_not_exists(a_sva_name, $sformatf("Assertion %s doesn't exists.", a_sva_name));
+      check_sva_exists(a_sva_name, $sformatf("Assertion %s doesn't exist.", a_sva_name));
 
       return assertion;
    endfunction
@@ -331,9 +320,9 @@ class svaunit_vpi_wrapper extends uvm_object;
     */
    virtual function svaunit_concurrent_assertion_info get_assertion(string a_sva);
       if(is_a_path(a_sva)) begin
-         return get_assertion_from_path(a_sva);
+         return get_assertion_by_path(a_sva);
       end else begin
-         return get_assertion_from_name(a_sva);
+         return get_assertion_by_name(a_sva);
       end
    endfunction
 
@@ -347,67 +336,23 @@ class svaunit_vpi_wrapper extends uvm_object;
       svaunit_concurrent_assertion_info assertion = get_assertion(a_sva_name);
 
       if(assertion != null) begin
-         return assertion.sva_succeeded();
+         return assertion.sva_passed();
       end else begin
          return 0;
       end
    endfunction
 
-   /* Verify that the SVA with a given name or path started but has not finished
+
+   /* Get the state of an SVA with a given name or path
     * @param a_sva_name : assertion name or path to be found in SVA list
-    * @return 1 if the assertion started but has not finished and 0 otherwise
+    * @return the state of assertion
     */
-   virtual function bit assertion_started_but_not_finished(string a_sva_name);
+   virtual function svaunit_concurrent_assertion_state_type get_state(string a_sva_name);
       // Get the SVA from the SVA list
       svaunit_concurrent_assertion_info assertion = get_assertion(a_sva_name);
 
       if(assertion != null) begin
-         return assertion.sva_has_started_but_has_not_finished();
-      end else begin
-         return 0;
-      end
-   endfunction
-
-   /* Verify that the first state of an SVA with a given name or path is not start
-    * @param a_sva_name : assertion name or path to be found in SVA list
-    * @return 1 if the first state of assertion is not start and 0 otherwise
-    */
-   virtual function bit first_state_not_start(string a_sva_name);
-      // Get the SVA from the SVA list
-      svaunit_concurrent_assertion_info assertion = get_assertion(a_sva_name);
-
-      if(assertion != null) begin
-         return assertion.sva_first_state_not_start();
-      end else begin
-         return 0;
-      end
-   endfunction
-
-   /* Get the first state of an SVA with a given name or path
-    * @param a_sva_name : assertion name or path to be found in SVA list
-    * @return the first state of assertion
-    */
-   virtual function svaunit_concurrent_assertion_state_type get_first_state(string a_sva_name);
-      // Get the SVA from the SVA list
-      svaunit_concurrent_assertion_info assertion = get_assertion(a_sva_name);
-
-      if(assertion != null) begin
-         return assertion.get_sva_first_state();
-      end else begin
-         return svaunit_concurrent_assertion_state_type'(0);
-      end
-   endfunction
-
-   /* Get the last state of an SVA with a given name or path
-    * @param a_sva_name : assertion name or path to be found in SVA list
-    * @return the last state of assertion
-    */
-   virtual function svaunit_concurrent_assertion_state_type get_last_state(string a_sva_name);
-      // Get the SVA from the SVA list
-      svaunit_concurrent_assertion_info assertion = get_assertion(a_sva_name);
-
-      if(assertion != null) begin
-         return assertion.get_sva_last_state();
+         return assertion.get_sva_state();
       end else begin
          return svaunit_concurrent_assertion_state_type'(0);
       end
@@ -422,7 +367,7 @@ class svaunit_vpi_wrapper extends uvm_object;
       svaunit_concurrent_assertion_info assertion = get_assertion(a_sva_name);
 
       if(assertion != null) begin
-         return assertion.sva_is_finished();
+         return assertion.sva_finished();
       end else begin
          return 0;
       end
@@ -437,7 +382,7 @@ class svaunit_vpi_wrapper extends uvm_object;
       svaunit_concurrent_assertion_info assertion = get_assertion(a_sva_name);
 
       if(assertion != null) begin
-         return assertion.sva_is_not_finished();
+         return assertion.sva_not_finished();
       end else begin
          return 0;
       end
@@ -452,7 +397,7 @@ class svaunit_vpi_wrapper extends uvm_object;
       svaunit_concurrent_assertion_info assertion = get_assertion(a_sva_name);
 
       if(assertion != null) begin
-         return assertion.is_enable(get_test_name());
+         return assertion.sva_enabled(get_test_name());
       end else begin
          return 0;
       end
@@ -483,21 +428,6 @@ class svaunit_vpi_wrapper extends uvm_object;
 
       if(assertion != null) begin
          return assertion.get_nof_times_sva_succeeded();
-      end else begin
-         return -1;
-      end
-   endfunction
-
-   /* Compute the number of times an SVA with a given name or path started
-    * @param a_sva_name : assertion name or path to be found in SVA list
-    * @return the number of times an assertion started
-    */
-   virtual function int get_nof_times_assertion_started(string a_sva_name);
-      // Get the SVA from the SVA list
-      svaunit_concurrent_assertion_info assertion = get_assertion(a_sva_name);
-
-      if(assertion != null) begin
-         return assertion.get_nof_times_sva_started();
       end else begin
          return -1;
       end
@@ -833,79 +763,79 @@ class svaunit_vpi_wrapper extends uvm_object;
       return current_check_status;
    endfunction
 
-   // ------------------ CHECK THAT ASSERTION IS ENABLE ------------------
-   /* Verify automatically that a given SVA is enabled - the test will fail if the SVA is not enabled
-    * @param a_sva_name : assertion name or path to be found in SVA list
+   /* Check that an assertion is enabled - it will wait for the "End of time slot"
+    * @param a_sva_name : the SVA name or the SVA path
     */
-   local function void check_assertion_is_enable(string a_sva_name);
+   local task check_assertion_is_enabled(string a_sva_name);
+      vpi_vif.wait_for_eots();
       vpi_vif.get_info_from_c(get_test_name());
+      check_sva_enabled(a_sva_name, $sformatf("Assertion %s is not enabled", a_sva_name));
+   endtask
 
-      pass_if_sva_enabled(a_sva_name, $sformatf("Assertion %s is not enable.", a_sva_name));
-   endfunction
-
-   // ------------------ CHECK FAIL IF ENABLE -------------------------
-   /* Verify if a given SVA is enabled - the test will fail if SVA is enable
+   // ------------------ CHECK ENABLED -------------------------
+   /* Verify if a given SVA is enabled - the test will pass if SVA is not enabled
     * @param a_sva_name : assertion name or path to be found in SVA list
     * @param a_error_msg : user error message to be printed if the check fails
     * @param a_line : the line number where the check is exercised
     * @param a_filename : the file name where the check is exercised
     */
-   virtual function void fail_if_sva_enabled(string a_sva_name, string a_error_msg = "Default message",
+   virtual function void check_sva_enabled(string a_sva_name, string a_error_msg = "The SVA should have been enabled.",
          int unsigned a_line = 0, string a_filename = "");
 
       // Get the SVA from the SVA list
       svaunit_concurrent_assertion_info assertion = get_assertion(a_sva_name);
 
       if(assertion != null) begin
-         SVAUNIT_FAIL_IF_SVA_IS_ENABLE_ERR : assert(check_expression(!assertion.is_enable(test_name)) == 1)
+         CHECK_SVA_ENABLED : assert(check_expression(assertion.sva_enabled(test_name)) == 1)
          else begin
             if((a_line != 0) && (a_filename != "")) begin
-               `uvm_error("SVAUNIT_FAIL_IF_SVA_IS_ENABLE_ERR", $sformatf("%s (%0d) [%s::%s %s] %s", a_filename, a_line,
+               `uvm_error("CHECK_SVA_ENABLED_ERR", $sformatf("%s (%0d) [%s::%s %s] %s", a_filename, a_line,
                      get_test_name(), get_type_name(), a_sva_name, a_error_msg))
             end else begin
-               `uvm_error("SVAUNIT_FAIL_IF_SVA_IS_ENABLE_ERR", $sformatf("[%s::%s %s] %s", get_test_name(),
+               `uvm_error("CHECK_SVA_ENABLED_ERR", $sformatf("[%s::%s %s] %s", get_test_name(),
                      get_type_name(), a_sva_name, a_error_msg))
             end
          end
-         add_check(assertion, "SVAUNIT_FAIL_IF_SVA_IS_ENABLE_ERR", $time(), get_current_check_status());
+         add_check(assertion, "CHECK_SVA_ENABLED", $time(), get_current_check_status());
       end
    endfunction
 
-   /* Verify if a given SVA is enabled - the test will pass if SVA is enable
+   // ------------------ CHECK DISABLED -------------------------
+   /* Verify if a given SVA is disabled - the test will pass if SVA is enabled
     * @param a_sva_name : assertion name or path to be found in SVA list
     * @param a_error_msg : user error message to be printed if the check fails
     * @param a_line : the line number where the check is exercised
     * @param a_filename : the file name where the check is exercised
     */
-   virtual function void pass_if_sva_enabled(string a_sva_name, string a_error_msg = "Default message",
+   virtual function void check_sva_disabled(string a_sva_name, string a_error_msg = "The SVA should have been disabled.",
          int unsigned a_line = 0, string a_filename = "");
 
       // Get the SVA from the SVA list
       svaunit_concurrent_assertion_info assertion = get_assertion(a_sva_name);
 
       if(assertion != null) begin
-         SVAUNIT_PASS_IF_SVA_IS_ENABLE_ERR : assert(check_expression(assertion.is_enable(test_name)) == 1)
+         CHECK_SVA_DISABLED : assert(check_expression(assertion.sva_disabled(test_name)) == 1)
          else begin
             if((a_line != 0) && (a_filename != "")) begin
-               `uvm_error("SVAUNIT_PASS_IF_SVA_IS_ENABLE_ERR", $sformatf("%s (%0d) [%s::%s %s] %s", a_filename, a_line,
+               `uvm_error("CHECK_SVA_DISABLED_ERR", $sformatf("%s (%0d) [%s::%s %s] %s", a_filename, a_line,
                      get_test_name(), get_type_name(), a_sva_name, a_error_msg))
             end else begin
-               `uvm_error("SVAUNIT_PASS_IF_SVA_IS_ENABLE_ERR", $sformatf("[%s::%s %s] %s", get_test_name(),
+               `uvm_error("CHECK_SVA_DISABLED_ERR", $sformatf("[%s::%s %s] %s", get_test_name(),
                      get_type_name(), a_sva_name, a_error_msg))
             end
          end
-         add_check(assertion, "SVAUNIT_PASS_IF_SVA_IS_ENABLE_ERR", $time(), get_current_check_status());
+         add_check(assertion, "CHECK_SVA_DISABLED", $time(), get_current_check_status());
       end
    endfunction
 
-   // ------------------ CHECK FAIL IF SVA DOES NOT EXISTS-------------------------
-   /* Verify if a given SVA exists - the test will fail if SVA does not exists
+   // ------------------ CHECK EXISTS -------------------------
+   /* Verify if a given SVA exists - the test will fail if SVA does not exist
     * @param a_sva_name : assertion name or path to be found in SVA list
     * @param a_error_msg : user error message to be printed if the check fails
     * @param a_line : the line number where the check is exercised
     * @param a_filename : the file name where the check is exercised
     */
-   virtual function void fail_if_sva_does_not_exists(string a_sva_name, string a_error_msg = "Default message",
+   virtual function void check_sva_exists(string a_sva_name, string a_error_msg = "The SVA does not exist.",
          int unsigned a_line = 0, string a_filename = "");
 
       // Get the SVA from the SVA list
@@ -913,17 +843,17 @@ class svaunit_vpi_wrapper extends uvm_object;
       if(is_a_path(a_sva_name)) begin
          assertion = vpi_vif.get_assertion_from_path(a_sva_name);
       end else begin
-         assertion = vpi_vif.get_assertion_from_name(a_sva_name);
+         assertion = vpi_vif.get_assertion_by_name(a_sva_name);
       end
 
-      SVAUNIT_FAIL_IF_SVA_DOES_NOT_EXISTS_ERR : assert((check_expression(assertion != null)) == 1)  begin
+      CHECK_SVA_EXISTS : assert((check_expression(assertion != null)) == 1)  begin
          assertion.set_tested(get_test_name());
       end else begin
          if((a_line != 0) && (a_filename != "")) begin
-            `uvm_error("SVAUNIT_FAIL_IF_SVA_DOES_NOT_EXISTS_ERR", $sformatf("%s (%0d) [%s::%s %s] %s", a_filename,
+            `uvm_error("CHECK_SVA_EXISTS_ERR", $sformatf("%s (%0d) [%s::%s %s] %s", a_filename,
                   a_line, get_test_name(), get_type_name(), a_sva_name, a_error_msg))
          end else begin
-            `uvm_error("SVAUNIT_FAIL_IF_SVA_DOES_NOT_EXISTS_ERR", $sformatf("[%s::%s %s] %s", get_test_name(),
+            `uvm_error("CHECK_SVA_EXISTS_ERR", $sformatf("[%s::%s %s] %s", get_test_name(),
                   get_type_name(), a_sva_name, a_error_msg))
          end
 
@@ -938,443 +868,153 @@ class svaunit_vpi_wrapper extends uvm_object;
          end
       end
 
-      add_check(assertion, "SVAUNIT_FAIL_IF_SVA_DOES_NOT_EXISTS_ERR", $time(), get_current_check_status());
+      add_check(assertion, "CHECK_SVA_EXISTS", $time(), get_current_check_status());
    endfunction
 
-   /* Verify if a given SVA exists - the test will pass if SVA does not exists
+
+
+   // ------------------ CHECK PASSED-------------------------
+   /* Verify if a given SVA succeeded - the test will fail if SVA failed
     * @param a_sva_name : assertion name or path to be found in SVA list
     * @param a_error_msg : user error message to be printed if the check fails
     * @param a_line : the line number where the check is exercised
     * @param a_filename : the file name where the check is exercised
     */
-   virtual function void pass_if_sva_does_not_exists(string a_sva_name, string a_error_msg = "Default message",
-         int unsigned a_line = 0, string a_filename = "");
-
-      // Get the SVA from the SVA list
-      svaunit_concurrent_assertion_info assertion;
-      if(is_a_path(a_sva_name)) begin
-         assertion = vpi_vif.get_assertion_from_path(a_sva_name);
-      end else begin
-         assertion = vpi_vif.get_assertion_from_name(a_sva_name);
-      end
-
-      SVAUNIT_PASS_IF_SVA_DOES_NOT_EXISTS_ERR : assert(check_expression(assertion == null) == 1)  begin
-         begin
-            string sva_name = a_sva_name;
-            string sva_path = "";
-            string sva_type = "";
-
-            assertion = svaunit_concurrent_assertion_info::type_id::create( "new_assertion");
-
-            assertion.create_new_sva(sva_name, sva_path, sva_type);
-         end
-
-         add_check(assertion, "SVAUNIT_PASS_IF_SVA_DOES_NOT_EXISTS_ERR", $time(), get_current_check_status());
-      end else begin
-         if((a_line != 0) && (a_filename != "")) begin
-            `uvm_error("SVAUNIT_PASS_IF_SVA_DOES_NOT_EXISTS_ERR", $sformatf("%s (%0d) [%s::%s %s] %s", a_filename,
-                  a_line, get_test_name(), get_type_name(), a_sva_name, a_error_msg))
-         end else begin
-            `uvm_error("SVAUNIT_PASS_IF_SVA_DOES_NOT_EXISTS_ERR", $sformatf("[%s::%s %s] %s", get_test_name(),
-                  get_type_name(), a_sva_name, a_error_msg))
-         end
-
-         assertion.set_tested(get_test_name());
-         add_check(assertion, "SVAUNIT_PASS_IF_SVA_DOES_NOT_EXISTS_ERR", $time(), get_current_check_status());
-      end
-   endfunction
-
-
-   // ------------------ CHECK FAIL IF SUCCEEDED -------------------------
-   /* Verify if a given SVA succeeded - the test will fail if SVA succeeded
-    * @param a_sva_name : assertion name or path to be found in SVA list
-    * @param a_error_msg : user error message to be printed if the check fails
-    * @param a_line : the line number where the check is exercised
-    * @param a_filename : the file name where the check is exercised
-    */
-   virtual function void fail_if_sva_succeeded(string a_sva_name, string a_error_msg = "Default message",
+   virtual task check_sva_passed(string a_sva_name, string a_error_msg = "The SVA should have passed.",
          int unsigned a_line = 0, string a_filename = "");
 
       // Get the SVA from the SVA list
       svaunit_concurrent_assertion_info assertion = get_assertion(a_sva_name);
 
       if(assertion != null) begin
-         check_assertion_is_enable(a_sva_name);
+         check_assertion_is_enabled(a_sva_name);
 
-         SVAUNIT_FAIL_IF_SVA_SUCCEEDED_ERR : assert(check_expression(!(assertion.sva_succeeded())) == 1)
+         CHECK_SVA_PASSED : assert(check_expression(assertion.sva_passed()) == 1)
          else begin
             if((a_line != 0) && (a_filename != "")) begin
-               `uvm_error("SVAUNIT_FAIL_IF_SVA_SUCCEEDED_ERR", $sformatf("%s (%0d) [%s::%s %s] %s", a_filename, a_line,
+               `uvm_error("CHECK_SVA_PASSED_ERR", $sformatf("%s (%0d) [%s::%s %s] %s", a_filename, a_line,
                      get_test_name(), get_type_name(), a_sva_name, a_error_msg))
             end else begin
-               `uvm_error("SVAUNIT_FAIL_IF_SVA_SUCCEEDED_ERR", $sformatf("[%s::%s %s] %s", get_test_name(),
+               `uvm_error("CHECK_SVA_PASSED_ERR", $sformatf("[%s::%s %s] %s", get_test_name(),
                      get_type_name(), a_sva_name, a_error_msg))
             end
          end
 
-         add_check(assertion, "SVAUNIT_FAIL_IF_SVA_SUCCEEDED_ERR", $time(), get_current_check_status());
+         add_check(assertion, "CHECK_SVA_PASSED", $time(), get_current_check_status());
       end
-   endfunction
+   endtask
 
-   /* Verify if a given SVA succeeded - the test will fail if SVA does not succeeded
+
+
+   // ------------------ CHECK FAILED -------------------------
+   /* Verify if a given SVA didn't succeed; the test should fail if the SVA passed
     * @param a_sva_name : assertion name or path to be found in SVA list
     * @param a_error_msg : user error message to be printed if the check fails
     * @param a_line : the line number where the check is exercised
     * @param a_filename : the file name where the check is exercised
     */
-   virtual function void pass_if_sva_succeeded(string a_sva_name, string a_error_msg = "Default message",
+   virtual task check_sva_failed(string a_sva_name, string a_error_msg = "The SVA should have failed.",
          int unsigned a_line = 0, string a_filename = "");
 
       // Get the SVA from the SVA list
       svaunit_concurrent_assertion_info assertion = get_assertion(a_sva_name);
 
       if(assertion != null) begin
-         check_assertion_is_enable(a_sva_name);
 
-         SVAUNIT_PASS_IF_SVA_SUCCEEDED_ERR : assert(check_expression(assertion.sva_succeeded()) == 1)
+         check_assertion_is_enabled(a_sva_name);
+
+         CHECK_SVA_FAILED :  assert(check_expression(!assertion.sva_passed()) == 1)
+         else begin
+            if((a_line != 0) && (a_filename != "")) begin
+               `uvm_error("CHECK_SVA_FAILED_ERR", $sformatf("%s (%0d) [%s::%s %s] %s", a_filename,
+                     a_line, get_test_name(), get_type_name(), a_sva_name, a_error_msg))
+            end else begin
+               `uvm_error("CHECK_SVA_FAILED_ERR", $sformatf("[%s::%s %s] %s", get_test_name(),
+                     get_type_name(), a_sva_name, a_error_msg))
+            end
+
+         end
+
+         add_check(assertion, "CHECK_SVA_FAILED", $time(), get_current_check_status());
+      end
+   endtask
+
+
+
+   // ------------------ CHECK FINISHED-------------------------
+   /* Verify if a given SVA finished - the test will fail if the assertion did not finish
+    * @param a_sva_name : assertion name or path to be found in SVA list
+    * @param a_error_msg : user error message to be printed if the check fails
+    * @param a_line : the line number where the check is exercised
+    * @param a_filename : the file name where the check is exercised
+    */
+   virtual task check_sva_finished(string a_sva_name, string a_error_msg = "The SVA should have finished.",
+         int unsigned a_line = 0, string a_filename = "");
+
+      // Get the SVA from the SVA list
+      svaunit_concurrent_assertion_info assertion = get_assertion(a_sva_name);
+
+      if(assertion != null) begin
+         check_assertion_is_enabled(a_sva_name);
+
+         CHECK_SVA_FINISHED : assert(check_expression(assertion.sva_finished()) == 1)
          else begin
 
             if((a_line != 0) && (a_filename != "")) begin
-               `uvm_error("SVAUNIT_PASS_IF_SVA_SUCCEEDED_ERR", $sformatf("%s (%0d) [%s::%s %s] %s", a_filename, a_line,
+               `uvm_error("CHECK_SVA_FINISHED_ERR", $sformatf("%s (%0d) [%s::%s %s] %s", a_filename, a_line,
                      get_test_name(), get_type_name(), a_sva_name, a_error_msg))
             end else begin
-               `uvm_error("SVAUNIT_PASS_IF_SVA_SUCCEEDED_ERR", $sformatf("[%s::%s %s] %s", get_test_name(),
+               `uvm_error("CHECK_SVA_FINISHED_ERR", $sformatf("[%s::%s %s] %s", get_test_name(),
                      get_type_name(), a_sva_name, a_error_msg))
             end
          end
 
-         add_check(assertion, "SVAUNIT_PASS_IF_SVA_SUCCEEDED_ERR", $time(), get_current_check_status());
+         add_check(assertion, "CHECK_SVA_FINISHED", $time(), get_current_check_status());
       end
-   endfunction
+   endtask
 
-   // ------------------ CHECK FAIL IF NOT SUCCEEDED -------------------------
-   /* Verify if a given SVA didn't succeeded (the assertion should have succeeded), the test should fail
+
+   // ------------------ CHECK NOT FINISHED -------------------------
+   /* Verify if a given SVA didn't finish; fail if it finished
     * @param a_sva_name : assertion name or path to be found in SVA list
     * @param a_error_msg : user error message to be printed if the check fails
     * @param a_line : the line number where the check is exercised
     * @param a_filename : the file name where the check is exercised
     */
-   virtual function void fail_if_sva_not_succeeded(string a_sva_name, string a_error_msg = "Default message",
+   virtual task check_sva_not_finished(string a_sva_name, string a_error_msg = "The SVA should not have finished.",
          int unsigned a_line = 0, string a_filename = "");
 
       // Get the SVA from the SVA list
       svaunit_concurrent_assertion_info assertion = get_assertion(a_sva_name);
 
       if(assertion != null) begin
-         check_assertion_is_enable(a_sva_name);
+         check_assertion_is_enabled(a_sva_name);
 
-         SVAUNIT_FAIL_IF_SVA_NOT_SUCCEEDED_ERR :  assert(check_expression(assertion.sva_succeeded()) == 1)
+         CHECK_SVA_NOT_FINISHED : assert(check_expression(assertion.sva_not_finished()) == 1)
          else begin
             if((a_line != 0) && (a_filename != "")) begin
-               `uvm_error("SVAUNIT_FAIL_IF_SVA_NOT_SUCCEEDED_ERR", $sformatf("%s (%0d) [%s::%s %s] %s", a_filename,
+               `uvm_error("CHECK_SVA_NOT_FINISHED_ERR", $sformatf("%s (%0d) [%s::%s %s] %s", a_filename,
                      a_line, get_test_name(), get_type_name(), a_sva_name, a_error_msg))
             end else begin
-               `uvm_error("SVAUNIT_FAIL_IF_SVA_NOT_SUCCEEDED_ERR", $sformatf("[%s::%s %s] %s", get_test_name(),
-                     get_type_name(), a_sva_name, a_error_msg))
-            end
-
-         end
-
-         add_check(assertion, "SVAUNIT_FAIL_IF_SVA_NOT_SUCCEEDED_ERR", $time(), get_current_check_status());
-      end
-   endfunction
-
-   /* Verify if a given SVA didn't succeeded (the assertion should have failed),
-    * the test will pass if the assertion didn't succeeded
-    * @param a_sva_name : assertion name or path to be found in SVA list
-    * @param a_error_msg : user error message to be printed if the check fails
-    * @param a_line : the line number where the check is exercised
-    * @param a_filename : the file name where the check is exercised
-    */
-   virtual function void pass_if_sva_not_succeeded(string a_sva_name, string a_error_msg = "Default message",
-         int unsigned a_line = 0, string a_filename = "");
-
-      // Get the SVA from the SVA list
-      svaunit_concurrent_assertion_info assertion = get_assertion(a_sva_name);
-
-      if(assertion != null) begin
-         check_assertion_is_enable(a_sva_name);
-
-         SVAUNIT_PASS_IF_SVA_NOT_SUCCEEDED_ERR : assert(check_expression(!(assertion.sva_succeeded())) == 1)
-         else begin
-            if((a_line != 0) && (a_filename != "")) begin
-               `uvm_error("SVAUNIT_PASS_IF_SVA_NOT_SUCCEEDED_ERR", $sformatf("%s (%0d) [%s::%s %s] %s", a_filename,
-                     a_line, get_test_name(), get_type_name(), a_sva_name, a_error_msg))
-            end else begin
-               `uvm_error("SVAUNIT_PASS_IF_SVA_NOT_SUCCEEDED_ERR", $sformatf("[%s::%s %s] %s", get_test_name(),
+               `uvm_error("CHECK_SVA_NOT_FINISHED_ERR", $sformatf("[%s::%s %s] %s", get_test_name(),
                      get_type_name(), a_sva_name, a_error_msg))
             end
          end
 
-         add_check(assertion, "SVAUNIT_PASS_IF_SVA_NOT_SUCCEEDED_ERR", $time(), get_current_check_status());
+         add_check(assertion, "CHECK_SVA_NOT_FINISHED", $time(), get_current_check_status());
       end
-   endfunction
-
-   // ------------------ CHECK FAIL IF STARTED BUT NOT FINISHED -------------------------
-   /* Verify if a given SVA didn't finished  but the first state is START,
-    * the test will fail if the assertion didn't finished but the first state is START
-    * @param a_sva_name : assertion name or path to be found in SVA list
-    * @param a_error_msg : user error message to be printed if the check fails
-    * @param a_line : the line number where the check is exercised
-    * @param a_filename : the file name where the check is exercised
-    */
-   virtual function void fail_if_sva_started_but_not_finished(string a_sva_name, string a_error_msg = "Default message",
-         int unsigned a_line = 0, string a_filename = "");
-
-      // Get the SVA from the SVA list
-      svaunit_concurrent_assertion_info assertion = get_assertion(a_sva_name);
-
-      if(assertion != null) begin
-         check_assertion_is_enable(a_sva_name);
-
-         SVAUNIT_FAIL_IF_SVA_STARTED_BUT_NOT_FINISHED_ERR :
-         assert(check_expression(!(assertion.sva_has_started_but_has_not_finished())) == 1)
-         else begin
-            if((a_line != 0) && (a_filename != "")) begin
-               `uvm_error("SVAUNIT_FAIL_IF_SVA_STARTED_BUT_NOT_FINISHED_ERR", $sformatf("%s (%0d) [%s::%s %s] %s",
-                     a_filename, a_line, get_test_name(), get_type_name(), a_sva_name, a_error_msg))
-            end else begin
-               `uvm_error("SVAUNIT_FAIL_IF_SVA_STARTED_BUT_NOT_FINISHED_ERR", $sformatf("[%s::%s %s] %s",
-                     get_test_name(), get_type_name(), a_sva_name, a_error_msg))
-            end
-         end
-
-         add_check(assertion, "SVAUNIT_FAIL_IF_SVA_STARTED_BUT_NOT_FINISHED_ERR", $time(),
-            get_current_check_status());
-      end
-   endfunction
-
-   /* Verify if a given SVA didn't finished  but the first state is START,
-    * the test will pass if the assertion didn't finished but the first state is START
-    * @param a_sva_name : assertion name or path to be found in SVA list
-    * @param a_error_msg : user error message to be printed if the check fails
-    * @param a_line : the line number where the check is exercised
-    * @param a_filename : the file name where the check is exercised
-    */
-   virtual function void pass_if_sva_started_but_not_finished(string a_sva_name, string a_error_msg = "Default message",
-         int unsigned a_line = 0, string a_filename = "");
-
-      // Get the SVA from the SVA list
-      svaunit_concurrent_assertion_info assertion = get_assertion(a_sva_name);
-
-      if(assertion != null) begin
-         check_assertion_is_enable(a_sva_name);
-
-         SVAUNIT_PASS_IF_SVA_STARTED_BUT_NOT_FINISHED_ERR :
-         assert(check_expression(assertion.sva_has_started_but_has_not_finished()) == 1)
-         else begin
-            if((a_line != 0) && (a_filename != "")) begin
-               `uvm_error("SVAUNIT_PASS_IF_SVA_STARTED_BUT_NOT_FINISHED_ERR", $sformatf("%s (%0d) [%s::%s %s] %s",
-                     a_filename, a_line, get_test_name(), get_type_name(), a_sva_name, a_error_msg))
-            end else begin
-               `uvm_error("SVAUNIT_PASS_IF_SVA_STARTED_BUT_NOT_FINISHED_ERR", $sformatf("[%s::%s %s] %s",
-                     get_test_name(), get_type_name(), a_sva_name, a_error_msg))
-            end
-         end
-
-         add_check(assertion, "SVAUNIT_PASS_IF_SVA_STARTED_BUT_NOT_FINISHED_ERR", $time(),
-            get_current_check_status());
-      end
-   endfunction
+   endtask
 
 
-   // ------------------ CHECK FAIL IF NOT STARTED -------------------------
-   /* Verify if a given SVA didn't started - the test will fail if the assertion didn't started
-    * @param a_sva_name : assertion name or path to be found in SVA list
-    * @param a_error_msg : user error message to be printed if the check fails
-    * @param a_line : the line number where the check is exercised
-    * @param a_filename : the file name where the check is exercised
-    */
-   virtual function void fail_if_sva_not_started(string a_sva_name, string a_error_msg = "Default message",
-         int unsigned a_line = 0, string a_filename = "");
 
-      // Get the SVA from the SVA list
-      svaunit_concurrent_assertion_info assertion = get_assertion(a_sva_name);
-
-      if(assertion != null) begin
-         check_assertion_is_enable(a_sva_name);
-
-         SVAUNIT_FAIL_IF_SVA_NOT_STARTED_ERR :
-         assert(check_expression(!(assertion.sva_first_state_not_start())) == 1)
-         else begin
-            if((a_line != 0) && (a_filename != "")) begin
-               `uvm_error("SVAUNIT_FAIL_IF_SVA_NOT_STARTED_ERR", $sformatf("%s (%0d) [%s::%s %s] %s", a_filename,
-                     a_line, get_test_name(), get_type_name(), a_sva_name, a_error_msg))
-            end else begin
-               `uvm_error("SVAUNIT_FAIL_IF_SVA_NOT_STARTED_ERR", $sformatf("[%s::%s %s] %s", get_test_name(),
-                     get_type_name(), a_sva_name, a_error_msg))
-            end
-         end
-
-         add_check(assertion, "SVAUNIT_FAIL_IF_SVA_NOT_STARTED_ERR", $time(), get_current_check_status());
-      end
-   endfunction
-
-   /* Verify if a given SVA didn't started - the test will pass if the assertion didn't started
-    * @param a_sva_name : assertion name or path to be found in SVA list
-    * @param a_error_msg : user error message to be printed if the check fails
-    * @param a_line : the line number where the check is exercised
-    * @param a_filename : the file name where the check is exercised
-    */
-   virtual function void pass_if_sva_not_started(string a_sva_name, string a_error_msg = "Default message",
-         int unsigned a_line = 0, string a_filename = "");
-
-      // Get the SVA from the SVA list
-      svaunit_concurrent_assertion_info assertion = get_assertion(a_sva_name);
-
-      if(assertion != null) begin
-         check_assertion_is_enable(a_sva_name);
-
-         SVAUNIT_PASS_IF_SVA_NOT_STARTED_ERR :
-         assert(check_expression(assertion.sva_first_state_not_start()) == 1)
-         else begin
-            if((a_line != 0) && (a_filename != "")) begin
-               `uvm_error("SVAUNIT_PASS_IF_SVA_NOT_STARTED_ERR", $sformatf("%s (%0d) [%s::%s %s] %s", a_filename,
-                     a_line, get_test_name(), get_type_name(), a_sva_name, a_error_msg))
-            end else begin
-               `uvm_error("SVAUNIT_PASS_IF_SVA_NOT_STARTED_ERR", $sformatf("[%s::%s %s] %s", get_test_name(),
-                     get_type_name(), a_sva_name, a_error_msg))
-            end
-         end
-
-         add_check(assertion, "SVAUNIT_PASS_IF_SVA_NOT_STARTED_ERR", $time(), get_current_check_status());
-      end
-   endfunction
-
-
-   // ------------------ CHECK FAIL IF FINISHED -------------------------
-   /* Verify if a given SVA finished - the test will fail if the assertion finished
-    * @param a_sva_name : assertion name or path to be found in SVA list
-    * @param a_error_msg : user error message to be printed if the check fails
-    * @param a_line : the line number where the check is exercised
-    * @param a_filename : the file name where the check is exercised
-    */
-   virtual function void fail_if_sva_finished(string a_sva_name, string a_error_msg = "Default message",
-         int unsigned a_line = 0, string a_filename = "");
-
-      // Get the SVA from the SVA list
-      svaunit_concurrent_assertion_info assertion = get_assertion(a_sva_name);
-
-      if(assertion != null) begin
-         check_assertion_is_enable(a_sva_name);
-
-         SVAUNIT_FAIL_IF_SVA_FINISHED_ERR : assert(check_expression(!(assertion.sva_is_finished())) == 1)
-         else begin
-
-            if((a_line != 0) && (a_filename != "")) begin
-               `uvm_error("SVAUNIT_FAIL_IF_SVA_FINISHED_ERR", $sformatf("%s (%0d) [%s::%s %s] %s", a_filename, a_line,
-                     get_test_name(), get_type_name(), a_sva_name, a_error_msg))
-            end else begin
-               `uvm_error("SVAUNIT_FAIL_IF_SVA_FINISHED_ERR", $sformatf("[%s::%s %s] %s", get_test_name(),
-                     get_type_name(), a_sva_name, a_error_msg))
-            end
-         end
-
-         add_check(assertion, "SVAUNIT_FAIL_IF_SVA_FINISHED_ERR", $time(), get_current_check_status());
-      end
-   endfunction
-
-   /* Verify if a given SVA finished - the test will pass if the assertion finished
-    * @param a_sva_name : assertion name or path to be found in SVA list
-    * @param a_error_msg : user error message to be printed if the check fails
-    * @param a_line : the line number where the check is exercised
-    * @param a_filename : the file name where the check is exercised
-    */
-   virtual function void pass_if_sva_finished(string a_sva_name, string a_error_msg = "Default message",
-         int unsigned a_line = 0, string a_filename = "");
-
-      // Get the SVA from the SVA list
-      svaunit_concurrent_assertion_info assertion = get_assertion(a_sva_name);
-
-      if(assertion != null) begin
-         check_assertion_is_enable(a_sva_name);
-
-         SVAUNIT_PASS_IF_SVA_FINISHED_ERR : assert(check_expression(assertion.sva_is_finished()) == 1)
-         else begin
-            if((a_line != 0) && (a_filename != "")) begin
-               `uvm_error("SVAUNIT_PASS_IF_SVA_FINISHED_ERR", $sformatf("%s (%0d) [%s::%s %s] %s", a_filename, a_line,
-                     get_test_name(), get_type_name(), a_sva_name, a_error_msg))
-            end else begin
-               `uvm_error("SVAUNIT_PASS_IF_SVA_FINISHED_ERR", $sformatf("[%s::%s %s] %s", get_test_name(),
-                     get_type_name(), a_sva_name, a_error_msg))
-            end
-         end
-
-         add_check(assertion, "SVAUNIT_PASS_IF_SVA_FINISHED_ERR", $time(), get_current_check_status());
-      end
-   endfunction
-
-   // ------------------ CHECK FAIL IF NOT FINISHED -------------------------
-   /* Verify if a given SVA didn't finished - the test will fail if the assertion didn't finished
-    * @param a_sva_name : assertion name or path to be found in SVA list
-    * @param a_error_msg : user error message to be printed if the check fails
-    * @param a_line : the line number where the check is exercised
-    * @param a_filename : the file name where the check is exercised
-    */
-   virtual function void fail_if_sva_not_finished(string a_sva_name, string a_error_msg = "Default message",
-         int unsigned a_line = 0, string a_filename = "");
-
-      // Get the SVA from the SVA list
-      svaunit_concurrent_assertion_info assertion = get_assertion(a_sva_name);
-
-      if(assertion != null) begin
-         check_assertion_is_enable(a_sva_name);
-
-         SVAUNIT_FAIL_IF_SVA_NOT_FINISHED_ERR : assert(check_expression(!(assertion.sva_is_not_finished())) == 1)
-         else begin
-            if((a_line != 0) && (a_filename != "")) begin
-               `uvm_error("SVAUNIT_FAIL_IF_SVA_NOT_FINISHED_ERR", $sformatf("%s (%0d) [%s::%s %s] %s", a_filename,
-                     a_line, get_test_name(), get_type_name(), a_sva_name, a_error_msg))
-            end else begin
-               `uvm_error("SVAUNIT_FAIL_IF_SVA_NOT_FINISHED_ERR", $sformatf("[%s::%s %s] %s", get_test_name(),
-                     get_type_name(), a_sva_name, a_error_msg))
-            end
-         end
-
-         add_check(assertion, "SVAUNIT_FAIL_IF_SVA_NOT_FINISHED_ERR", $time(), get_current_check_status());
-      end
-   endfunction
-
-   /* Verify if a given SVA didn't finished - the test will pass if the assertion didn't finished
-    * @param a_sva_name : assertion name or path to be found in SVA list
-    * @param a_error_msg : user error message to be printed if the check fails
-    * @param a_line : the line number where the check is exercised
-    * @param a_filename : the file name where the check is exercised
-    */
-   virtual function void pass_if_sva_not_finished(string a_sva_name, string a_error_msg = "Default message",
-         int unsigned a_line= 0, string a_filename = "");
-
-      // Get the SVA from the SVA list
-      svaunit_concurrent_assertion_info assertion = get_assertion(a_sva_name);
-
-      if(assertion != null) begin
-         check_assertion_is_enable(a_sva_name);
-
-         SVAUNIT_PASS_IF_SVA_NOT_FINISHED_ERR : assert(check_expression(assertion.sva_is_not_finished()) == 1)
-         else begin
-
-            if((a_line != 0) && (a_filename != "")) begin
-               `uvm_error("SVAUNIT_PASS_IF_SVA_NOT_FINISHED_ERR", $sformatf("%s (%0d) [%s::%s %s] %s", a_filename,
-                     a_line, get_test_name(), get_type_name(), a_sva_name, a_error_msg))
-            end else begin
-               `uvm_error("SVAUNIT_PASS_IF_SVA_NOT_FINISHED_ERR", $sformatf("[%s::%s %s] %s", get_test_name(),
-                     get_type_name(), a_sva_name, a_error_msg))
-            end
-         end
-
-         add_check(assertion, "SVAUNIT_PASS_IF_SVA_NOT_FINISHED_ERR", $time(), get_current_check_status());
-      end
-   endfunction
-
-
-   // ------------------ CHECK FAIL IF  -------------------------
-   /* Verify if the expression is FALSE - the test will fail if the expression is FALSE
+   // ------------------ CHECK THAT  -------------------------
+   /* Verify if the expression is true; the check fails if the expression is false
     * @param a_expression : the expression to be checked
     * @param a_error_msg : user error message to be printed if the check fails
     * @param a_line : the line number where the check is exercised
     * @param a_filename : the file name where the check is exercised
     */
-   virtual function void fail_if(bit a_expression, string a_error_msg = "Default message", int unsigned a_line = 0,
+   virtual function void check_that(bit a_expression, string a_error_msg = "The expression should have passed.", int unsigned a_line = 0,
          string a_filename = "");
 
       svaunit_concurrent_assertion_info new_assertion = svaunit_concurrent_assertion_info::type_id::create(
@@ -1385,74 +1025,46 @@ class svaunit_vpi_wrapper extends uvm_object;
 
       new_assertion.create_new_sva(sva_name, sva_path, sva_type);
 
-      SVAUNIT_FAIL_IF_ERR : assert(check_expression(!(a_expression)) == 1)
+      CHECK_THAT : assert(check_expression(a_expression) == 1)
       else begin
          if((a_line != 0) && (a_filename != "")) begin
-            `uvm_error("SVAUNIT_FAIL_IF_ERR", $sformatf("%s (%0d) [%s::%s] %s", a_filename, a_line,
+            `uvm_error("CHECK_THAT_ERR", $sformatf("%s (%0d) [%s::%s] %s", a_filename, a_line,
                   get_test_name(), get_type_name(), a_error_msg))
          end else begin
-            `uvm_error("SVAUNIT_FAIL_IF_ERR",  $sformatf("[%s::%s] %s", get_test_name(), get_type_name(), a_error_msg))
+            `uvm_error("CHECK_THAT_ERR",  $sformatf("[%s::%s] %s", get_test_name(), get_type_name(), a_error_msg))
          end
       end
 
-      add_check(new_assertion, "SVAUNIT_FAIL_IF_ERR", $time(), get_current_check_status());
+      add_check(new_assertion, "CHECK_THAT", $time(), get_current_check_status());
    endfunction
 
-   /* Verify if the expression is FALSE - the test will pass if the expression is FALSE
-    * @param a_expression : the expression to be checked
-    * @param a_error_msg : user error message to be printed if the check fails
-    * @param a_line : the line number where the check is exercised
-    * @param a_filename : the file name where the check is exercised
-    */
-   virtual function void pass_if(bit a_expression, string a_error_msg = "Default message", int unsigned a_line = 0,
-         string a_filename = "");
-
-      svaunit_concurrent_assertion_info new_assertion = svaunit_concurrent_assertion_info::type_id::create(
-         "new_assertion");
-      string sva_name = "";
-      string sva_path = "";
-      string sva_type = "";
-
-      new_assertion.create_new_sva(sva_name, sva_path, sva_type);
-
-      SVAUNIT_PASS_IF_ERR : assert(check_expression(a_expression) == 1)
-      else begin
-         if((a_line != 0) && (a_filename != "")) begin
-            `uvm_error("SVAUNIT_PASS_IF_ERR", $sformatf("%s (%0d) [%s::%s] %s", a_filename, a_line,
-                  get_test_name(), get_type_name(), a_error_msg))
-         end else begin
-            `uvm_error("SVAUNIT_PASS_IF_ERR", $sformatf("[%s::%s] %s", get_test_name(), get_type_name(), a_error_msg))
-         end
-      end
-
-      add_check(new_assertion, "SVAUNIT_PASS_IF_ERR", $time(), get_current_check_status());
-   endfunction
 
    // Automatic check verified at the end of test for all enabled SVAs, if there are not any checks in unit test
-   virtual function void pass_assertion();
+   virtual task pass_assertion();
       if(lof_checks.size() == 0) begin
          if(vpi_vif.sva_info.size() > 0) begin
             foreach(vpi_vif.sva_info[sva_index]) begin
                if(is_enable(vpi_vif.sva_info[sva_index].get_sva_name())) begin
-                  fail_if_sva_not_succeeded(vpi_vif.sva_info[sva_index].get_sva_name(), $sformatf(
+                  check_sva_failed(vpi_vif.sva_info[sva_index].get_sva_name(), $sformatf(
                         "Assertion %s should have succeeded, found instead: %s",
-                        vpi_vif.sva_info[sva_index].get_sva_name(), vpi_vif.sva_info[sva_index].get_sva_last_state()));
+                        vpi_vif.sva_info[sva_index].get_sva_name(), vpi_vif.sva_info[sva_index].get_sva_state()));
                end
             end
          end
       end
-   endfunction
+   endtask
 
-   /* Verify if all SVAs succeeded - the test will pass if all SVA succeeded
+
+   /* Verify if all SVAs succeeded - the test will fail if any SVA failed
     * @param a_error_msg : custom error message which will be printed when the check fails
     */
-   virtual function void pass_if_all_sva_succeeded(string a_error_msg);
+   virtual function void check_all_sva_passed(string a_error_msg);
 
       // Shows that all SVAs succeeded in this test
       bit all_succeeded = 1;
 
       foreach(vpi_vif.sva_info[sva_index]) begin
-         if(vpi_vif.sva_info[sva_index].is_enable(get_test_name())) begin
+         if(vpi_vif.sva_info[sva_index].sva_enabled(get_test_name())) begin
             string sva_name = vpi_vif.sva_info[sva_index].get_sva_name();
             if((get_nof_times_assertion_failed(sva_name) != 0) ||
                   (get_nof_times_assertion_succeeded(sva_name) == 0)) begin
@@ -1461,47 +1073,15 @@ class svaunit_vpi_wrapper extends uvm_object;
          end
       end
 
-      SVAUNIT_PASS_IF_ALL_SUCCEEDED_ERR : assert(check_expression(all_succeeded == 1) == 1)
+      CHECK_ALL_SVA_PASSED : assert((check_expression(all_succeeded == 1)) == 1)
       else begin
-         `uvm_error("SVAUNIT_PASS_IF_ALL_SUCCEEDED_ERR", $sformatf("[%s::%s] %s",
-               get_test_name(), get_type_name(),a_error_msg))
-      end
-
-      foreach(vpi_vif.sva_info[sva_index]) begin
-         if(vpi_vif.sva_info[sva_index].is_enable(get_test_name())) begin
-            add_check(vpi_vif.sva_info[sva_index], "SVAUNIT_PASS_IF_ALL_SUCCEEDED_ERR", $time(),
-               get_current_check_status());
-         end
-      end
-   endfunction
-
-   /* Verify if all SVAs succeeded - the test will fail if all SVA succeeded
-    * @param a_error_msg : custom error message which will be printed when the check fails
-    */
-   virtual function void fail_if_all_sva_succeeded(string a_error_msg);
-
-      // Shows that all SVAs succeeded in this test
-      bit all_succeeded = 1;
-
-      foreach(vpi_vif.sva_info[sva_index]) begin
-         if(vpi_vif.sva_info[sva_index].is_enable(get_test_name())) begin
-            string sva_name = vpi_vif.sva_info[sva_index].get_sva_name();
-            if((get_nof_times_assertion_failed(sva_name) != 0) ||
-                  (get_nof_times_assertion_succeeded(sva_name) == 0)) begin
-               all_succeeded = 0;
-            end
-         end
-      end
-
-      SVAUNIT_FAIL_IF_ALL_SUCCEEDED_ERR : assert(!(check_expression(all_succeeded == 1)) == 1)
-      else begin
-         `uvm_error("SVAUNIT_FAIL_IF_ALL_SUCCEEDED_ERR", $sformatf("[%s::%s] %s",
+         `uvm_error("CHECK_ALL_SVA_PASSED_ERR", $sformatf("[%s::%s] %s",
                get_test_name(), get_type_name(), a_error_msg))
       end
 
       foreach(vpi_vif.sva_info[sva_index]) begin
-         if(vpi_vif.sva_info[sva_index].is_enable(get_test_name())) begin
-            add_check(vpi_vif.sva_info[sva_index], "SVAUNIT_FAIL_IF_ALL_SUCCEEDED_ERR", $time(),
+         if(vpi_vif.sva_info[sva_index].sva_enabled(get_test_name())) begin
+            add_check(vpi_vif.sva_info[sva_index], "CHECK_ALL_SVA_PASSED", $time(),
                get_current_check_status());
          end
       end
@@ -1577,9 +1157,7 @@ class svaunit_vpi_wrapper extends uvm_object;
       get_checks_names(a_lof_used_checks, lof_used_checks_names);
       get_checks_not_used_names(a_lof_used_checks, lof_not_used_checks_names);
 
-      report = $sformatf("\n\n-------------------- %s : Checks statistics --------------------\n\n", a_test_name);
-      report = $sformatf("%s\t%0d/%0d Checks were exercised\n\n", report,  lof_used_checks_names.size(),
-         lof_used_checks_names.size() + lof_not_used_checks_names.size());
+      report = $sformatf("\n\n-------------------- %s: Checks status summary --------------------\n\n", a_test_name);
 
       foreach(lof_used_checks_names[index]) begin
          nof_times_check_was_tested = 0;
@@ -1594,21 +1172,11 @@ class svaunit_vpi_wrapper extends uvm_object;
             star = "*";
          end
 
-         extra = $sformatf("%0d/%0d times PASSED", nof_times_check_has_passed, nof_times_check_was_tested);
+         extra = $sformatf("%0d/%0d PASSED", nof_times_check_has_passed, nof_times_check_was_tested);
 
          report = $sformatf("%s\t   %s   %s %s \n", report, star, lof_used_checks_names[index], extra);
       end
 
-      if(lof_not_used_checks_names.size() > 0) begin
-         report = $sformatf("%s\n\t%0d/%0d Checks were not exercised\n\n", report, lof_not_used_checks_names.size(),
-            lof_used_checks_names.size() + lof_not_used_checks_names.size());
-
-         foreach(lof_not_used_checks_names[index]) begin
-            report = $sformatf("%s\t\t%s\n", report, lof_not_used_checks_names[index]);
-         end
-      end
-
-      report = $sformatf("%s\n\n", report);
 
       `uvm_info(a_test_name, $sformatf("%s\n", report), UVM_LOW)
    endfunction
@@ -1627,7 +1195,7 @@ class svaunit_vpi_wrapper extends uvm_object;
 
       string report = "";
 
-      report = $sformatf("\n\n-------------------- %s : SVA and checks statistics --------------------\n", a_test_name);
+      report = $sformatf("\n\n-------------------- %s: Checks for each SVA statistics --------------------\n", a_test_name);
 
       foreach(a_lof_used_checks[check_index]) begin
          report = $sformatf("%s\n\t%s", report, a_lof_used_checks[check_index].get_checks_for_sva());
@@ -1635,7 +1203,7 @@ class svaunit_vpi_wrapper extends uvm_object;
 
       report = $sformatf("%s", report);
 
-      `uvm_info(a_test_name, $sformatf("%s\n", report), UVM_LOW)
+      `uvm_info(a_test_name, $sformatf("%s\n", report), UVM_NONE)
    endfunction
 
    // Print a report for all checks tested for the SVAs
@@ -1655,18 +1223,19 @@ class svaunit_vpi_wrapper extends uvm_object;
       string report = "";
       string details = "";
 
-      report = $sformatf("\n\n-------------------- %s : Failed SVA --------------------\n", a_test_name);
-
       foreach(a_lof_used_checks[check_index]) begin
          details = a_lof_used_checks[check_index].get_sva_failed_details();
          if(details != "") begin
+            report = $sformatf("\n\n-------------------- %s: Failed SVAs --------------------\n", a_test_name);
             report = $sformatf("%s\n\t%s", report, a_lof_used_checks[check_index].get_sva_failed_details());
+         end else begin
+            report = $sformatf("\n\n-------------------- %s: All SVAs passed --------------------\n", a_test_name);
          end
       end
 
       report = $sformatf("%s", report);
-      
-      `uvm_info(a_test_name, $sformatf("%s\n", report), UVM_LOW)
+
+      `uvm_info(a_test_name, $sformatf("%s\n\n\n", report), UVM_NONE)
    endfunction
 
    // Print a report for all SVA which have failed
@@ -1694,7 +1263,7 @@ class svaunit_vpi_wrapper extends uvm_object;
     * @param a_sva_name : assertion name to be found in SVA list
     */
    virtual function void print_sva_info(ref string a_sva_name);
-      svaunit_concurrent_assertion_info assertion = get_assertion_from_name(a_sva_name);
+      svaunit_concurrent_assertion_info assertion = get_assertion_by_name(a_sva_name);
 
       vpi_vif.get_info_from_c(get_test_name());
 

@@ -7,6 +7,8 @@
 +dpi
 +acc
 
+-assert cbSuccessOnlyNonVacuous
+
 -cm assert+line+cond+fsm+tgl+branch
 
 ${PROJ_HOME}/sv/svaunit_pkg.sv

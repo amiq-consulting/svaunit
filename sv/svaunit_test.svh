@@ -48,7 +48,8 @@ class svaunit_test extends svaunit_base;
 
       sequencer = svaunit_sequencer::type_id::create("sequencer", this);
 
-      set_name_for_test();
+      if(get_test_name() == "")
+         set_name_for_test();
    endfunction
 
    /* Compute the fact that the test was started from a test suite or not
@@ -265,6 +266,11 @@ class svaunit_test extends svaunit_base;
 
    // {{{ Running tasks
 
+
+   // Task used for initialization
+   virtual task setup_test();
+   endtask
+
    // Task used to start testing - The user should create here scenarios to verify SVAs
    virtual task test();
    endtask
@@ -292,6 +298,8 @@ class svaunit_test extends svaunit_base;
                      simulate_test = process::self();
                      fork
                         begin
+                           setup_test();
+                           vpiw.enable_all_assertions();
                            test();
 
                            vpiw.pass_assertion();
@@ -361,8 +369,9 @@ class svaunit_test extends svaunit_base;
       end
    endtask
 
-   // Function used to retrieve the UNIX user name
-   //@return the user name which is stored in $USER variable
+   /* Function used to retrieve the UNIX user name
+    * @return the user name which is stored in $USER variable
+    */
    virtual function string get_user_name();
       // A string which contains the user_name as given format
       string user_name;
@@ -388,9 +397,10 @@ class svaunit_test extends svaunit_base;
       return user_name.substr(0, user_name.len() - 2);
    endfunction
 
-   // Function used to return a string with the current date with a given format
-   //@param a_date_format : the date format
-   //@return a string which contains the date with the given format
+   /* Function used to return a string with the current date with a given format
+    * @param a_date_format : the date format
+    * @return a string which contains the date with the given format
+    */
    virtual function string get_date_with_format(string a_date_format);
       // A string which contains the date as given format
       string date;
@@ -416,14 +426,17 @@ class svaunit_test extends svaunit_base;
       return date.substr(0, date.len() - 2);
    endfunction
 
-   // Virtual function used to create HTML header
-   //@return the header formed by user
+   /* Virtual function used to create HTML header
+    * @return the header formed by user
+    */
    virtual function string create_html_header();
       return $sformatf("Automatically generated on %s by %s with %s",
          get_date_with_format("%Y-%m-%d"), get_user_name(), `SVAUNIT_VERSION_STRING);
    endfunction
 
-   // Function used to set the html style
+   /* Function used to set the HTML style
+    * @return the HTML style as a string
+    */
    virtual function string create_html_style();
       return $sformatf("<!DOCTYPE html>                                                   \n\
             <html>                                                                        \n\
@@ -560,7 +573,7 @@ class svaunit_test extends svaunit_base;
                                        Failing checks: %0d<br />\
                                        Passing checks: %0d<br />\n",
                (tested_sva_names.size() + not_tested_sva_names.size()), tested_sva_names.size(),
-               total_nof_failing_checks + total_nof_passing_checks, total_nof_failing_checks, 
+               total_nof_failing_checks + total_nof_passing_checks, total_nof_failing_checks,
                total_nof_passing_checks);
          end
 
@@ -648,9 +661,7 @@ class svaunit_test extends svaunit_base;
 
    // {{{ Print functions
 
-   /* Form the status to be printed
-    * @return a string represents the status to be printed
-    */
+   // Print the status statistics
    virtual function void print_status();
       string nice_string = "";
 
@@ -671,7 +682,7 @@ class svaunit_test extends svaunit_base;
          star = "*";
       end
 
-      return $sformatf("\n\t%s   %s %s (%0d/%0d assertions PASSED)", star, get_test_name(), computed_test_status.name(),
+      return $sformatf("\n\t%s   %s %s (%0d/%0d SVAUnit checks PASSED)", star, get_test_name(), computed_test_status.name(),
          get_nof_tests() - get_nof_failures(), get_nof_tests());
    endfunction
 

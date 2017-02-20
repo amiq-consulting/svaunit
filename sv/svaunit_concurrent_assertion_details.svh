@@ -27,14 +27,11 @@
 class svaunit_concurrent_assertion_details extends uvm_object;
    `uvm_object_utils(svaunit_concurrent_assertion_details)
 
-   // Start time of the current SVA attempt
-   local time sva_start_time;
-
    // End time of the current SVA attempt
    local time sva_end_time;
 
-   // List of state - should have only 2 states: start state and end state
-   local svaunit_concurrent_assertion_state_type sva_states[$];
+   // SVA state
+   svaunit_concurrent_assertion_state_type sva_state;
 
    // Test name where this attempt was found
    local string test_name;
@@ -49,23 +46,15 @@ class svaunit_concurrent_assertion_details extends uvm_object;
    /* Create new detail for an SVA
     * @param a_test_name : test name where this attempt was found
     * @param a_sva_state : SVA state to be added
-    * @param a_sva_time_start : SVA start time to be added
     * @param a_sva_time_end : SVA end time to be added
     */
    virtual function void create_new_detail(ref string a_test_name, svaunit_concurrent_assertion_state_type a_sva_state,
-         time a_sva_time_start, time a_sva_time_end);
+         time a_sva_time_end);
 
       // Add new state inside list
-      add_sva_state(a_sva_state);
-      set_sva_start_time(a_sva_time_start);
+      sva_state = a_sva_state;
       set_sva_test_name(a_test_name);
-
-      // If state is DISABLE, ENABLE, IDLE or START, the end time should be 0 else it should be the time_end given
-      if(a_sva_state inside {SVAUNIT_DISABLE, SVAUNIT_ENABLE, SVAUNIT_IDLE, SVAUNIT_START}) begin
-         set_sva_end_time(0);
-      end else begin
-         set_sva_end_time(a_sva_time_end);
-      end
+      set_sva_end_time(a_sva_time_end);
    endfunction
 
    /* Set test name for the current attempt of SVA
@@ -73,20 +62,6 @@ class svaunit_concurrent_assertion_details extends uvm_object;
     */
    virtual function void set_sva_test_name(ref string a_test_name);
       test_name = a_test_name;
-   endfunction
-
-   /* Set start time for the current attempt of SVA
-    * @param a_sva_start_time : current start time
-    */
-   virtual function void set_sva_start_time(time a_sva_start_time);
-      sva_start_time = a_sva_start_time;
-   endfunction
-
-   /* Get the start time of the current SVA attempt
-    * @return the start time of the current SVA attempt
-    */
-   virtual function time get_sva_start_time();
-      return sva_start_time;
    endfunction
 
    /* Set end time for the current attempt of SVA
@@ -106,46 +81,24 @@ class svaunit_concurrent_assertion_details extends uvm_object;
    /* Get the first state of the current attempt of the SVA
     * @return the first state of the current attempt of the SVA
     */
-   virtual function svaunit_concurrent_assertion_state_type get_sva_first_state();
-      return sva_states[`SVAUNIT_START_STATE_INDEX];
-   endfunction
-
-   /* Add a state for the current attempt of the assertion
-    * @param a_state : SVA state to be added
-    */
-   virtual function void add_sva_state(svaunit_concurrent_assertion_state_type a_state);
-      // If the end_state is START or IDLE it should be at the first index
-      if(a_state inside {SVAUNIT_START, SVAUNIT_IDLE}) begin
-         sva_states.push_front(a_state);
-      end else begin
-         sva_states.push_back(a_state);
-      end
-   endfunction
-
-   /* Get the end state of the current attempt of the SVA
-    * @return the end state of the current attempt of the SVA
-    */
-   virtual function svaunit_concurrent_assertion_state_type get_sva_last_state();
-      return sva_states[`SVAUNIT_END_STATE_INDEX];
+   virtual function svaunit_concurrent_assertion_state_type get_sva_state();
+      return sva_state;
    endfunction
 
    /* Verify if the current SVA is not finished
     * @return 1 if SVA has not finished and 0 otherwise
     */
    virtual function bit sva_is_not_finished();
-      if(((sva_end_time == 0) && (get_sva_first_state() == SVAUNIT_START))
-            || ((get_sva_first_state() inside {SVAUNIT_FAILURE, SVAUNIT_SUCCESS}) && (sva_states.size() == 1))) begin
-         return 1;
-      end else begin
-         return 0;
-      end
+      return !sva_is_finished();
    endfunction
 
    /* Verify if the current SVA attempt is finished
     * @return 1 if SVA has finished and 0 otherwise
     */
    virtual function bit sva_is_finished();
-      return !sva_is_not_finished();
+      if(sva_state == SVAUNIT_FAILURE || sva_state == SVAUNIT_SUCCESS)
+         return 1;
+      return 0;
    endfunction
 
    /* Verify if current SVA attempt has failed - one of it's state should be FAILURE
@@ -153,12 +106,8 @@ class svaunit_concurrent_assertion_details extends uvm_object;
     */
    virtual function bit sva_failed();
       // Verify if SVA has finished and check if the last state is FAILURE
-      if(sva_is_finished()) begin
-         if(get_sva_last_state() == SVAUNIT_FAILURE) begin
-            return 1;
-         end
-      end
-
+      if(sva_state == SVAUNIT_FAILURE)
+         return 1;
       return 0;
    endfunction
 
@@ -166,51 +115,11 @@ class svaunit_concurrent_assertion_details extends uvm_object;
     * @return 1 if SVA attempt has finished with success or 0 otherwise
     */
    virtual function bit sva_succeeded();
-      // Verify if SVA has finished and check if the last state is SUCCESS
-      if(sva_is_finished()) begin
-         if(get_sva_last_state() == SVAUNIT_SUCCESS) begin
-            return 1;
-         end
-      end
-
-      return 0;
-   endfunction
-
-   /* Verify if current SVA attempt has started - the first state should be START
-    * @return 1 if SVA attempt has started or 0 otherwise
-    */
-   virtual function bit sva_started();
-      if(get_sva_first_state() == SVAUNIT_START) begin
+      if(sva_state == SVAUNIT_SUCCESS)
          return 1;
-      end
-
       return 0;
    endfunction
 
-   /* Verify if current SVA attempt has started but has not finished
-    * @return 1 if SVA attempt has started but has not finished or 0 otherwise
-    */
-   virtual function bit sva_has_started_but_has_not_finished();
-      // Verify if SVA has not finished but has finished
-      if(sva_is_not_finished()) begin
-         if(sva_started()) begin
-            return 1;
-         end
-      end
-
-      return 0;
-   endfunction
-
-   /* Verify if the first state is not START
-    * @return 1 if the first state of the current SVA attempt is not START or 0 otherwise
-    */
-   virtual function bit sva_first_state_not_start();
-      if(get_sva_first_state() != SVAUNIT_START) begin
-         return 1;
-      end
-
-      return 0;
-   endfunction
 
    /* Print the SVA details for a given test name
     * @param a_test_name : test name from where the user want's to print SVA info
@@ -222,19 +131,12 @@ class svaunit_concurrent_assertion_details extends uvm_object;
 
       // Compute the string with states, start time and end time
       // Example:
-      // states : START SUCCESS,
-      // start time: 3,
+      // state : SUCCESS
       // end time: 3
-      if(a_test_name == test_name) begin
-         // Form the state name
-         foreach(sva_states[index]) begin
-            states = $sformatf("%s %s", states, sva_states[index].name());
-         end
-
-         return $sformatf("\nstates :%s,\nstart time: %0d,\nend time: %0d\n", states, sva_start_time, sva_end_time);
-      end else begin
+      if(a_test_name == test_name)
+         return $sformatf("state: %s, end time: %0d\n", sva_state.name(), sva_end_time);
+      else
          return "";
-      end
    endfunction
 endclass
 

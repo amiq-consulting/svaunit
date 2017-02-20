@@ -13,21 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * NAME:        svaunit_version_defines.svh
+ * NAME:        amiq_svaunit_ex_basic_pkg.sv
  * PROJECT:     svaunit
- * Description: Macros used in project
+ * Description: Package with a simple example of SVAUnit tests
  *******************************************************************************/
 
-`ifndef SVAUNIT_VERSION_DEFINES_SVH
-`define SVAUNIT_VERSION_DEFINES_SVH
+`ifndef AMIQ_SVAUNIT_EX_BASIC_PKG_SV
+`define AMIQ_SVAUNIT_EX_BASIC_PKG_SV
 
-// Version numbers to be used in creating version strings for printing
-// or programmatic testing against version numbers
-`define SVAUNIT_NAME SVAUNIT
-`define SVAUNIT_MAJOR_REV 3
-`define SVAUNIT_MINOR_REV 2
+`include "basic_interface.sv"
 
-// SVAUNIT_VERSION_STRING print as "SVAUNIT - M.m"
-`define SVAUNIT_VERSION_STRING `"`SVAUNIT_NAME``-```SVAUNIT_MAJOR_REV``.```SVAUNIT_MINOR_REV`"
+package amiq_svaunit_ex_basic_pkg;
+	import svaunit_pkg::*;
+	import uvm_pkg::*;
+	`include "uvm_macros.svh"
+	
+	`include "amiq_svaunit_ex_basic_test.sv"
+
+endpackage
 
 `endif

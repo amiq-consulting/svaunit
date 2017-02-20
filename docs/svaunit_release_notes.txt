@@ -1,3 +1,70 @@
+Release 3.2 @20.02.2017
+---------------------------------------
+* Bug fixes:
+- fixed test_suite printing to display sequences names correctly in the statistics
+- fixed summary report when all checks pass to print "All SVAs passed"
+- fixed check evaluation to be in the same clock cycle with that SVA trigger, before the check evaluation being done 1 clock cycle later
+- fixed check's state variable update in case the check is exercised multiple times
+
+* API updates
+- removed half of the checks' API because of impracticality (20 checks -> 11 checks)
+- changed the name of checks and the corresponding methods
+- removed following API due to an inconsistency between simulators regarding SVA evaluation: pass_if_sva_started_but_not_finished, fail_if_sva_started_but_not_finished, pass_if_sva_not_started, fail_if_sva_not_started
+
++--------------------------------------+------------------------+
+| Old name                             | New name               |
++--------------------------------------+------------------------+
+| pass_if_sva_enabled                  | check_sva_enabled      |
++--------------------------------------+------------------------+
+| fail_if_sva_enabled                  | check_sva_disabled     |
++--------------------------------------+------------------------+
+| pass_if_sva_does_not_exist           | removed                |
++--------------------------------------+------------------------+
+| fail_if_sva_does_not_exist           | check_sva_exists       |
++--------------------------------------+------------------------+
+| pass_if_sva_succeeded                | check_sva_passed       |
++--------------------------------------+------------------------+
+| fail_if_sva_succeeded                | removed                |
++--------------------------------------+------------------------+
+| pass_if_sva_not_succeeded            | check_sva_failed       |
++--------------------------------------+------------------------+
+| fail_if_sva_not_succeeded            | removed                |
++--------------------------------------+------------------------+
+| pass_if_sva_finished                 | check_sva_finished     |
++--------------------------------------+------------------------+
+| fail_if_sva_finished                 | removed                |
++--------------------------------------+------------------------+
+| pass_if_sva_not_finished             | check_sva_not_finished |
++--------------------------------------+------------------------+
+| fail_if_sva_not_finished             | removed                |
++--------------------------------------+------------------------+
+| pass_if_all_sva_succeeded            | check_all_sva_passed   |
++--------------------------------------+------------------------+
+| fail_if_all_sva_succeeded            | removed                |
++--------------------------------------+------------------------+
+| pass_if                              | check_that             |
++--------------------------------------+------------------------+
+| fail_if                              | removed                |
++--------------------------------------+------------------------+
+| pass_if_sva_started_but_not_finished | removed                |
++--------------------------------------+------------------------+
+| fail_if_sva_started_but_not_finished | removed                |
++--------------------------------------+------------------------+
+| pass_if_sva_not_started              | removed                |
++--------------------------------------+------------------------+
+| fail_if_sva_not_started              | removed                |
++--------------------------------------+------------------------+
+
+* Misc
+- Beautified check names by removing "_ERR" suffix, still their error message contains this suffix
+- Added proper default messages for checks in case the user doesn't do this (used to be "Default message")
+- Created 2 new tests: basic, advanced (both used in the user guide) 
+- Separated the output messages through uvm_verbosity (see user guide for details)
+- Implemented setup_test() task
+- Corrected message typos 
+- Added +nowarnTSCALE to Questa invocation due to #1 used in svaunit_vpi_interface.sv, which has no timescale assigned
+- Added +UVM_NO_RELNOTES to simulator invocation to remove unnecessary text
+
 Release 3.1 @16.12.2015
 ---------------------------------------
 * Updated assertion registering logic due to inconsistency across different simulators;

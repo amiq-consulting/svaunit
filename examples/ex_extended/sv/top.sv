@@ -13,21 +13,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * NAME:        svaunit_version_defines.svh
+ * NAME:        top.sv
  * PROJECT:     svaunit
- * Description: Macros used in project
+ * Description: Top for an advanced example with an SVA
  *******************************************************************************/
 
-`ifndef SVAUNIT_VERSION_DEFINES_SVH
-`define SVAUNIT_VERSION_DEFINES_SVH
+`ifndef TOP_SV
+`define TOP_SV
 
-// Version numbers to be used in creating version strings for printing
-// or programmatic testing against version numbers
-`define SVAUNIT_NAME SVAUNIT
-`define SVAUNIT_MAJOR_REV 3
-`define SVAUNIT_MINOR_REV 2
+`include "amiq_svaunit_ex_extended_pkg.sv"
+`timescale 1ns/1ps
 
-// SVAUNIT_VERSION_STRING print as "SVAUNIT - M.m"
-`define SVAUNIT_VERSION_STRING `"`SVAUNIT_NAME``-```SVAUNIT_MAJOR_REV``.```SVAUNIT_MINOR_REV`"
+
+module top;
+	`SVAUNIT_UTILS
+	import amiq_svaunit_ex_extended_pkg::*;
+
+	reg clock;
+
+	// my_interface instance
+	my_interface my_if(.clk(clock));
+
+	initial begin
+		// Set clock initial value
+		clock = 1'b0;
+		
+		// Register references to the virtual interfaces to config_db
+		uvm_config_db#(virtual my_interface)::set(uvm_root::get(), "*", "MY_IF", my_if);
+		uvm_config_db#(virtual nested_interface)::set(uvm_root::get(), "*", "MY_NESTED_IF", my_if.nested_if);
+
+		// Start test specified with UVM_TESTNAME
+		run_test();
+	end
+
+	// Clock generation
+	always begin
+		#5ns clock = ~clock;
+	end
+endmodule
 
 `endif

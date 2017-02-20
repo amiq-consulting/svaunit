@@ -47,6 +47,7 @@ class svaunit_sequencer extends uvm_virtual_sequencer;
          `uvm_fatal("SVAUNIT_NO_VPIW_SEQUENCER_ERR",
             "SVAUnit VPI wrapper for the %s SVAUnit sequencer is not set! Please enable SVAUnit package!")
       end
+      
    endfunction
 endclass
 
@@ -95,6 +96,7 @@ class svaunit_base_sequence extends uvm_sequence;
    virtual function bit get_stop();
       return stop_test;
    endfunction
+   
 
    /* Get a list with all immediate assertions tested into tests
     * @param a_checks : a list with all immediate assertions tested

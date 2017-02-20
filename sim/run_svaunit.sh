@@ -17,8 +17,7 @@
  # NAME:        run_svaunit.sh
  # PROJECT:     svaunit
  # Description: Script example to compile and run simulation with different simulators
- # Usage:  run_svaunit.sh [-reg]                                                                    --> specify if the current invocation is for running a test in regression"
- #                        [-t[est] <name>]                                                          --> specify a particular test to run (default: ${default_test})"
+ # Usage:  run_svaunit.sh [-t[est] <name>]                                                          --> specify a particular test to run (default: ${default_test})"
  #                        [-s[eed] <value>]                                                         --> specify a particular seed for the simulation (default: ${default_seed})"
  #                        [-i]                                                                      --> run in interactive mode"
  #                        [-tool          { ius | questa | vcs} ]                                   --> specify what simulator to use (default: ${default_tool})"
@@ -31,7 +30,7 @@
  #                        [-f[ile] <name> ]                                                         --> specify the file with an example  (default: ${FILE})"
  #
  #         run_svaunit.sh  -h[elp]                                                                  --> print this message"
- # Example of using : ./run_svaunit.sh -tool ius -uvm uvm1.2 -f examples/ex_apb/apb_files.f -top apb_top -test x_z_ts -i -c yes  
+ # Example of using : ./run_svaunit.sh -tool ius -uvm uvm1.2 -f examples/ex_basic/files.f -top top -test amiq_svaunit_ex_basic_test -i -c yes  
  # Example of using : ./run_svaunit.sh -reg
  #########################################################################################
 
@@ -82,11 +81,10 @@ export TOP_FILE_NAME=${TOP_MODULE_NAME}.sv
 ##########################################################################################
 
 help() {
-    echo "Usage:  run_svaunit.sh [-reg]                                                                    --> specify if the current invocation is for running a test in regression"
-    echo "                       [-t[est] <name>]                                                          --> specify a particular test to run (default: ${default_test})"
+    echo "Usage:  run_svaunit.sh [-t[est] <name>]                                                          --> specify a particular test to run (default: ${default_test})"
     echo "                       [-s[eed] <value>]                                                         --> specify a particular seed for the simulation (default: ${default_seed})"
     echo "                       [-i]                                                                      --> run in interactive mode"
-    echo "                       [-sim[ulator]   { ius | questa | vcs} ]                                   --> specify what simulator to use (default: ${default_tool})"
+    echo "                       [-tool   { ius | questa | vcs} ]                                          --> specify what simulator to use (default: ${default_tool})"
     echo "                       [-reg]                                                                    --> starts a regression"
     echo "                       [-in_reg]                                                                 --> specify if the current invocation is for running a test in regression"
     echo "                       [-uvm           { uvm1.1 | uvm1.2} ]                                      --> specify the UVM version(default: ${default_compile_option})"
@@ -96,6 +94,7 @@ help() {
     echo "                       [-f[ile] <name> ]                                                         --> specify the file with an example  (default: ${default_file_name})"
     echo ""
     echo "        run_svaunit.sh  -h[elp]                                                                  --> print this message"
+    echo "Example: ./run_svaunit.sh -tool ius -uvm uvm1.2 -f examples/ex_basic/files.f -top top -test amiq_svaunit_ex_basic_test -i -c yes"
 }
 
 compile_with_ius() {
@@ -113,10 +112,10 @@ compile_with_ius() {
 
 compile_with_questa() {
     if [ "$uvm_version" = "uvm1.1" ]; then
-        COMPILE_EXTRA_OPTIONS=" ${COMPILE_EXTRA_OPTIONS} +define+UVM_DEPRECATED_REPORTING "
+        COMPILE_EXTRA_OPTIONS=" ${COMPILE_EXTRA_OPTIONS} +define+UVM_DEPRECATED_REPORTING"
     else
         export UVM_HOME=${UVM_HOME12}
-        COMPILE_EXTRA_OPTIONS=" ${COMPILE_EXTRA_OPTIONS} +incdir+${UVM_HOME}/src ${UVM_HOME}/src/uvm_pkg.sv "
+        COMPILE_EXTRA_OPTIONS=" ${COMPILE_EXTRA_OPTIONS} +nowarnTSCALE+incdir+${UVM_HOME}/src ${UVM_HOME}/src/uvm_pkg.sv "
     fi
     
     echo "Compilling with EXTRA_OPTIONS: ${EXTRA_OPTIONS} "
@@ -161,7 +160,7 @@ run_with_ius_test() {
         touch ncsim_cmds.tcl
 
             echo "database -open waves -into waves.shm -default"                                              >> ncsim_cmds.tcl
-            echo "probe -create ${top_name}  -depth all -tasks -functions -uvm -packed 4k -unpacked 16k -all" >> ncsim_cmds.tcl
+            echo "probe -create ${top_name}  -depth all -tasks -functions -uvm -packed 4k -unpacked 16k -all -dynamic" >> ncsim_cmds.tcl
             echo "simvision input  ${PROJ_HOME}/sim/irun_variables.tcl"                                       >> ncsim_cmds.tcl
 
         EXTRA_OPTIONS=" ${EXTRA_OPTIONS} -gui -input ncsim_cmds.tcl -input ${PROJ_HOME}/sim/irun_variables.tcl"
@@ -187,7 +186,7 @@ run_with_ius_test() {
 
     echo "Running with EXTRA_OPTIONS: ${EXTRA_OPTIONS} "
 
-    irun -f ${PROJ_HOME}/sim/options_ius.f -svseed ${seed} +UVM_TESTNAME=${test} ${EXTRA_OPTIONS} +UVM_VERBOSITY=${uvm_verbosity} 
+    irun -f ${PROJ_HOME}/sim/options_ius.f -svseed ${seed} +UVM_TESTNAME=${test}  ${EXTRA_OPTIONS} +UVM_NO_RELNOTES +UVM_VERBOSITY=${uvm_verbosity} 
 }
 
 # Compile and run with QUESTA
@@ -227,7 +226,7 @@ run_with_questa_test() {
     
     echo "Running with EXTRA_OPTIONS: ${EXTRA_OPTIONS}"
     
-    vsim -${ARCH_BITS} -novopt ${top_name} -sv_seed ${seed} +UVM_TESTNAME=${test} +UVM_VERBOSITY=${uvm_verbosity} ${EXTRA_OPTIONS}
+    vsim -${ARCH_BITS} -novopt ${top_name} -sv_seed ${seed} +UVM_TESTNAME=${test} +UVM_NO_RELNOTES +UVM_VERBOSITY=${uvm_verbosity} +nowarnTSCALE ${EXTRA_OPTIONS} 
 }
 
 # Compile and run with VCS
@@ -253,7 +252,7 @@ run_with_vcs_test() {
     echo "Running with EXTRA_OPTIONS: ${EXTRA_OPTIONS}"
     
     rm -rf csrc simv simv.daidir ucli.key vc_hdrs.h
-    vcs -ntb_opts uvm  -f ${PROJ_HOME}/sim/options_vcs.f +ntb_random_seed=${seed} +UVM_TESTNAME=${test} +UVM_VERBOSITY=${uvm_verbosity} ${EXTRA_OPTIONS}
+    vcs -ntb_opts uvm  -f ${PROJ_HOME}/sim/options_vcs.f +ntb_random_seed=${seed} +UVM_TESTNAME=${test} +UVM_NO_RELNOTES +UVM_VERBOSITY=${uvm_verbosity} ${EXTRA_OPTIONS}
 }
 
 # Start regression
@@ -314,8 +313,13 @@ while [ $# -gt 0 ]; do
 done
 
 export ARCH_BITS=${ARCH_BITS}
-export file_name=${PROJ_HOME}/${file_name}
 export top_name=${top_name}
+if [ -f "$file_name" ];
+then
+   export file_name=${file_name}
+else
+   export file_name=${PROJ_HOME}/${file_name}
+fi
 
 ##########################################################################################
 #  Verify that the simulator is one of IUS, QUESTA or VCS

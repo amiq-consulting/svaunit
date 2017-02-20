@@ -1,3 +1,4 @@
+
 /******************************************************************************
  * (C) Copyright 2015 AMIQ Consulting
  *
@@ -44,7 +45,7 @@ class svaunit_concurrent_assertion_info extends uvm_object;
    local svaunit_sva_tested_type tested;
 
    // List of details for the SVA
-   local svaunit_concurrent_assertion_details sva_details[];
+   local svaunit_concurrent_assertion_details sva_details[$];
 
    // Counter used to store the number of failures for an SVA cover
    local int nof_cover_failures;
@@ -85,64 +86,28 @@ class svaunit_concurrent_assertion_info extends uvm_object;
 
       // Initial the enable bit is 1
       enable = 1;
-      add_new_detail_sva(test_name, idle_state, current_time, current_time);
+      add_new_detail_sva(test_name, idle_state, current_time);
    endfunction
 
    /* Add new SVA details
     * @param a_test_name : test name where this attempt was found
     * @param a_sva_state : SVA state to be added
-    * @param a_sva_start_time : SVA start time to be added
     * @param a_sva_end_time : SVA end time to be added
     */
-   virtual function void add_new_detail_sva(ref string a_test_name,
-         svaunit_concurrent_assertion_state_type a_sva_state, time a_sva_start_time, time a_sva_end_time);
+   virtual function void add_new_detail_sva(string a_test_name,
+         svaunit_concurrent_assertion_state_type a_sva_state, time a_sva_end_time);
 
+      svaunit_concurrent_assertion_details details;
+
+      details = svaunit_concurrent_assertion_details::type_id::create(
+         $sformatf("%s_detail_%s", sva_name, sva_details.size() - 1));
       // Increase the SVA details list size
-      sva_details = new[sva_details.size() + 1](sva_details);
 
       // Create a new detail using factory mechanism
-      sva_details[sva_details.size() - 1] = svaunit_concurrent_assertion_details::type_id::create(
-         $sformatf("%s_detail_%s", sva_name, sva_details.size() - 1));
+      sva_details.push_back(details);
 
       // Create new detail using given arguments
-      sva_details[sva_details.size() - 1].create_new_detail(a_test_name, a_sva_state, a_sva_start_time,
-         a_sva_end_time);
-   endfunction
-
-   /* Update detail for current SVA attempt if there it was an attempt at given start time,
-    * add end time and current state else add new detail to SVA info
-    * @param a_test_name : test name where this attempt was found
-    * @param a_sva_start_time : SVA start time
-    * @param a_sva_state : SVA state
-    * @param a_sva_end_time : SVA end time
-    */
-   virtual function void update_details(string a_test_name, time a_sva_start_time, time a_sva_end_time,
-         svaunit_concurrent_assertion_state_type a_sva_state);
-
-      // Variable used to store the indexes for the details found which corresponds to a given condition
-      int details_index[$];
-
-      // For each SVA details verify if it was an SVA attempt at given time
-      // if the current state is ENABLE or DISABLE a new detail should be created.
-      // If current state is START and
-      // the first state of details is START, ENABLE, DISABLE or IDLE add new detail else update the detail
-      details_index = sva_details.find_index()
-      with (((item.get_sva_start_time() == a_sva_start_time) &&
-            !(a_sva_state inside {SVAUNIT_ENABLE, SVAUNIT_DISABLE})) &&
-         (!((a_sva_state == SVAUNIT_START) &&
-               (item.get_sva_first_state() inside {SVAUNIT_START, SVAUNIT_ENABLE, SVAUNIT_DISABLE, SVAUNIT_IDLE}))));
-
-      if(details_index.size() > 0) begin
-         foreach(details_index[index]) begin
-            sva_details[details_index[index]].add_sva_state(a_sva_state);
-            sva_details[details_index[index]].set_sva_end_time(a_sva_end_time);
-         end
-      end
-
-      // Create new detail if there was not a proper detail
-      if((a_sva_state inside {SVAUNIT_ENABLE, SVAUNIT_DISABLE}) || (details_index.size() == 1'b0)) begin
-         add_new_detail_sva(a_test_name, a_sva_state, a_sva_start_time, a_sva_end_time);
-      end
+      sva_details[sva_details.size() - 1].create_new_detail(a_test_name, a_sva_state, a_sva_end_time);
    endfunction
 
    /* Get the index of the last SVA detail which has finished
@@ -153,122 +118,68 @@ class svaunit_concurrent_assertion_info extends uvm_object;
       int unsigned last_index = 0;
 
       // Verify for all details if they finished and store the last index of finished detail
-      foreach(sva_details[index]) begin
-         if(!(sva_details[index].sva_is_not_finished())) begin
+      foreach(sva_details[index])
+         if(sva_details[index].sva_state == SVAUNIT_FAILURE || sva_details[index].sva_state == SVAUNIT_SUCCESS)
             last_index = index;
-         end
-      end
 
       // Return the last index
       return last_index;
    endfunction
 
-   /* Get the first state of the last SVA detail
-    * @return the first state of the last SVA detail
+   /* Get the state of the last SVA detail
+    * @return the state of the last SVA detail
     */
-   virtual function svaunit_concurrent_assertion_state_type get_sva_first_state();
-      return sva_details[sva_details.size() - 1].get_sva_first_state();
-   endfunction
-
-   /* Get the last state of the last SVA detail which has finished
-    * @return the last state of the last SVA detail which has finished
-    */
-   virtual function svaunit_concurrent_assertion_state_type get_sva_last_state();
-      // Variable used to store the last index of the SVA which has finished
-      int unsigned index = get_last_index_sva_finished();
-
-      if(sva_details.size() > 0) begin
-         return sva_details[index].get_sva_last_state();
-      end else begin
-         return svaunit_concurrent_assertion_state_type'(0);
-      end
+   virtual function svaunit_concurrent_assertion_state_type get_sva_state();
+      return sva_details[sva_details.size() - 1].get_sva_state();
    endfunction
 
    /* Verify if last SVA has finished
     * @return 1 if last SVA has finished, 0 otherwise
     */
-   virtual function bit sva_is_finished();
-      if(sva_details.size() > 0) begin
-         return sva_details[sva_details.size() - 1].sva_is_finished();
-      end else begin
+   virtual function bit sva_finished();
+      if(sva_details.size() > 0)
+         return (sva_details[$].sva_state == SVAUNIT_FAILURE || sva_details[$].sva_state == SVAUNIT_SUCCESS);
+      else
          return 0;
-      end
    endfunction
 
    /* Verify if last SVA has not finished
     * @return 1 if last SVA has not finished, 0 otherwise
     */
-   virtual function bit sva_is_not_finished();
-      if(sva_details.size() > 0) begin
-         return sva_details[sva_details.size() - 1].sva_is_not_finished();
-      end else begin
-         return 0;
-      end
-   endfunction
-
-   /* Verify if the last SVA detail started but has not finished
-    * @return 1 if the last SVA detail started but has not finished and 0 otherwise
-    */
-   virtual function bit sva_has_started_but_has_not_finished();
-      if(sva_details.size() > 0) begin
-         return sva_details[sva_details.size() - 1].sva_has_started_but_has_not_finished();
-      end else begin
-         return 0;
-      end
+   virtual function bit sva_not_finished();
+      return !sva_finished();
    endfunction
 
    /* Verify if the last SVA detail succeeded
     * @return 1 if the last SVA detail succeeded and 0 otherwise
     */
-   virtual function bit sva_succeeded();
-      // Variable used to store the last index which has finished
-      int unsigned index = get_last_index_sva_finished();
-
-      if(sva_details.size() > 0) begin
-         return sva_details[index].sva_succeeded();
-      end else begin
+   virtual function bit sva_passed();
+      if(sva_details.size() > 0)
+         return (sva_details[$].sva_state == SVAUNIT_SUCCESS);
+      else
          return 0;
-      end
    endfunction
 
    /* Verify if the last SVA detail failed
     * @return 1 if the last SVA detail failed and 0 otherwise
     */
    virtual function bit sva_failed();
-      // Variable used to store the last index which has finished
-      int unsigned index = get_last_index_sva_finished();
-
-      if(sva_details.size() > 0) begin
-         return sva_details[index].sva_failed();
-      end else begin
+      if(sva_details.size() > 0)
+         return (sva_details[$].sva_state == SVAUNIT_FAILURE);
+      else
          return 0;
-      end
    endfunction
 
-   /* Verify if the first state of the last SVA detail is not START
-    * @return 1 if the first state of the last SVA detail is not START and 0 otherwise
+   /* Print the array of states exercised to the SVA
+    * @param a_test_name : test name where this attempt was found
     */
-   virtual function bit sva_first_state_not_start();
-      return sva_details[sva_details.size() - 1].sva_first_state_not_start();
+   virtual function void print_sva_array(string a_test_name);
+      string text = "";
+      for(int i = 0; i < sva_details.size(); i++)
+         text = {text, $sformatf("%s ", sva_details[i].get_sva_details(a_test_name))};
+      `uvm_info(get_name(), text, UVM_NONE);
    endfunction
 
-   /* Compute the number of SVA details which not finished
-    * @return the number of SVA details which are not finished
-    */
-   virtual function int unsigned get_nof_incomplete_sva_details();
-      // Variable used to store the number of incomplete details
-      int unsigned nof_sva_details_not_done = 0;
-
-      // Verify if details are not finished and increase the counter
-      foreach(sva_details[index]) begin
-         if(sva_details[index].sva_is_not_finished()) begin
-            nof_sva_details_not_done = nof_sva_details_not_done + 1;
-         end
-      end
-
-      // Return the number of incomplete details
-      return nof_sva_details_not_done;
-   endfunction
 
    /* Compute the number of SVA details which contains FAILURE in it's state list
     * @return the number of SVA details which failed
@@ -277,12 +188,9 @@ class svaunit_concurrent_assertion_info extends uvm_object;
       // Variable used to store the number of details which contains FAILURE in it's state list
       int unsigned nof_times_sva_failed = 0;
 
-      // Verify if details failed and increase the counter
-      foreach(sva_details[index]) begin
-         if(sva_details[index].sva_failed()) begin
+      foreach(sva_details[index])
+         if(sva_details[index].sva_state == SVAUNIT_FAILURE)
             nof_times_sva_failed = nof_times_sva_failed + 1;
-         end
-      end
 
       // Return the number of details which contains FAILURE in it's state list
       return nof_times_sva_failed;
@@ -295,33 +203,12 @@ class svaunit_concurrent_assertion_info extends uvm_object;
       // Variable used to store the number of details which contains SUCCESS in it's state list
       int unsigned nof_times_sva_succeeded = 0;
 
-      // Verify if details succeeded and increase the counter
-      foreach(sva_details[index]) begin
-         if(sva_details[index].sva_succeeded()) begin
+      foreach(sva_details[index])
+         if(sva_details[index].sva_state == SVAUNIT_SUCCESS)
             nof_times_sva_succeeded = nof_times_sva_succeeded + 1;
-         end
-      end
 
       // Return the number of details which contains SUCCESS in it's state list
       return nof_times_sva_succeeded;
-   endfunction
-
-   /* Compute the number of SVA details which STARTED
-    * @return the number of details which started
-    */
-   virtual function int unsigned get_nof_times_sva_started();
-      // Variable used to store the number of details which STARTED
-      int unsigned nof_times_sva_started = 0;
-
-      // Verify if details started and increase the counter
-      foreach(sva_details[index]) begin
-         if(sva_details[index].sva_started()) begin
-            nof_times_sva_started = nof_times_sva_started + 1;
-         end
-      end
-
-      // Return the number of details which STARTED
-      return nof_times_sva_started;
    endfunction
 
    /* Get SVA name
@@ -337,7 +224,7 @@ class svaunit_concurrent_assertion_info extends uvm_object;
    virtual function string get_sva_path();
       return sva_path;
    endfunction
-   
+
    /* Get SVA type
     * @return SVA type
     */
@@ -361,7 +248,9 @@ class svaunit_concurrent_assertion_info extends uvm_object;
     * @param a_test_name : the test name where the assertion have been tested
     * @return SVA status - if it is enabled or not
     */
-   virtual function bit is_enable(string a_test_name);
+   virtual function bit sva_enabled(string a_test_name);
+      print_sva_array(a_test_name);
+
       if(get_sva_type() != "vpiCover") begin
          foreach(lof_tests_sva_enabled[test_index]) begin
             if(lof_tests_sva_enabled[test_index] == a_test_name) begin
@@ -373,6 +262,10 @@ class svaunit_concurrent_assertion_info extends uvm_object;
       end
 
       return 0;
+   endfunction
+
+   virtual function bit sva_disabled(string a_test_name);
+      return !sva_enabled(a_test_name);
    endfunction
 
    /* Verify if the SVA was enabled during test
@@ -466,7 +359,6 @@ class svaunit_concurrent_assertion_info extends uvm_object;
       // UVM_INFO @ 25000 ns [svaunit_concurrent_assertion_info]: SVA type = vpiAssert
       // UVM_INFO @ 25000 ns [svaunit_concurrent_assertion_info]: SVA details[0] =
       // states : IDLE,
-      // start time: 0,
       // end time: 0
 
       `uvm_info(get_name(), $sformatf("SVA name = %s", get_sva_name()), UVM_LOW)

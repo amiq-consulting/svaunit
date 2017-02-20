@@ -64,142 +64,65 @@
 
 
 // --------------------------- SVAUnit checks ---------------------------------------
-/* Verify if a given SVA is enabled - the test will fail if SVA is enable
+/* Verify if a given SVA is enabled - the test will fail if SVA is disabled
  * @param a_sva_name : assertion name or path to be found in SVA list
  * @param a_error_msg : user error message to be printed if the check fails
  */
-`define fail_if_sva_enabled(a_sva_name, a_error_msg) \
-   vpiw.fail_if_sva_enabled(a_sva_name, a_error_msg, `uvm_line, `uvm_file);
+`define check_sva_enabled(a_sva_name, a_error_msg) \
+   vpiw.check_sva_enabled(a_sva_name, a_error_msg, `uvm_line, `uvm_file);
 
-/* Verify if a given SVA is enabled - the test will pass if SVA is enable
+/* Verify if a given SVA is disabled - the test will fail if SVA is enabled
  * @param a_sva_name : assertion name or path to be found in SVA list
  * @param a_error_msg : user error message to be printed if the check fails
  */
-`define pass_if_sva_enabled(a_sva_name, a_error_msg) \
-   vpiw.pass_if_sva_enabled(a_sva_name, a_error_msg, `uvm_line, `uvm_file);
+`define check_sva_disabled(a_sva_name, a_error_msg) \
+   vpiw.check_sva_disabled(a_sva_name, a_error_msg, `uvm_line, `uvm_file);
 
 /* Verify if a given SVA exists - the test will fail if SVA does not exists
  * @param a_sva_name : assertion name or path to be found in SVA list
  * @param a_error_msg : user error message to be printed if the check fails
  */
-`define fail_if_sva_does_not_exists(a_sva_name, a_error_msg) \
-   vpiw.fail_if_sva_does_not_exists(a_sva_name, a_error_msg, `uvm_line, `uvm_file);
+`define check_sva_exists(a_sva_name, a_error_msg) \
+   vpiw.check_sva_exists(a_sva_name, a_error_msg, `uvm_line, `uvm_file);
 
-/* Verify if a given SVA exists - the test will pass if SVA does not exists
+
+/* Verify if a given SVA passed - the test will fail if SVA failed
  * @param a_sva_name : assertion name or path to be found in SVA list
  * @param a_error_msg : user error message to be printed if the check fails
  */
-`define pass_if_sva_does_not_exists(a_sva_name, a_error_msg) \
-   vpiw.pass_if_sva_does_not_exists(a_sva_name, a_error_msg, `uvm_line, `uvm_file);
+`define check_sva_passed(a_sva_name, a_error_msg) \
+   vpiw.check_sva_passed(a_sva_name, a_error_msg, `uvm_line, `uvm_file);
 
-/* Verify if a given SVA succeeded - the test will fail if SVA succeeded
- * @param a_sva_name : assertion name or path to be found in SVA list
- * @param a_error_msg : user error message to be printed if the check fails
- */
-`define fail_if_sva_succeeded(a_sva_name, a_error_msg) \
-   vpiw.fail_if_sva_succeeded(a_sva_name, a_error_msg, `uvm_line, `uvm_file);
-
-/* Verify if a given SVA succeeded - the test will pass if SVA succeeded
+/* Verify if a given SVA failed - the test will fail if SVA passed
  * @param a_sva_name : assertion name to be found in SVA list
  * @param a_error_msg : user error message to be printed if the check fails
  */
-`define pass_if_sva_succeeded(a_sva_name, a_error_msg) \
-   vpiw.pass_if_sva_succeeded(a_sva_name, a_error_msg, `uvm_line, `uvm_file);
+`define check_sva_failed(a_sva_name, a_error_msg) \
+   vpiw.check_sva_failed(a_sva_name, a_error_msg, `uvm_line, `uvm_file);
 
-/* Verify if a given SVA didn't succeeded (the assertion should have failed),
- * the test will fail if the assertion didn't succeeded
+
+/* Verify if a given SVA finished - the test will fail if the assertion didn't finished
  * @param a_sva_name : assertion name or path to be found in SVA list
  * @param a_error_msg : user error message to be printed if the check fails
  */
-`define fail_if_sva_not_succeeded(a_sva_name, a_error_msg) \
-   vpiw.fail_if_sva_not_succeeded(a_sva_name, a_error_msg, `uvm_line, `uvm_file);
+`define check_sva_finished(a_sva_name, a_error_msg) \
+   vpiw.check_sva_finished(a_sva_name, a_error_msg, `uvm_line, `uvm_file);
 
-/* Verify if a given SVA didn't succeeded (the assertion should have failed),
- * the test will pass if the assertion didn't succeeded
+/* Verify if a given SVA did not finished - the test will fail if the assertion finished
  * @param a_sva_name : assertion name or path to be found in SVA list
  * @param a_error_msg : user error message to be printed if the check fails
  */
-`define pass_if_sva_not_succeeded(a_sva_name, a_error_msg) \
-   vpiw.pass_if_sva_not_succeeded(a_sva_name, a_error_msg, `uvm_line, `uvm_file);
+`define check_sva_not_finished(a_sva_name, a_error_msg) \
+   vpiw.check_sva_not_finished(a_sva_name, a_error_msg, `uvm_line, `uvm_file);
 
-/* Verify if a given SVA didn't finished but the first state is START,
- * the test will fail if the assertion didn't finished but the first state is START
- * @param a_sva_name : assertion name or path to be found in SVA list
- * @param a_error_msg : user error message to be printed if the check fails
- */
-`define fail_if_sva_started_but_not_finished(a_sva_name, a_error_msg) \
-   vpiw.fail_if_sva_started_but_not_finished(a_sva_name, a_error_msg, `uvm_line, `uvm_file);
-
-/* Verify if a given SVA didn't finished but the first state is START,
- * the test will pass if the assertion didn't finished but the first state is START
- * @param a_sva_name : assertion name or path to be found in SVA list
- * @param a_error_msg : user error message to be printed if the check fails
- */
-`define pass_if_sva_started_but_not_finished(a_sva_name, a_error_msg) \
-   vpiw.pass_if_sva_started_but_not_finished(a_sva_name, a_error_msg, `uvm_line, `uvm_file);
-
-/* Verify if a given SVA didn't started - the test will fail if the assertion didn't started
- * @param a_sva_name : assertion name or path to be found in SVA list
- * @param a_error_msg : user error message to be printed if the check fails
- */
-`define fail_if_sva_not_started(a_sva_name, a_error_msg) \
-   vpiw.fail_if_sva_not_started(a_sva_name, a_error_msg, `uvm_line, `uvm_file);
-
-/* Verify if a given SVA didn't started - the test will pass if the assertion didn't started
- * @param a_sva_name : assertion name or path to be found in SVA list
- * @param a_error_msg : user error message to be printed if the check fails
- */
-`define pass_if_sva_not_started(a_sva_name, a_error_msg) \
-   vpiw.pass_if_sva_not_started(a_sva_name, a_error_msg, `uvm_line, `uvm_file);
-
-/* Verify if a given SVA finished - the test will fail if the assertion finished
- * @param a_sva_name : assertion name or path to be found in SVA list
- * @param a_error_msg : user error message to be printed if the check fails
- */
-`define fail_if_sva_finished(a_sva_name, a_error_msg) \
-   vpiw.fail_if_sva_finished(a_sva_name, a_error_msg, `uvm_line, `uvm_file);
-
-/* Verify if a given SVA finished - the test will pass if the assertion finished
- * @param a_sva_name : assertion name or path to be found in SVA list
- * @param a_error_msg : user error message to be printed if the check fails
- */
-`define pass_if_sva_finished(a_sva_name, a_error_msg) \
-   vpiw.pass_if_sva_finished(a_sva_name, a_error_msg, `uvm_line, `uvm_file);
-
-/* Verify if a given SVA didn't finished - the test will fail if the assertion didn't finished
- * @param a_sva_name : assertion name or path to be found in SVA list
- * @param a_error_msg : user error message to be printed if the check fails
- */
-`define fail_if_sva_not_finished(a_sva_name, a_error_msg) \
-   vpiw.fail_if_sva_not_finished(a_sva_name, a_error_msg, `uvm_line, `uvm_file);
-
-/* Verify if a given SVA didn't finished - the test will pass if the assertion didn't finished
- * @param a_sva_name : assertion name or path to be found in SVA list
- * @param a_error_msg : user error message to be printed if the check fails
- */
-`define pass_if_sva_not_finished(a_sva_name, a_error_msg) \
-   vpiw.pass_if_sva_not_finished(a_sva_name, a_error_msg, `uvm_line, `uvm_file);
 
 /* Verify if the expression is FALSE - the test will fail if the expression is FALSE
  * @param a_expression : the expression to be checked
  * @param a_error_msg : user error message to be printed if the check fails
  */
-`define fail_if(a_expression, a_error_msg) \
-   vpiw.fail_if(a_expression, a_error_msg, `uvm_line, `uvm_file);
+`define check_that(a_expression, a_error_msg) \
+   vpiw.check_that(a_expression, a_error_msg, `uvm_line, `uvm_file);
 
-/* Verify if the expression is FALSE - the test will pass if the expression is FALSE
- * @param a_expression : the expression to be checked
- * @param a_error_msg : user error message to be printed if the check fails
- */
-`define pass_if(a_expression, a_error_msg) \
-   vpiw.pass_if(a_expression, a_error_msg, `uvm_line, `uvm_file);
-
-// --------------------------- MACROS INDEX ---------------------------------------
-// Define the start index for state list
-`define SVAUNIT_START_STATE_INDEX 0
-
-// Define the end index for state list
-`define SVAUNIT_END_STATE_INDEX 1
 
 // ---------------------------- Assertion callback types ---------------------------------
 // Define the assertion callback for START. The index value is specified by VPI.
