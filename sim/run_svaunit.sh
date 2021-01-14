@@ -115,7 +115,7 @@ compile_with_questa() {
         COMPILE_EXTRA_OPTIONS=" ${COMPILE_EXTRA_OPTIONS} +define+UVM_DEPRECATED_REPORTING"
     else
         export UVM_HOME=${UVM_HOME12}
-        COMPILE_EXTRA_OPTIONS=" ${COMPILE_EXTRA_OPTIONS} +nowarnTSCALE+incdir+${UVM_HOME}/src ${UVM_HOME}/src/uvm_pkg.sv "
+        COMPILE_EXTRA_OPTIONS=" ${COMPILE_EXTRA_OPTIONS} +nowarnTSCALE +incdir+${UVM_HOME}/src ${UVM_HOME}/src/uvm_pkg.sv "
     fi
     
     echo "Compilling with EXTRA_OPTIONS: ${EXTRA_OPTIONS} "
@@ -350,6 +350,10 @@ case $uvm_version in
     ;;
     uvm1.2)
         echo "Selected UVM1.2"
+        if [ -z $UVM_HOME12 ]; then
+            echo "UVM_HOME12 env var is not set"
+            exit 1
+        fi
     ;;
     *)
         echo "Illegal option for UVM version: $uvm_version"
