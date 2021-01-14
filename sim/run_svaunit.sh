@@ -106,8 +106,8 @@ compile_with_ius() {
     
     echo "Compilling with EXTRA_OPTIONS: ${EXTRA_OPTIONS} "
     
-    rm -rf cov_work INCA_libs irun.key irun.log
-    irun ${COMPILE_EXTRA_OPTIONS} -f ${PROJ_HOME}/sim/options_ius.f -c 
+    rm -rf cov_work INCA_libs xrun.key xrun.log
+    xrun ${COMPILE_EXTRA_OPTIONS} -f ${PROJ_HOME}/sim/options_ius.f -c 
 }
 
 compile_with_questa() {
@@ -161,11 +161,11 @@ run_with_ius_test() {
 
             echo "database -open waves -into waves.shm -default"                                              >> ncsim_cmds.tcl
             echo "probe -create ${top_name}  -depth all -tasks -functions -uvm -packed 4k -unpacked 16k -all -dynamic" >> ncsim_cmds.tcl
-            echo "simvision input  ${PROJ_HOME}/sim/irun_variables.tcl"                                       >> ncsim_cmds.tcl
+            echo "input  ${PROJ_HOME}/sim/xrun_variables.tcl"                                       >> ncsim_cmds.tcl
 
-        EXTRA_OPTIONS=" ${EXTRA_OPTIONS} -gui -input ncsim_cmds.tcl -input ${PROJ_HOME}/sim/irun_variables.tcl"
+        EXTRA_OPTIONS=" ${EXTRA_OPTIONS} -gui -input ncsim_cmds.tcl"
     else
-        EXTRA_OPTIONS=" ${EXTRA_OPTIONS} -input  ${PROJ_HOME}/sim/irun_variables.tcl -run -exit "
+        EXTRA_OPTIONS=" ${EXTRA_OPTIONS} -input  ${PROJ_HOME}/sim/xrun_variables.tcl -run -exit "
     fi
     
     if [ "$in_regression" = "no" ]; then
@@ -186,7 +186,7 @@ run_with_ius_test() {
 
     echo "Running with EXTRA_OPTIONS: ${EXTRA_OPTIONS} "
 
-    irun -f ${PROJ_HOME}/sim/options_ius.f -svseed ${seed} +UVM_TESTNAME=${test}  ${EXTRA_OPTIONS} +UVM_NO_RELNOTES +UVM_VERBOSITY=${uvm_verbosity} 
+    xrun -f ${PROJ_HOME}/sim/options_ius.f -svseed ${seed} +UVM_TESTNAME=${test}  ${EXTRA_OPTIONS} +UVM_NO_RELNOTES +UVM_VERBOSITY=${uvm_verbosity} 
 }
 
 # Compile and run with QUESTA
