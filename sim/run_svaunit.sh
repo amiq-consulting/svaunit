@@ -20,7 +20,7 @@
  # Usage:  run_svaunit.sh [-t[est] <name>]                                                          --> specify a particular test to run (default: ${default_test})"
  #                        [-s[eed] <value>]                                                         --> specify a particular seed for the simulation (default: ${default_seed})"
  #                        [-i]                                                                      --> run in interactive mode"
- #                        [-tool          { ius | questa | vcs} ]                                   --> specify what simulator to use (default: ${default_tool})"
+ #                        [-tool          { xcelium | questa | vcs} ]                                   --> specify what simulator to use (default: ${default_tool})"
  #                        [-in_reg]                                                                 --> specify if the current invocation is for running a test in regression"
  #                        [-reg]                                                                    --> starts a regression"
  #                        [-uvm           { uvm1.1 | uvm1.2} ]                                      --> specify the UVM version(default: ${default_compile_option})""
@@ -30,7 +30,7 @@
  #                        [-f[ile] <name> ]                                                         --> specify the file with an example  (default: ${FILE})"
  #
  #         run_svaunit.sh  -h[elp]                                                                  --> print this message"
- # Example of using : ./run_svaunit.sh -tool ius -uvm uvm1.2 -f examples/ex_basic/files.f -top top -test amiq_svaunit_ex_basic_test -i -c yes  
+ # Example of using : ./run_svaunit.sh -tool xcelium -uvm uvm1.2 -f examples/ex_basic/files.f -top top -test amiq_svaunit_ex_basic_test -i -c yes  
  # Example of using : ./run_svaunit.sh -reg
  #########################################################################################
 
@@ -46,7 +46,7 @@ export PROJ_HOME=`cd ${SCRIPT_DIR}/../ && pwd`
 
 # Set variables with default value
 default_run_mode="batch"
-default_tool=ius
+default_tool=xcelium
 default_seed=1;
 default_test=apb_ts
 default_arch_bits=64
@@ -84,7 +84,7 @@ help() {
     echo "Usage:  run_svaunit.sh [-t[est] <name>]                                                          --> specify a particular test to run (default: ${default_test})"
     echo "                       [-s[eed] <value>]                                                         --> specify a particular seed for the simulation (default: ${default_seed})"
     echo "                       [-i]                                                                      --> run in interactive mode"
-    echo "                       [-tool   { ius | questa | vcs} ]                                          --> specify what simulator to use (default: ${default_tool})"
+    echo "                       [-tool   { xcelium | questa | vcs} ]                                          --> specify what simulator to use (default: ${default_tool})"
     echo "                       [-reg]                                                                    --> starts a regression"
     echo "                       [-in_reg]                                                                 --> specify if the current invocation is for running a test in regression"
     echo "                       [-uvm           { uvm1.1 | uvm1.2} ]                                      --> specify the UVM version(default: ${default_compile_option})"
@@ -94,10 +94,10 @@ help() {
     echo "                       [-f[ile] <name> ]                                                         --> specify the file with an example  (default: ${default_file_name})"
     echo ""
     echo "        run_svaunit.sh  -h[elp]                                                                  --> print this message"
-    echo "Example: ./run_svaunit.sh -tool ius -uvm uvm1.2 -f examples/ex_basic/files.f -top top -test amiq_svaunit_ex_basic_test -i -c yes"
+    echo "Example: ./run_svaunit.sh -tool xcelium -uvm uvm1.2 -f examples/ex_basic/files.f -top top -test amiq_svaunit_ex_basic_test -i -c yes"
 }
 
-compile_with_ius() {
+compile_with_xcelium() {
     if [ "$uvm_version" = "uvm1.1" ]; then
         COMPILE_EXTRA_OPTIONS=" ${COMPILE_EXTRA_OPTIONS} +define+UVM_DEPRECATED_REPORTING"
     else
@@ -107,7 +107,7 @@ compile_with_ius() {
     echo "Compilling with EXTRA_OPTIONS: ${EXTRA_OPTIONS} "
     
     rm -rf cov_work INCA_libs xrun.key xrun.log
-    xrun ${COMPILE_EXTRA_OPTIONS} -f ${PROJ_HOME}/sim/options_ius.f -c 
+    xrun ${COMPILE_EXTRA_OPTIONS} -f ${PROJ_HOME}/sim/options_xcelium.f -c 
 }
 
 compile_with_questa() {
@@ -131,9 +131,9 @@ compile_with_vcs() {
 
 compile() {
      case ${tool} in
-        ius)
-            echo "Selected tool: IUS..."
-            compile_with_ius;
+        xcelium)
+            echo "Selected tool: XCELIUM..."
+            compile_with_xcelium;
         ;;
         questa)
             echo "Selected tool: Questa..."
@@ -151,8 +151,8 @@ compile() {
 }
 
 
-# Compile and run with IUS
-run_with_ius_test() {
+# Compile and run with XCELIUM
+run_with_xcelium_test() {
     EXTRA_OPTIONS=" ${EXTRA_OPTIONS} "
     
     if [ "$run_mode" = "interactive" ]; then
@@ -186,7 +186,7 @@ run_with_ius_test() {
 
     echo "Running with EXTRA_OPTIONS: ${EXTRA_OPTIONS} "
 
-    xrun -f ${PROJ_HOME}/sim/options_ius.f -svseed ${seed} +UVM_TESTNAME=${test}  ${EXTRA_OPTIONS} +UVM_NO_RELNOTES +UVM_VERBOSITY=${uvm_verbosity} 
+    xrun -f ${PROJ_HOME}/sim/options_xcelium.f -svseed ${seed} +UVM_TESTNAME=${test}  ${EXTRA_OPTIONS} +UVM_NO_RELNOTES +UVM_VERBOSITY=${uvm_verbosity} 
 }
 
 # Compile and run with QUESTA
@@ -322,11 +322,11 @@ else
 fi
 
 ##########################################################################################
-#  Verify that the simulator is one of IUS, QUESTA or VCS
+#  Verify that the simulator is one of XCELIUM, QUESTA or VCS
 ##########################################################################################
 case $tool in
-    ius)
-        echo "Selected tool: IUS..."
+    xcelium)
+        echo "Selected tool: XCELIUM..."
     ;;
     vcs)
         echo "Selected tool: VCS..."
